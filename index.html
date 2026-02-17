@@ -3,495 +3,788 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dual DGX Spark — AI Organization Engine</title>
+<title>Dual DGX Spark — Coding Agent Mühendislik Planı</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#050507;--surface:#0d0d12;--card:#111118;--border:#1a1a24;--border-h:#2a2a38;
-  --t1:#f0f0f5;--t2:#9898aa;--t3:#5a5a6e;
-  --green:#00e68a;--blue:#4d8df5;--red:#ff5c5c;--purple:#b48eff;--amber:#ffb547;--cyan:#00d4ff;
-  --g-green:rgba(0,230,138,.06);--g-blue:rgba(77,141,245,.06);--g-red:rgba(255,92,92,.06);
+  --bg:#06060a;--s1:#0e0e14;--s2:#14141c;--card:#161620;
+  --brd:#1e1e2a;--brd2:#2a2a3a;
+  --t0:#f2f2f8;--t1:#c4c4d4;--t2:#8888a0;--t3:#555568;
+  --grn:#00e68a;--blu:#4d94ff;--red:#ff5c6e;--amb:#ffb84d;--pur:#b08cff;--cyn:#00d4ff;--pink:#ff6eb4;
+  --grn-g:rgba(0,230,138,.06);--blu-g:rgba(77,148,255,.06);--red-g:rgba(255,92,110,.06);--amb-g:rgba(255,184,77,.06);--pur-g:rgba(176,140,255,.06);
 }
-body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
-code,.mono{font-family:'JetBrains Mono',monospace}
-h1,h2,h3,.heading{font-family:'Space Grotesk',sans-serif}
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border-h);border-radius:4px}
-a{color:var(--cyan);text-decoration:none}
+body{background:var(--bg);color:var(--t0);font-family:'Outfit',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+code,.mono{font-family:'JetBrains Mono',monospace;font-size:12px}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--brd2);border-radius:4px}
 
-.wrap{max-width:960px;margin:0 auto;padding:24px 20px 60px}
+.wrap{max-width:960px;margin:0 auto;padding:28px 20px 80px}
 
-/* ---- HERO ---- */
-.hero{text-align:center;padding:48px 0 36px;position:relative}
-.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:500px;height:300px;background:radial-gradient(ellipse,rgba(0,230,138,.07) 0%,transparent 70%);pointer-events:none}
-.chip{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(0,230,138,.1),rgba(77,141,245,.1));border:1px solid rgba(0,230,138,.2);border-radius:999px;padding:5px 16px;font-size:11px;color:var(--green);font-weight:600;letter-spacing:.3px;text-transform:uppercase;margin-bottom:16px}
-.chip .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-size:clamp(28px,5vw,42px);font-weight:700;letter-spacing:-.5px;background:linear-gradient(135deg,#fff 30%,var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
-.hero p{color:var(--t2);font-size:15px;max-width:600px;margin:0 auto}
+/* ═══ HERO ═══ */
+.hero{text-align:center;padding:40px 0 32px;position:relative}
+.hero::before{content:'';position:absolute;top:-20px;left:50%;transform:translateX(-50%);width:600px;height:350px;background:radial-gradient(ellipse,rgba(0,230,138,.06) 0%,rgba(77,148,255,.04) 40%,transparent 70%);pointer-events:none}
+.chip{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,rgba(0,230,138,.1),rgba(77,148,255,.08));border:1px solid rgba(0,230,138,.2);border-radius:999px;padding:5px 16px;font-size:11px;color:var(--grn);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:14px}
+.chip .pulse{width:7px;height:7px;border-radius:50%;background:var(--grn);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.hero h1{font-size:clamp(26px,5vw,38px);font-weight:800;letter-spacing:-.5px;background:linear-gradient(135deg,#fff 40%,var(--grn) 90%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.hero p{color:var(--t2);font-size:14px;max-width:640px;margin:0 auto;line-height:1.6}
+.hero-tags{display:flex;justify-content:center;gap:16px;margin-top:16px;flex-wrap:wrap}
+.hero-tag{font-size:12px;color:var(--t3);display:flex;align-items:center;gap:5px}
 
-/* ---- SPECS ---- */
-.specs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:0 0 32px}
-.spec-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 12px;text-align:center;transition:border-color .25s,transform .25s}
-.spec-card:hover{border-color:var(--border-h);transform:translateY(-2px)}
-.spec-card .icon{font-size:20px;margin-bottom:6px}
-.spec-card .val{font-size:20px;font-weight:700;font-family:'Space Grotesk',sans-serif}
-.spec-card .lbl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+/* ═══ SPECS ═══ */
+.specs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:28px}
+.spec{background:var(--card);border:1px solid var(--brd);border-radius:12px;padding:14px 10px;text-align:center;transition:all .2s}
+.spec:hover{border-color:var(--brd2);transform:translateY(-2px)}
+.spec .emoji{font-size:20px;margin-bottom:4px}
+.spec .val{font-size:17px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.spec .lbl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
 
-/* ---- NAV ---- */
-.nav{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px;margin-bottom:24px;position:sticky;top:12px;z-index:100;backdrop-filter:blur(12px)}
-.nav-btn{flex:1;padding:10px 6px;border:none;border-radius:10px;background:transparent;color:var(--t2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
-.nav-btn.active{background:var(--card);color:var(--t1);box-shadow:0 2px 12px rgba(0,0,0,.4)}
-.nav-btn:hover:not(.active){color:var(--t1)}
+/* ═══ NAV ═══ */
+.nav{display:flex;gap:3px;background:var(--s1);border:1px solid var(--brd);border-radius:12px;padding:4px;margin-bottom:24px;position:sticky;top:8px;z-index:100;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.nav button{flex:1;padding:10px 4px;border:none;border-radius:8px;background:transparent;color:var(--t2);font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.nav button.on{background:var(--card);color:var(--t0);box-shadow:0 2px 10px rgba(0,0,0,.4)}
+.nav button:hover:not(.on){color:var(--t1)}
 
-/* ---- SECTION ---- */
-.section{display:none;animation:fadeIn .3s ease}
-.section.visible{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* ═══ SECTIONS ═══ */
+.sec{display:none}.sec.vis{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-/* ---- ARCHITECTURE DIAGRAM ---- */
-.arch-toggle{width:100%;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;margin-bottom:12px;transition:border-color .2s}
-.arch-toggle:hover{border-color:var(--border-h)}
-.arch-panel{display:none;margin-bottom:24px}
-.arch-panel.open{display:block}
-.arch-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.spark-box{background:var(--card);border-radius:14px;padding:18px;border:1px solid}
-.spark-box h3{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.spark-box .badge-ram{font-size:10px;color:var(--t3);margin-left:auto;background:var(--surface);padding:2px 8px;border-radius:6px}
-.spark-item{font-size:13px;color:var(--t2);padding:4px 0;display:flex;align-items:center;gap:8px}
-.spark-item .arr{font-weight:700;font-size:12px;width:16px;text-align:center}
-.dual-box{background:var(--card);border:1px solid rgba(255,181,71,.2);border-radius:14px;padding:18px}
-.dual-box h3{color:var(--amber);font-size:14px;font-weight:700;margin-bottom:10px}
-.dual-box .note{font-size:11px;color:var(--t3);margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+/* ═══ PHASE HEADER ═══ */
+.ph{margin-bottom:28px}
+.ph-hdr{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--brd)}
+.ph-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.ph-info h2{font-size:18px;font-weight:700;letter-spacing:-.2px}
+.ph-info p{font-size:13px;color:var(--t2);margin-top:2px;line-height:1.5}
 
-/* ---- PHASE TABS ---- */
-.phase-tabs{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
-.phase-tab{flex:none;padding:8px 16px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--t2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
-.phase-tab:hover{border-color:var(--border-h);color:var(--t1)}
-.phase-tab.active{color:#fff;border-color:transparent}
+/* ═══ SPARK LAYOUT ═══ */
+.spark-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.spark-card{background:var(--card);border-radius:12px;padding:16px;border:1px solid}
+.spark-card h4{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.spark-card .badge{font-size:10px;color:var(--t3);margin-left:auto;background:var(--s1);padding:2px 8px;border-radius:6px}
+.si{font-size:13px;color:var(--t1);padding:3px 0;display:flex;align-items:center;gap:7px}
+.si .arr{font-size:11px;font-weight:700;width:14px;text-align:center;flex-shrink:0}
 
-/* ---- PHASE HEADER ---- */
-.ph-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:8px}
-.ph-title{font-size:20px;font-weight:700;font-family:'Space Grotesk',sans-serif}
-.ph-sub{font-size:13px;color:var(--t2);margin-top:2px}
-.ph-counter{text-align:right}
-.ph-num{font-size:32px;font-weight:800;font-family:'Space Grotesk',sans-serif;line-height:1}
-.ph-lbl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px}
-.progress{width:100%;height:4px;background:var(--surface);border-radius:2px;margin-bottom:20px;overflow:hidden}
-.progress-bar{height:100%;border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+/* ═══ BLOCK ═══ */
+.blk{background:var(--card);border:1px solid var(--brd);border-radius:12px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.blk:hover{border-color:var(--brd2)}
+.blk-h{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;font-size:13px;font-weight:600;transition:background .15s}
+.blk-h:hover{background:rgba(255,255,255,.015)}
+.blk-h .left{display:flex;align-items:center;gap:8px}
+.blk-h .tag{font-size:9px;padding:2px 8px;border-radius:5px;font-weight:600;letter-spacing:.4px;text-transform:uppercase}
+.blk-h .chevron{color:var(--t3);font-size:14px;transition:transform .2s}
+.blk-b{padding:14px 16px;border-top:1px solid var(--brd)}
+.blk-b.hide{display:none}
 
-/* ---- TRACK ---- */
-.track{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;overflow:hidden}
-.track-head{padding:12px 18px;font-size:13px;font-weight:700;font-family:'Space Grotesk',sans-serif;color:var(--t1);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
-.track-head .track-dot{width:8px;height:8px;border-radius:50%}
-.task-row{display:flex;align-items:flex-start;gap:14px;padding:10px 18px;cursor:pointer;transition:background .15s;border-bottom:1px solid rgba(26,26,36,.6)}
-.task-row:last-child{border-bottom:none}
-.task-row:hover{background:rgba(26,26,36,.4)}
-.task-row.done{opacity:.5}
-.cb{width:18px;height:18px;border:2px solid var(--border-h);border-radius:5px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:11px;color:transparent}
-.task-row.done .cb{border-color:var(--green);background:rgba(0,230,138,.12);color:var(--green)}
-.task-text{font-size:13px;transition:all .2s}
-.task-row.done .task-text{text-decoration:line-through;color:var(--t3)}
-.task-cmd{font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace;margin-top:3px;background:rgba(0,0,0,.3);padding:2px 8px;border-radius:4px;display:inline-block}
+/* ═══ ITEMS ═══ */
+.it{display:flex;align-items:flex-start;gap:10px;padding:4px 0;font-size:13px;color:var(--t1);line-height:1.55}
+.it .bullet{flex-shrink:0;margin-top:3px;font-size:11px}
+.it code{background:rgba(0,0,0,.35);padding:1px 6px;border-radius:3px;font-size:11px;color:var(--grn)}
 
-/* ---- QUICKSTART ---- */
-.qs{background:var(--g-green);border:1px solid rgba(0,230,138,.15);border-radius:14px;padding:20px;margin-top:20px}
-.qs h3{color:var(--green);font-weight:700;font-size:15px;margin-bottom:14px;font-family:'Space Grotesk',sans-serif}
-.qs-cmd{background:var(--bg);border-radius:10px;padding:12px 14px;margin-bottom:8px}
-.qs-cmd code{font-size:12px;color:var(--green);white-space:pre-wrap;line-height:1.7}
-.qs .tip{font-size:11px;color:var(--t3);margin-top:12px;line-height:1.5}
+/* ═══ CMD ═══ */
+.cmd{background:var(--bg);border:1px solid var(--brd);border-radius:8px;padding:12px 14px;margin:10px 0;overflow-x:auto}
+.cmd code{color:var(--grn);font-size:11px;line-height:1.7;white-space:pre}
+.cmd .c{color:var(--t3)}
 
-/* ---- MODELS TAB ---- */
-.tier{margin-bottom:28px}
-.tier-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.tier-head h2{font-size:16px;font-weight:700;font-family:'Space Grotesk',sans-serif}
-.tier-head span{font-size:12px;color:var(--t3)}
-.m-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 18px;margin-bottom:8px;cursor:pointer;transition:all .2s}
-.m-card:hover{border-color:var(--border-h)}
-.m-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.m-name{font-weight:700;font-size:15px;font-family:'Space Grotesk',sans-serif}
-.m-badge{font-size:10px;padding:3px 10px;border-radius:999px;font-weight:600;letter-spacing:.3px}
-.m-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:12px}
-.m-grid .l{color:var(--t3)}
-.m-grid .v{color:var(--t2)}
-.m-detail{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:13px;color:var(--t2);line-height:1.6;display:none}
-.m-card.expanded .m-detail{display:block}
+/* ═══ TABLE ═══ */
+.tbl{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0}
+.tbl th{text-align:left;padding:8px 10px;background:var(--bg);color:var(--t2);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--brd)}
+.tbl td{padding:8px 10px;border-bottom:1px solid rgba(30,30,42,.6);color:var(--t1);font-size:12px}
+.tbl tr:hover td{background:rgba(255,255,255,.012)}
 
-/* ---- ROUTING TAB ---- */
-.r-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:12px}
-.r-card h3{font-weight:700;font-size:15px;font-family:'Space Grotesk',sans-serif;margin-bottom:14px}
-.r-row{display:flex;align-items:center;gap:12px;background:var(--surface);border-radius:10px;padding:10px 14px;margin-bottom:6px;transition:transform .15s}
-.r-row:hover{transform:translateX(4px)}
-.r-left{flex:1;min-width:0}
-.r-left .name{font-size:13px;font-weight:600;color:var(--t1)}
-.r-left .why{font-size:11px;color:var(--t3)}
-.r-right{text-align:right;flex-shrink:0}
-.r-right .model{font-size:11px;color:var(--green);font-family:'JetBrains Mono',monospace;font-weight:500}
-.r-right .meta{font-size:10px;color:var(--t3)}
+/* ═══ GOV GRID ═══ */
+.gov{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.gov-cell{background:var(--bg);border:1px solid var(--brd);border-radius:8px;padding:10px 12px}
+.gov-cell .gl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+.gov-cell .gv{font-size:12px;font-weight:600;color:var(--t1);font-family:'JetBrains Mono',monospace}
 
-.ram-row{display:flex;align-items:center;gap:10px;margin-bottom:5px}
-.ram-lbl{width:180px;font-size:12px;color:var(--t2);flex-shrink:0}
-.ram-bg{flex:1;height:22px;background:var(--surface);border-radius:6px;overflow:hidden}
-.ram-fill{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;min-width:40px;transition:width .4s ease}
-.ram-fill span{font-size:10px;font-family:'JetBrains Mono',monospace;color:#fff;font-weight:600}
+/* ═══ SUCCESS ═══ */
+.success{background:var(--grn-g);border:1px solid rgba(0,230,138,.15);border-radius:12px;padding:16px;margin-top:14px}
+.success h4{font-size:12px;color:var(--grn);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.success .it .bullet{color:var(--grn)}
 
-.cost-card{background:var(--card);border:1px solid rgba(255,181,71,.2);border-radius:14px;padding:18px;margin-top:16px}
-.cost-card h3{color:var(--amber);font-weight:700;font-size:14px;font-family:'Space Grotesk',sans-serif;margin-bottom:14px}
-.cost-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px}
-.cost-item .ci-lbl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.3px;margin-bottom:4px}
-.cost-item .ci-val{font-size:22px;font-weight:700;font-family:'Space Grotesk',sans-serif}
-.cost-item .ci-sub{font-size:10px;color:var(--t3);margin-top:2px}
+/* ═══ WARN / DANGER ═══ */
+.warn{background:var(--amb-g);border:1px solid rgba(255,184,77,.15);border-radius:10px;padding:14px 16px;margin:10px 0}
+.warn h4{font-size:11px;color:var(--amb);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
+.warn p,.warn .it{font-size:13px;color:var(--t1)}
+.danger{background:var(--red-g);border:1px solid rgba(255,92,110,.15);border-radius:10px;padding:14px 16px;margin:10px 0}
+.danger h4{font-size:11px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
 
-/* ---- CONFIG BLOCK ---- */
-.cfg{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:16px;overflow-x:auto}
-.cfg h4{font-size:13px;font-weight:700;font-family:'Space Grotesk',sans-serif;margin-bottom:10px;color:var(--t2)}
-.cfg pre{font-size:11px;color:var(--green);line-height:1.6;white-space:pre}
+/* ═══ RAM BAR ═══ */
+.ram-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.ram-lbl{width:160px;font-size:12px;color:var(--t1);flex-shrink:0}
+.ram-bg{flex:1;height:20px;background:var(--bg);border-radius:5px;overflow:hidden;border:1px solid var(--brd)}
+.ram-fill{height:100%;border-radius:4px;display:flex;align-items:center;justify-content:flex-end;padding-right:7px;min-width:32px}
+.ram-fill span{font-size:9px;font-family:'JetBrains Mono',monospace;color:#fff;font-weight:600}
 
-/* ---- RESPONSIVE ---- */
+/* ═══ RESPONSIVE ═══ */
 @media(max-width:768px){
   .specs{grid-template-columns:repeat(3,1fr)}
-  .arch-grid{grid-template-columns:1fr}
-  .m-grid{grid-template-columns:repeat(2,1fr)}
-  .cost-grid{grid-template-columns:1fr 1fr}
-  .r-row{flex-direction:column;align-items:flex-start;gap:4px}
-  .r-right{text-align:left}
-  .nav-btn{font-size:12px;padding:8px 4px}
+  .spark-grid{grid-template-columns:1fr}
+  .gov{grid-template-columns:1fr}
+  .nav button{font-size:11px;padding:8px 3px}
 }
-@media(max-width:480px){
-  .specs{grid-template-columns:repeat(2,1fr)}
-  .cost-grid{grid-template-columns:1fr}
-}
+@media(max-width:480px){.specs{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
 <div class="wrap" id="app"></div>
 <script>
-// ═══════════════════════ DATA ═══════════════════════
-const phases=[
-  {id:"now",icon:"🚀",title:"ŞİMDİ — Yazılım Prototipi",sub:"Donanım beklemeden başla",color:"#00e68a",weeks:"Hafta 1-3",
-   tracks:[
-     {name:"OpenClaw Gateway Kurulumu",dot:"#00e68a",tasks:[
-       {t:"Linux/Mac sunucuya OpenClaw kur",c:"npm install -g openclaw && openclaw onboard"},
-       {t:"Telegram kanal bağlantısı",c:"@BotFather → token al → openclaw onboard"},
-       {t:"Claude API'yi birincil model olarak ayarla",c:"Anthropic API key yapılandır (geçici — Ollama sonra)"},
-       {t:"Temel skill'leri test et (web search, file ops)",c:"openclaw skills → aktifleştir"},
-       {t:"İlk custom SKILL.md yaz",c:"~/openclaw-workspace/skills/my-first-skill/"},
-     ]},
-     {name:"CrewAI Multi-Agent Ortamı",dot:"#4d8df5",tasks:[
-       {t:"Python 3.12+ sanal ortam oluştur",c:"python -m venv ai-org && source ai-org/bin/activate"},
-       {t:"CrewAI framework kur",c:"pip install crewai crewai-tools langchain-community"},
-       {t:"İlk 3 agent tanımla: Research, Product, Orchestrator",c:"crewai create crew core-team"},
-       {t:"Claude API üzerinden Crew çalıştır",c:"export ANTHROPIC_API_KEY=sk-ant-..."},
-       {t:"Günlük workflow prototipi: trend tara → backlog güncelle",c:"python run_core_crew.py"},
-     ]},
-     {name:"OpenClaw ↔ CrewAI Köprüsü",dot:"#b48eff",tasks:[
-       {t:"FastAPI bridge server yaz",c:"uvicorn bridge:app --port 8100"},
-       {t:"Bridge SKILL.md: Telegram → CrewAI Crew tetikle",c:"SKILL.md + Python script"},
-       {t:"Test: /crew-run daily-research komutu",c:"Telegram'dan end-to-end test"},
-     ]}
-   ]},
-  {id:"hw",icon:"⚡",title:"DONANIM — Dual Spark Kurulum",sub:"Fiziksel setup ve model deployment",color:"#4d8df5",weeks:"Hafta 3-5",
-   tracks:[
-     {name:"Fiziksel Kurulum",dot:"#4d8df5",tasks:[
-       {t:"Spark #1: Unbox → DGX Dashboard erişimi",c:"https://spark1-ip:8888 (web dashboard)"},
-       {t:"Spark #2: Aynı işlem",c:"https://spark2-ip:8888"},
-       {t:"200GbE DAC kablo ile iki Spark'ı birbirine bağla",c:"QSFP56 DAC 0.5m (NVIDIA onaylı, ~$30)"},
-       {t:"Tailscale kur → uzaktan erişim",c:"curl -fsSL https://tailscale.com/install.sh | sh"},
-       {t:"Statik IP + hostname ata",c:"spark1: 192.168.x.10 / spark2: 192.168.x.11"},
-       {t:"Headless mod: Monitörsüz SSH erişimi",c:"Tailscale SSH + DGX Dashboard"},
-     ]},
-     {name:"Spark #1 → Agent Runtime",dot:"#00e68a",tasks:[
-       {t:"Ollama kur",c:"curl -fsSL https://ollama.com/install.sh | sh"},
-       {t:"Qwen3-30B-A3B (FP8) — ana agent modeli",c:"ollama pull qwen3:30b-a3b"},
-       {t:"Llama 3.1 8B (NVFP4) — hızlı router",c:"ollama pull llama3.1:8b"},
-       {t:"DeepSeek-R1 14B (FP8) — reasoning",c:"ollama pull deepseek-r1:14b"},
-       {t:"Model'leri bellekte tut",c:"OLLAMA_KEEP_ALIVE=24h systemctl edit ollama"},
-       {t:"OpenClaw'u Spark #1'e taşı",c:"openclaw onboard → Ollama provider → daemon"},
-       {t:"Telegram + Slack bağlantısını yeniden kur",c:"Mevcut config'i migrate et"},
-     ]},
-     {name:"Spark #2 → Crew Engine + Dev Model",dot:"#b48eff",tasks:[
-       {t:"Python 3.12 + CrewAI ortamını kur",c:"pip install crewai crewai-tools"},
-       {t:"Ollama kur + Qwen3-Coder-30B indir",c:"ollama pull qwen3-coder:30b"},
-       {t:"FastAPI bridge'i Spark #2'ye deploy et",c:"uvicorn bridge:app --host 0.0.0.0 --port 8100"},
-       {t:"Spark #1 ↔ Spark #2 ağ bağlantısını test et",c:"curl http://spark2:8100/health"},
-       {t:"Qwen3-235B-A22B — dual mode test",c:"İki Spark birlikte → 256 GB ile büyük model"},
-     ]}
-   ]},
-  {id:"gov",icon:"🛡️",title:"GOVERNANCE — Kontrol Katmanı",sub:"Deterministik kurallar, bütçe, güvenlik",color:"#ff5c5c",weeks:"Hafta 5-8",
-   tracks:[
-     {name:"Budget Controller",dot:"#ffb547",tasks:[
-       {t:"Token tracking: SQLite tablo",c:"agent_id | model | tokens_in | tokens_out | timestamp"},
-       {t:"Günlük limit: agent başına max 500K token",c:"Aşılırsa → block + Telegram notify"},
-       {t:"Haftalık maliyet raporu → Telegram",c:"cron: her Pazartesi 09:00"},
-       {t:"Cloud API bütçe cap: aylık $150",c:"Anthropic usage API ile takip"},
-     ]},
-     {name:"Policy Engine",dot:"#ff5c5c",tasks:[
-       {t:"Tier tanımları: policies.json",c:"tier1: auto / tier2: approval / tier3: dual-approval"},
-       {t:"Tier 1 — Geri alınabilir: Otomatik izin",c:"web search, dosya okuma, rapor üretme"},
-       {t:"Tier 2 — Yüksek etkili: Human approval (Telegram)",c:"email gönderme, API çağrısı, deployment"},
-       {t:"Tier 3 — Geri alınamaz: Çift onay",c:"veri silme, production değişiklik, finansal"},
-       {t:"Loop detection: 10 iterasyon = otomatik dur",c:"Python decorator + counter"},
-       {t:"Circuit breaker: 5 dakika timeout",c:"asyncio.wait_for + kill signal"},
-     ]},
-     {name:"Audit & Monitoring",dot:"#4d8df5",tasks:[
-       {t:"Append-only log: Her tool call kayıt altında",c:"who / what / when / input / output / result"},
-       {t:"Anomali alert → Telegram",c:"Bütçe aşımı, loop, yüksek hata oranı"},
-       {t:"Haftalık dashboard: Agent performansı",c:"Grafana veya statik HTML rapor"},
-     ]}
-   ]},
-  {id:"pods",icon:"🧩",title:"POD SİSTEMİ — Proje Ekipleri",sub:"Her proje için izole AI ekip",color:"#b48eff",weeks:"Hafta 8-12",
-   tracks:[
-     {name:"Pod Altyapısı",dot:"#b48eff",tasks:[
-       {t:"Pod factory fonksiyonu: create_pod(name, agents, budget)",c:"Yeni proje = otomatik CrewAI Crew oluştur"},
-       {t:"Pod başına izole memory store (SQLite)",c:"project_name_memory.db"},
-       {t:"Pod başına ayrı token bütçesi",c:"Budget controller'da namespace bazlı limit"},
-       {t:"Core ekip ↔ Pod iletişim: Redis queue",c:"core.publish(task) → pod.consume(task)"},
-       {t:"Pod lifecycle: create → run → pause → archive",c:"Proje bitince pod dondurulur"},
-     ]},
-     {name:"Örnek Pod: Web Projesi",dot:"#00e68a",tasks:[
-       {t:"UX Research Agent: Kullanıcı analizi, trend",c:"CrewAI Agent + web search tools"},
-       {t:"Frontend Dev Agent: Kod üretimi, component",c:"Qwen3-Coder-30B kullanır"},
-       {t:"Backend Dev Agent: API tasarımı, DB şema",c:"CrewAI Agent + code tools"},
-       {t:"QA Agent: Test senaryosu üretimi",c:"CrewAI Agent + testing tools"},
-     ]},
-     {name:"Örnek Pod: Veri Analizi Projesi",dot:"#4d8df5",tasks:[
-       {t:"Data Collection Agent: Kaynak tarama, scraping",c:"CrewAI Agent + scraping tools"},
-       {t:"Analysis Agent: İstatistik, trend, anomali",c:"DeepSeek-R1 14B (derin reasoning)"},
-       {t:"Visualization Agent: Grafik, rapor üretimi",c:"CrewAI Agent + charting tools"},
-       {t:"Report Agent: Özet ve sunum hazırlama",c:"Qwen3-30B-A3B (genel reasoning)"},
-     ]}
-   ]}
+// ═════════════════════ DATA ═════════════════════
+
+const phases = [
+// ══════ FAZ 0 ══════
+{
+  id:0, emoji:"🔧", title:"Donanım & Runtime Doğrulama", color:"#00d4ff",
+  obj:"Her iki DGX Spark'ı bağımsız olarak doğrula. CUDA, driver, Docker ve vLLM tek-düğüm inference testlerini tamamla. Dağıtık mod yok.",
+  s1:["Driver & CUDA doğrulama","Docker GPU passthrough testi","vLLM NGC container smoke test"],
+  s2:["Aynı doğrulama bağımsız olarak tekrarlanır","Spark #1 ile birebir aynı kurulum"],
+  blocks:[
+    {name:"Driver & CUDA Doğrulama",emoji:"🔍",tag:"ALTYAPI",tc:"#00d4ff",items:[
+      {b:"🖥️",t:"DGX OS versiyonu: <code>cat /etc/os-release</code> → Ubuntu 24.04"},
+      {b:"⚙️",t:"CUDA toolkit: <code>nvcc --version</code> → CUDA 13.0+ gerekli"},
+      {b:"🎮",t:"GPU görünürlüğü: <code>nvidia-smi</code> → GB10 Blackwell, sm_121"},
+      {b:"⚠️",t:"<code>nvidia-smi</code> unified memory'de <code>Memory: N/A</code> gösterir — bu normal"},
+      {b:"🏗️",t:"Mimari: <code>uname -m</code> → <code>aarch64</code> (ARM64)"},
+      {b:"💾",t:"Kullanılabilir bellek: <code>free -h</code> → ~119 GB (GPU+CPU ortak havuz)"},
+    ]},
+    {name:"Docker & NVIDIA Container Toolkit",emoji:"🐳",tag:"ALTYAPI",tc:"#00d4ff",items:[
+      {b:"🐳",t:"Docker doğrula: <code>docker --version</code> → Docker 24+ gerekli"},
+      {b:"🔌",t:"NVIDIA toolkit: <code>nvidia-ctk --version</code>"},
+      {b:"✅",t:"GPU passthrough: <code>docker run --rm --gpus all nvcr.io/nvidia/cuda:13.1.0-base-ubuntu24.04 nvidia-smi</code>"},
+      {b:"📦",t:"NGC vLLM container çek: <code>docker pull nvcr.io/nvidia/vllm:26.01-py3</code>"},
+      {b:"🔑",t:"NGC auth gerekiyorsa: ngc.nvidia.com'a kayıt → <code>docker login nvcr.io</code>"},
+    ]},
+    {name:"vLLM Smoke Test (Tek Düğüm)",emoji:"🧪",tag:"DOĞRULAMA",tc:"#00e68a",items:[
+      {b:"🚀",t:"Minimal model ile NGC container içinde test:"},
+    ],cmd:`<span class="c"># vLLM container'ı GPU erişimiyle başlat</span>
+docker run --rm -it --gpus all \\
+  --shm-size=16g \\
+  -v ~/.cache/huggingface:/root/.cache/huggingface \\
+  -p 8000:8000 \\
+  nvcr.io/nvidia/vllm:26.01-py3 \\
+  vllm serve facebook/opt-125m \\
+    --enforce-eager \\
+    --host 0.0.0.0 --port 8000
+
+<span class="c"># Başka bir terminal'den inference testi</span>
+curl http://localhost:8000/v1/completions \\
+  -H "Content-Type: application/json" \\
+  -d '{"model":"facebook/opt-125m","prompt":"Merhaba","max_tokens":16}'`,
+    extra:[
+      {b:"✅",t:"Yanıtın geçerli JSON ile token döndüğünü doğrula"},
+      {b:"⚠️",t:"<code>--enforce-eager</code> DGX Spark'ta zorunlu — Triton sm_121 desteği henüz olgun değil"},
+      {b:"🔄",t:"Aynı testi Spark #2'de bağımsız olarak tekrarla"},
+    ]},
+    {name:"Ağ Bağlantısı Testi (Spark'lar Arası)",emoji:"🔗",tag:"AĞ",tc:"#4d94ff",items:[
+      {b:"🔌",t:"QSFP56 200GbE DAC kablo ile bağla (0.5m önerilir, ~$30)"},
+      {b:"🔍",t:"InfiniBand arayüzü: <code>ibdev2netdev</code> veya <code>ip link show</code>"},
+      {b:"📡",t:"Statik IP ata (doğrudan bağlantı arayüzüne)"},
+      {b:"📶",t:"Bağlantı testi: <code>ping -c 5 &lt;spark2-ip&gt;</code>"},
+      {b:"⚡",t:"Bant genişliği: <code>iperf3</code> → >25 GB/s beklenir"},
+      {b:"🚫",t:"Bu fazda tensor parallel veya Ray cluster kurma — sadece ağ doğrulama"},
+    ]},
+    {name:"Sağlık Raporu Kontrol Listesi",emoji:"📋",tag:"KONTROL",tc:"#ffb84d",items:[
+      {b:"☐",t:"Spark #1: nvidia-smi GB10 gösteriyor"},
+      {b:"☐",t:"Spark #1: CUDA 13.x doğrulandı"},
+      {b:"☐",t:"Spark #1: Docker GPU passthrough çalışıyor"},
+      {b:"☐",t:"Spark #1: vLLM opt-125m sunuyor ve token dönüyor"},
+      {b:"☐",t:"Spark #2: Yukarıdakilerin tamamı tekrarlandı ve doğrulandı"},
+      {b:"☐",t:"Ağ: iperf3 Spark'lar arası >20 GB/s gösteriyor"},
+      {b:"☐",t:"Her iki Spark SSH ile erişilebilir (Tailscale veya direkt)"},
+    ]},
+  ],
+  gov:{
+    "Eşzamanlı İstek":"Yok (smoke test)",
+    "Batch Boyutu":"Yok",
+    "Token Limiti":"Yok",
+    "Yeniden Deneme":"Yok",
+    "Kill Switch":"Manuel: docker stop / Ctrl+C",
+    "GPU Süre Takibi":"Yok",
+    "PII Maskeleme":"Yok",
+  },
+  success:[
+    "Her iki Spark bağımsız olarak vLLM inference sunuyor",
+    "Ağ bağlantısı >20 GB/s bant genişliğinde doğrulandı",
+    "Sağlık raporu tüm maddeleri işaretlendi",
+    "Dağıtık mod yapılandırılmadı veya denenmedi",
+  ]
+},
+// ══════ FAZ 1 ══════
+{
+  id:1, emoji:"🤖", title:"Tek Düğüm Coding Agent", color:"#00e68a",
+  obj:"Spark #1 üzerinde stabil coding agent. Üç model vLLM ile çalışır, OpenClaw orkestrasyon sağlar. Agent kod üretir, lint yapar, hataları düzeltir ve derlenen kod döndürür.",
+  s1:["vLLM inference (3 model)","OpenClaw agent runtime","Coding agent mantığı","Sandbox ortamı"],
+  s2:["Boşta veya geliştirme/test aynası"],
+  blocks:[
+    {name:"vLLM Model Deployment",emoji:"🧠",tag:"MODELLER",tc:"#00e68a",items:[
+      {b:"📊",t:"Spark #1 üzerinde üç model — her biri ayrı port'ta ayrı container olarak"},
+      {b:"🏷️",t:"Tier 1 — Router: <code>Llama-3.1-8B-Instruct</code> → port 8001"},
+      {b:"🏷️",t:"Tier 2 — Reasoning: <code>Qwen3-32B</code> (veya Qwen3-30B-A3B MoE) → port 8002"},
+      {b:"🏷️",t:"Tier 3 — Coding: <code>Qwen3-Coder-30B-Instruct</code> → port 8003"},
+    ],cmd:`<span class="c"># 🚀 Router — hızlı, hafif</span>
+docker run -d --gpus all --shm-size=8g \\
+  --name vllm-router \\
+  -v ~/.cache/huggingface:/root/.cache/huggingface \\
+  -p 8001:8000 \\
+  nvcr.io/nvidia/vllm:26.01-py3 \\
+  vllm serve meta-llama/Llama-3.1-8B-Instruct \\
+    --enforce-eager \\
+    --max-model-len 8192 \\
+    --gpu-memory-utilization 0.08 \\
+    --max-num-seqs 16
+
+<span class="c"># 🧠 Reasoning — derin düşünme</span>
+docker run -d --gpus all --shm-size=16g \\
+  --name vllm-reasoning \\
+  -v ~/.cache/huggingface:/root/.cache/huggingface \\
+  -p 8002:8000 \\
+  nvcr.io/nvidia/vllm:26.01-py3 \\
+  vllm serve Qwen/Qwen3-32B \\
+    --enforce-eager \\
+    --max-model-len 32768 \\
+    --gpu-memory-utilization 0.35 \\
+    --max-num-seqs 4
+
+<span class="c"># 💻 Coder — kod üretimi</span>
+docker run -d --gpus all --shm-size=16g \\
+  --name vllm-coder \\
+  -v ~/.cache/huggingface:/root/.cache/huggingface \\
+  -p 8003:8000 \\
+  nvcr.io/nvidia/vllm:26.01-py3 \\
+  vllm serve Qwen/Qwen3-Coder-30B-Instruct \\
+    --enforce-eager \\
+    --max-model-len 32768 \\
+    --gpu-memory-utilization 0.35 \\
+    --max-num-seqs 4`,
+    extra:[
+      {b:"💾",t:"UMA: Üç model aynı 119 GB bellek havuzunu paylaşır — <code>gpu-memory-utilization</code> toplam oranı"},
+      {b:"📐",t:"Tahsis: ~0.08 + 0.35 + 0.35 = 0.78 → OS + KV cache için ~25 GB kalır"},
+      {b:"🧹",t:"OOM durumunda: <code>sync && echo 3 > /proc/sys/vm/drop_caches</code>"},
+      {b:"📊",t:"Bellek takibi: <code>free -h</code> kullan (nvidia-smi UMA'da N/A gösterir)"},
+    ]},
+    {name:"Model Yönlendirme Mantığı",emoji:"🔀",tag:"ORKESTRASYON",tc:"#b08cff",items:[
+      {b:"🔀",t:"Görev türüne göre istekleri doğru modele yönlendiren HTTP proxy veya OpenClaw skill:"},
+      {b:"⚡",t:"Niyet tespiti / sınıflandırma → Llama 8B (port 8001) — hızlı, <100ms hedef"},
+      {b:"🧠",t:"Planlama, mimari kararlar, karmaşık reasoning → Qwen 32B (port 8002)"},
+      {b:"💻",t:"Kod üretimi, refactoring, bug fix → Qwen Coder 30B (port 8003)"},
+      {b:"🔄",t:"Yönlendirme kararı Llama 8B tarafından verilir: prompt → sınıfla → ilgili modele ilet"},
+      {b:"🛟",t:"Fallback: model hata/timeout → aynı modelde 1 retry → Claude API'ye yükselt"},
+    ]},
+    {name:"OpenClaw Entegrasyonu",emoji:"🔌",tag:"ORKESTRASYON",tc:"#b08cff",items:[
+      {b:"📦",t:"Kurulum: <code>npm install -g openclaw && openclaw onboard</code>"},
+      {b:"⚙️",t:"Lokal vLLM endpoint'lerini OpenAI-uyumlu API olarak yapılandır:"},
+    ],cmd:`<span class="c">// ~/.openclaw/config.json</span>
+{
+  "models": {
+    "providers": {
+      "vllm-router": {
+        "baseUrl": "http://localhost:8001/v1",
+        "api": "openai-responses",
+        "models": [{"id": "meta-llama/Llama-3.1-8B-Instruct",
+                     "name": "Router", "contextWindow": 8192}]
+      },
+      "vllm-reasoning": {
+        "baseUrl": "http://localhost:8002/v1",
+        "api": "openai-responses",
+        "models": [{"id": "Qwen/Qwen3-32B",
+                     "name": "Reasoning", "contextWindow": 32768}]
+      },
+      "vllm-coder": {
+        "baseUrl": "http://localhost:8003/v1",
+        "api": "openai-responses",
+        "models": [{"id": "Qwen/Qwen3-Coder-30B-Instruct",
+                     "name": "Coder", "contextWindow": 32768}]
+      },
+      "anthropic": {
+        "apiKey": "$ANTHROPIC_API_KEY",
+        "models": [{"id": "claude-sonnet-4-5-20250929"}]
+      }
+    }
+  }
+}`,
+    extra:[
+      {b:"🤖",t:"OpenClaw: konuşma bağlamı, tool çalıştırma ve agent yaşam döngüsünü yönetir"},
+      {b:"💬",t:"Telegram/Slack kanal bağlantısı (Faz 1'de opsiyonel)"},
+    ]},
+    {name:"Coding Agent Ana Döngüsü",emoji:"🔄",tag:"AGENT",tc:"#4d94ff",items:[
+      {b:"1️⃣",t:"Agent kodlama görevi alır (API veya mesajlaşma kanalından)"},
+      {b:"2️⃣",t:"Router (Llama 8B) sınıflar: üret / refactor / debug / açıkla"},
+      {b:"3️⃣",t:"Coder (Qwen Coder 30B) sınıflandırılmış göreve göre kod üretir"},
+      {b:"4️⃣",t:"Kod sandbox çalışma dizinine yazılır"},
+      {b:"5️⃣",t:"Linter çalışır: Python → <code>ruff check</code>, JS/TS → <code>eslint</code>"},
+      {b:"6️⃣",t:"Derleme/sözdizimi kontrolü: <code>python -c 'compile(...)'</code> veya <code>tsc --noEmit</code>"},
+      {b:"7️⃣",t:"Lint/derleme başarısız → kod + hatalar Coder'a geri gönderilir (Faz 1'de max 2 deneme)"},
+      {b:"8️⃣",t:"Son kod + durum (başarılı/başarısız/kısmi) talep edene döndürülür"},
+    ]},
+    {name:"Sandbox & Güvenlik",emoji:"🔒",tag:"GÜVENLİK",tc:"#ff5c6e",items:[
+      {b:"🐳",t:"Kod çalıştırma izole Docker container veya chroot'ta OLMALI — asla host üzerinde değil"},
+      {b:"🚫",t:"Sandbox'ta ağ erişimi yok (<code>--network=none</code>)"},
+      {b:"📁",t:"Salt-okunur dosya sistemi — sadece <code>/tmp/workspace</code> yazılabilir"},
+      {b:"⏱️",t:"Çalıştırma zaman aşımı: çalıştırma başına 30 saniye"},
+      {b:"🔑",t:"Host ortam değişkenleri, secret'lar, SSH anahtarlarına sandbox'tan erişim yok"},
+      {b:"🛡️",t:"PII maskeleme: tüm prompt'lar modele gönderilmeden e-posta, API key, şifre taranır"},
+      {b:"🔍",t:"Regex tarama: <code>/[A-Za-z0-9+\\/=]{32,}/</code> token'lar, <code>/sk-[a-zA-Z0-9]{20,}/</code> API key'ler"},
+    ]},
+    {name:"Kill Switch (Acil Durdurma)",emoji:"🛑",tag:"GÜVENLİK",tc:"#ff5c6e",items:[
+      {b:"📱",t:"Telegram komutu: <code>/kill</code> → tüm vLLM container'larını anında durdurur"},
+      {b:"🐳",t:"Uygulama: <code>docker stop vllm-router vllm-reasoning vllm-coder</code>"},
+      {b:"⚙️",t:"Sistem seviyesi: <code>systemctl stop openclaw</code> → agent runtime durur"},
+      {b:"👁️",t:"Cron watchdog: GPU bellek >%95 2 dk boyunca → vLLM container'larını oto-yeniden başlat"},
+      {b:"🔌",t:"Spark yanıtsız kalırsa (UMA OOM zombie): DGX Dashboard veya fiziksel güç döngüsü"},
+    ]},
+    {name:"Temel Loglama",emoji:"📝",tag:"GÖZLEM",tc:"#ffb84d",items:[
+      {b:"📊",t:"Her istek loglanır: <code>timestamp | model | tokens_in | tokens_out | latency_ms | status</code>"},
+      {b:"💾",t:"Append-only SQLite log: <code>/var/log/coding-agent/requests.db</code>"},
+      {b:"🔄",t:"Günlük rotasyon, 30 gün saklama"},
+      {b:"📋",t:"Yapılandırılmış JSON logları (OpenClaw çıktısı)"},
+    ]},
+  ],
+  gov:{
+    "Eşzamanlı İstek":"Model başına 4",
+    "Batch Boyutu":"Router: 16, Reasoning: 4, Coder: 4",
+    "Max Token":"Router: 8K, Reasoning: 32K, Coder: 32K",
+    "Yeniden Deneme":"İstek başına 1, sonra hata veya Claude fallback",
+    "Kill Switch":"Telegram /kill → docker stop",
+    "GPU Süre":"Henüz takip edilmiyor (Faz 3)",
+    "PII Maskeleme":"Tüm gelen prompt'larda regex tarama",
+  },
+  success:[
+    "Agent kodlama görevi alıyor ve sözdizimsel olarak geçerli kod üretiyor",
+    "Linter çıktıda geçiyor (ruff/eslint)",
+    "Derleme kontrolü geçiyor (sözdizimi hatası yok)",
+    "Lint/derleme başarısız olursa: agent 1 kez deniyor ve düzeltilmiş kodu döndürüyor",
+    "Üç model OOM olmadan eşzamanlı sunuyor",
+    "Kill switch tüm servisleri 5 saniye içinde durduruyor",
+    "Tüm istekler SQLite'a model, token, gecikme bilgisiyle loglanıyor",
+  ]
+},
+// ══════ FAZ 2 ══════
+{
+  id:2, emoji:"🔄", title:"Oto-Düzeltme & Kalite Katmanı", color:"#4d94ff",
+  obj:"Coding agent'ı üretime hazır hale getir: oto-düzeltme döngüsü, semantik önbellek, prompt versiyonlama ve yapılandırılmış gözlemlenebilirlik. Hâlâ tek düğüm inference.",
+  s1:["vLLM inference (Faz 1 ile aynı)","Geliştirilmiş agent mantığı","Semantik önbellek"],
+  s2:["Hâlâ boşta veya sadece geliştirme testi"],
+  blocks:[
+    {name:"Oto-Düzeltme Döngüsü",emoji:"🔧",tag:"AGENT",tc:"#4d94ff",items:[
+      {b:"📋",t:"Üret → lint → düzelt döngüsünü yapılandırılmış pipeline'a yükselt:"},
+      {b:"1️⃣",t:"Coder kod üretir"},
+      {b:"2️⃣",t:"Statik analiz: linter + tip kontrolü (<code>ruff check + mypy</code>)"},
+      {b:"3️⃣",t:"Hata bulunursa → hata bağlamı oluştur: orijinal prompt + üretilen kod + hata çıktısı"},
+      {b:"4️⃣",t:"Hata bağlamını Coder'a geri gönder: 'Bu hataları düzelt. Sadece düzeltilmiş kodu döndür.'"},
+      {b:"5️⃣",t:"Düzeltilmiş kodda statik analizi tekrar çalıştır"},
+      {b:"🔄",t:"Yeniden deneme politikası: max 2 düzeltme denemesi. 2 başarısızlık → kısmi sonuç + hata raporu"},
+      {b:"📊",t:"Düzeltme başarı oranı takibi: <code>denenen</code> vs <code>çözülen</code>"},
+    ]},
+    {name:"İstek Sınıflandırması",emoji:"📊",tag:"YÖNLENDİRME",tc:"#b08cff",items:[
+      {b:"📋",t:"Gelen istekleri iki moda sınıfla:"},
+      {b:"⚡",t:"İnteraktif: kullanıcı yanıt bekliyor → gecikme optimize, max 30sn timeout, küçük context"},
+      {b:"📦",t:"Batch: arka plan görevi (ör: modül refactor) → verimlilik optimize, timeout yok, tam context"},
+      {b:"🔀",t:"Sınıflandırma Router (Llama 8B) tarafından kaynak kanal ve prompt metadata'sına göre yapılır"},
+      {b:"🥇",t:"İnteraktif istekler öncelikli kuyruk pozisyonu alır; batch istekler GPU boşken çalışır"},
+    ]},
+    {name:"Semantik Önbellek",emoji:"💾",tag:"PERFORMANS",tc:"#00d4ff",items:[
+      {b:"🔑",t:"Tamamlanmış kod üretim sonuçları normalize prompt hash'ine göre önbelleğe alınır"},
+      {b:"💾",t:"Önbellek backend: SQLite + FTS5 (bulanık eşleşme) veya Redis"},
+      {b:"📏",t:"Önbellek isabet kriteri: prompt embedding'de kosinüs benzerliği > 0.95"},
+      {b:"⏰",t:"TTL: İnteraktif 24 saat, batch sonuçları 7 gün"},
+      {b:"🧹",t:"Önbellek temizleme: Telegram <code>/cache-clear</code> komutu"},
+      {b:"📈",t:"Beklenen fayda: tekrarlayan görevlerde model çağrılarında %30-50 azalma"},
+    ]},
+    {name:"Prompt Kayıt Defteri & Versiyonlama",emoji:"📚",tag:"KALİTE",tc:"#00e68a",items:[
+      {b:"📁",t:"Tüm sistem prompt'ları versiyonlu dosyalarda: <code>/etc/coding-agent/prompts/v{N}/</code>"},
+      {b:"📄",t:"Dizin yapısı: <code>router.txt</code>, <code>coder-generate.txt</code>, <code>coder-fix.txt</code>, <code>reasoning.txt</code>"},
+      {b:"🔢",t:"İstek logunda versiyon takibi: <code>prompt_version</code> sütunu"},
+      {b:"🚫",t:"Prompt değişiklikleri açık versiyon artışı gerektirir — hot-patch yok"},
+      {b:"🔬",t:"A/B testi: iki prompt versiyonu eşzamanlı çalıştır, düzeltme oranlarını karşılaştır"},
+      {b:"↩️",t:"Geri alma: <code>PROMPT_VERSION=N</code> env değişkeni ile önceki versiyona dön"},
+    ]},
+    {name:"Gözlemlenebilirlik — Yapılandırılmış İzleme",emoji:"📡",tag:"GÖZLEM",tc:"#ffb84d",items:[
+      {b:"🔗",t:"Her istek benzersiz <code>trace_id</code> (UUID v4) alır — tüm adımlara yayılır"},
+      {b:"📊",t:"Adım başına log: <code>trace_id | adım | model | tokens_in | tokens_out | latency_ms | durum | prompt_version</code>"},
+      {b:"🔄",t:"Çok adımlı izlemeler bağlantılı: üret → lint → düzelt → yeniden-lint hepsi aynı trace_id"},
+      {b:"📈",t:"Saatlik toplu metrikler (cron):"},
+      {b:"→",t:"Model başına p50/p95/p99 gecikme"},
+      {b:"→",t:"Model başına token verimi (tok/s)"},
+      {b:"→",t:"Düzeltme başarı oranı (düzeltilen / denenen)"},
+      {b:"→",t:"Önbellek isabet oranı"},
+      {b:"→",t:"Kategori bazında hata oranı (OOM, timeout, model hatası, lint hatası)"},
+      {b:"🖥️",t:"Dashboard: saatlik oluşturulan statik HTML, port 9090'da sunulur"},
+    ]},
+  ],
+  gov:{
+    "Eşzamanlı İstek":"İnteraktif: 2, Batch: 2 (toplam 4)",
+    "Batch Boyutu":"Router: 16, Reasoning: 4, Coder: 4",
+    "Max Token":"İstek başına: 32K. Dakika başına: tüm modellerde 200K",
+    "Yeniden Deneme":"Görev başına 2 düzeltme. Model hatasında 1 retry.",
+    "Kill Switch":"Telegram /kill + /pause (düzgün boşaltma) + /resume",
+    "GPU Süre":"Henüz takip edilmiyor",
+    "PII Maskeleme":"Regex + anahtar kelime kara listesi tarama",
+  },
+  success:[
+    "Oto-düzeltme lint/derleme hatalarının >%60'ını 2 denemede çözüyor",
+    "Semantik önbellek tekrarlayan görev kalıplarında >%20 isabet oranı",
+    "Tüm prompt'lar versiyon takipli; geri alma test edildi ve çalışıyor",
+    "Her istek trace_id ile uçtan uca izlenebilir",
+    "Saatlik metrik dashboard'u gecikme, verimlilik, hata oranlarını gösteriyor",
+    "İnteraktif istekler tipik görevlerde <30 saniyede tamamlanıyor",
+  ]
+},
+// ══════ FAZ 3 ══════
+{
+  id:3, emoji:"⚡", title:"Dual Spark Kullanımı", color:"#b08cff",
+  obj:"Spark #2'yi governance, audit ve ağır geliştirme modeli için devreye al. Tensor parallelism için ağ doğrulaması. Hız sınırlama ve GPU süre muhasebesi.",
+  s1:["Üretim coding agent (değişmez)","vLLM router + reasoning + coder"],
+  s2:["Policy engine (FastAPI)","Audit log (PostgreSQL + Grafana)","Ağır dev model (batch görevler)"],
+  blocks:[
+    {name:"Spark #2 Rol Ataması",emoji:"🏗️",tag:"MİMARİ",tc:"#b08cff",items:[
+      {b:"📋",t:"Spark #2 üç servis çalıştırır:"},
+      {b:"🛡️",t:"1. Policy Engine: Her agent aksiyonunu kurallara göre değerlendiren Python FastAPI servisi"},
+      {b:"📊",t:"2. Audit & Gözlemlenebilirlik: Kalıcı metrik ve iz depolama için PostgreSQL + Grafana"},
+      {b:"💻",t:"3. Ağır Dev Model: Batch/arka plan görevleri için ayrılmış Qwen Coder 30B instance"},
+      {b:"🏭",t:"Spark #1 üretim yüzlü inference düğümü olarak kalır — kurulumunda değişiklik yok"},
+      {b:"🔗",t:"İletişim: Spark #1 → Spark #2 arası HTTP, 200GbE bağlantı üzerinden"},
+    ]},
+    {name:"Policy Engine (Spark #2)",emoji:"🛡️",tag:"GOVERNANCE",tc:"#ff5c6e",items:[
+      {b:"🌐",t:"Port 8100'de FastAPI servisi — her agent aksiyonu çalıştırılmadan önce buradan geçer"},
+      {b:"📋",t:"Kural değerlendirme: JSON policy dosyası tier'ları tanımlar:"},
+      {b:"🟢",t:"Tier 1 (oto-onay): kod üretimi, lint, dosya okuma, arama"},
+      {b:"🟡",t:"Tier 2 (insan onayı): harici API'ye yazma, mesaj gönderme, deploy"},
+      {b:"🔴",t:"Tier 3 (engellendi): üretim verisi silme, sistem dosyası değiştirme, secret erişimi"},
+      {b:"⏱️",t:"Hız sınırlama: agent başına, model başına, saat başına token bütçeleri"},
+      {b:"🔄",t:"Döngü tespiti: aynı agent 5 dk'da >10 özdeş istek → devre kesici"},
+      {b:"📝",t:"Tüm policy kararları audit trail'a loglanır"},
+    ]},
+    {name:"GPU Süre Muhasebesi",emoji:"⏱️",tag:"GOVERNANCE",tc:"#ff5c6e",items:[
+      {b:"📊",t:"İstek başına GPU süresi takibi: <code>inference_start</code> → <code>inference_end</code>"},
+      {b:"📋",t:"Toplama: agent, model, saat, gün bazında"},
+      {b:"⏰",t:"Günlük bütçe: her agent'a günde max 4 saat GPU süresi"},
+      {b:"📈",t:"Haftalık rapor: agent başına, model başına toplam GPU saati"},
+      {b:"⚠️",t:"Uyarı: agent günlük bütçenin %80'ini aşarsa → Telegram bildirimi"},
+      {b:"🚫",t:"Engelleme: %100 aşılırsa → istekler ertesi güne kadar kuyruğa alınır"},
+    ]},
+    {name:"Hız Sınırlama",emoji:"🚦",tag:"GOVERNANCE",tc:"#ff5c6e",items:[
+      {b:"📊",t:"Model başına limitler (dakika başına istek):"},
+      {b:"⚡",t:"Router (Llama 8B): 60 RPM"},
+      {b:"🧠",t:"Reasoning (Qwen 32B): 10 RPM"},
+      {b:"💻",t:"Coder (Qwen Coder 30B): 10 RPM"},
+      {b:"☁️",t:"Claude API fallback: 5 RPM, aylık $150 sabit tavan"},
+      {b:"🔧",t:"Uygulama: Spark #2'de Redis sliding window counter"},
+      {b:"🚫",t:"Aşılırsa → HTTP 429 → agent bekler ve pencere sonrasında yeniden dener"},
+    ]},
+    {name:"Tensor Parallel Ağ Doğrulama (Opsiyonel)",emoji:"🧪",tag:"DENEYSEL",tc:"#ffb84d",items:[
+      {b:"⚠️",t:"Bu keşif amaçlıdır — üretim coding agent için ZORUNLU DEĞİL"},
+      {b:"🔗",t:"Ray cluster oluşturmayı test et: head Spark #1, worker Spark #2"},
+      {b:"📡",t:"InfiniBand/200GbE bağlantı üzerinden NCCL iletişimini doğrula"},
+      {b:"🧪",t:"Önce küçük modelle test: Llama 8B ile <code>--tensor-parallel-size 2</code>"},
+      {b:"📏",t:"Yük ölçümü: aynı model için tek-düğüm vs çift-düğüm gecikme karşılaştır"},
+      {b:"🚫",t:"Gecikme cezası >%50 ise: tensor parallel'i Faz 4'e ertele"},
+      {b:"❌",t:"Bu fazda 235B model ÇALIŞTIRMA — yetersiz doğrulama"},
+    ]},
+  ],
+  gov:{
+    "Eşzamanlı İstek":"Spark #1: 4 üretim. Spark #2: 2 batch.",
+    "Batch Boyutu":"Faz 2 ile aynı",
+    "Max Token":"Saat başına: tüm modellerde 500K. Gün başına: 5M.",
+    "Yeniden Deneme":"2 düzeltme + 1 model retry. Claude: 1 retry.",
+    "Kill Switch":"Telegram /kill (her iki Spark) + /kill-spark1 + /kill-spark2",
+    "GPU Süre":"Agent başına takip. Günlük limit: 4 GPU-saat.",
+    "PII Maskeleme":"Regex + anahtar kelime + policy engine doğrulama",
+  },
+  success:[
+    "Spark #2 policy engine, audit DB ve batch modeli eşzamanlı sunuyor",
+    "Tüm agent aksiyonları çalıştırılmadan önce policy engine'den geçiyor",
+    "Hız sınırlama uygulanıyor: aşılan istekler HTTP 429 alıyor",
+    "GPU süre muhasebesi Telegram ile günlük rapor üretiyor",
+    "Spark'lar arası ağ >20 GB/s'de doğrulandı",
+    "Tensor parallel test edildiyse: gecikme yükü belgelendi",
+  ]
+},
+// ══════ FAZ 4 ══════
+{
+  id:4, emoji:"🚀", title:"Performans Optimizasyonu", color:"#ffb84d",
+  obj:"Opsiyonel ileri faz. Verimlilik artır, gecikme azalt, spekülatif çözümleme ve batch zamanlama uygula. Üretim sağlamlaştırma.",
+  s1:["Spekülatif çözümleme ile optimize edilmiş üretim inference","Batch zamanlama"],
+  s2:["Gelişmiş gözlemlenebilirlik","Performans benchmark","Kapasite planlama"],
+  blocks:[
+    {name:"Spekülatif Çözümleme (Speculative Decoding)",emoji:"⚡",tag:"PERFORMANS",tc:"#ffb84d",items:[
+      {b:"🔀",t:"Llama 8B'yi Qwen 32B için taslak model olarak kullan"},
+      {b:"📋",t:"Taslak model N aday token üretir → hedef model tek forward pass'te doğrular"},
+      {b:"📈",t:"Beklenen fayda: Qwen 32B reasoning görevlerinde 1.5-2x decode hızlanma"},
+      {b:"⚙️",t:"vLLM flag: <code>--speculative-model Llama-3.1-8B --num-speculative-tokens 5</code>"},
+      {b:"⚠️",t:"vLLM 0.13+ gerektirir ve <code>--enforce-eager</code> ile çalışmayabilir — dikkatli test et"},
+      {b:"🔮",t:"sm_121 için Triton/CUDA graph desteği olgunlaşırsa: <code>--enforce-eager</code> kaldırılabilir"},
+    ]},
+    {name:"Batch Zamanlama",emoji:"📅",tag:"PERFORMANS",tc:"#ffb84d",items:[
+      {b:"⏱️",t:"Zaman tabanlı batch pencereleri: 100ms boyunca istekleri topla → batch olarak gönder"},
+      {b:"🌙",t:"Gece modu (00:00-06:00): tüm interaktif slotlar batch işleme için serbest"},
+      {b:"🔄",t:"Otomatik model değiştirme: gece modunda gerekirse daha büyük varyantları yükle"},
+      {b:"🥇",t:"Öncelik kuyruğu: kritik/interaktif → normal/batch → arka plan/spekülatif"},
+    ]},
+    {name:"Bellek Eşik Kontrolü (Memory Watermark)",emoji:"💾",tag:"KARARLLIK",tc:"#ff5c6e",items:[
+      {b:"🟢",t:"Yeşil: <%70 sistem belleği kullanımda → normal çalışma"},
+      {b:"🟡",t:"Sarı: %70-85 → max_num_seqs %50 azalt, Telegram uyarı"},
+      {b:"🔴",t:"Kırmızı: >%85 → yeni istek kabul etme, mevcut olanları boşalt, uyar"},
+      {b:"💀",t:"Kritik: >%95 → acil: <code>sync && echo 3 > /proc/sys/vm/drop_caches</code> + vLLM yeniden başlat"},
+      {b:"👁️",t:"Watchdog cron: 30 saniyede bir kontrol, bellek durumunu logla, eşiklerde oto-aksiyon"},
+      {b:"🛟",t:"UMA zombie önleme: SSH 5+ dk yanıtsızsa → Spark #2 uzaktan yeniden başlatma tetikler"},
+    ]},
+    {name:"Gelişmiş Gözlemlenebilirlik",emoji:"📡",tag:"GÖZLEM",tc:"#00d4ff",items:[
+      {b:"📊",t:"Her vLLM instance'ında Prometheus metrik dışa aktarıcı (vLLM yerleşik /metrics endpoint)"},
+      {b:"🖥️",t:"Spark #2'de Grafana dashboard: gerçek zamanlı GPU kullanım, kuyruk derinliği, token verimi"},
+      {b:"🚨",t:"Uyarı kuralları: gecikme p99 >60s, hata oranı >%5, bellek >%85"},
+      {b:"🔁",t:"İstek tekrarlama: debug için herhangi bir izlenen isteği aynı prompt versiyonuyla yeniden çalıştır"},
+      {b:"💰",t:"Maliyet muhasebesi: token kullanımı × bulut eşdeğeri fiyatlamayla istek başına tahmini $ değer"},
+    ]},
+    {name:"Verimlilik Benchmark",emoji:"📏",tag:"BENCHMARK",tc:"#00e68a",items:[
+      {b:"🔧",t:"<code>llama-benchy</code> veya vLLM yerleşik benchmark kullan"},
+      {b:"📊",t:"Yakalanacak metrikler: token/saniye (prefill vs decode), ilk-token-süresi, istek/dakika"},
+      {b:"📈",t:"Her model için çeşitli eşzamanlılık seviyelerinde (1, 2, 4, 8) referans benchmark"},
+      {b:"⚖️",t:"Eager mod vs CUDA graph (mümkün olduğunda) performans farkını karşılaştır"},
+      {b:"📋",t:"Sonuçları kapasite planlama referansı olarak belgele"},
+    ]},
+  ],
+  gov:{
+    "Eşzamanlı İstek":"Dinamik: bellek eşiğine göre (4 yeşil, 2 sarı, 0 kırmızı)",
+    "Batch Boyutu":"Dinamik: bellek durumuna göre ayarlanır",
+    "Max Token":"Faz 3 ile aynı",
+    "Yeniden Deneme":"Faz 3 ile aynı",
+    "Kill Switch":"Gelişmiş: bellek watchdog oto-kill + Spark'lar arası uzaktan kill",
+    "GPU Süre":"Maliyet tahmini ile tam muhasebe",
+    "PII Maskeleme":"Faz 3 ile aynı",
+  },
+  success:[
+    "Spekülatif çözümleme reasoning görevlerinde ölçülebilir hızlanma sağlıyor (>1.3x)",
+    "Bellek eşik sistemi 7 günlük test süresince OOM çökmelerini önlüyor",
+    "Grafana dashboard tüm modeller için gerçek zamanlı metrikleri gösteriyor",
+    "Benchmark sonuçları kapasite planlama için belgelendi",
+    "Gece modu batch işleme kuyruğa alınmış görevleri 06:00'ya kadar tamamlıyor",
+  ]
+}
 ];
 
-const modelData=[
-  {tier:"🏆 Birincil Agent Modeli",tc:"#00e68a",td:"Core ekip agent'ları için ana model",items:[
-    {name:"Qwen3-30B-A3B (MoE)",q:"FP8 / Q4_K",ram:"~18-20 GB",spd:"~25-35 tok/s",ctx:"128K",why:"MoE (Mixture of Experts) yapısı: 30B parametre kalitesini sadece 3B aktif parametre maliyetiyle sunar. Tool-calling, reasoning ve Türkçe desteği mükemmel. DGX Spark'ta en iyi performans/kalite dengesi.",v:"⭐ EN ÇOK ÖNERİLEN",vc:"#00e68a"},
-    {name:"Qwen3-Coder-30B",q:"Q4_K_M",ram:"~20 GB",spd:"~20-25 tok/s",ctx:"128K",why:"Kod üretimi, review, refactoring konusunda optimize edilmiş. Dev Agent'ın birincil modeli olarak kullanılır.",v:"Dev Agent",vc:"#4d8df5"},
-  ]},
-  {tier:"⚡ Hızlı / Hafif Görevler",tc:"#4d8df5",td:"Routing, sınıflandırma, basit görevler",items:[
-    {name:"Llama 3.1 8B",q:"NVFP4",ram:"~5-6 GB",spd:"~50-90 tok/s",ctx:"128K",why:"DGX Spark'ın Blackwell NVFP4 desteğiyle en optimize çalışan model. Task routing, intent detection ve basit sınıflandırma için mükemmel. Birden fazla instance paralel çalışabilir.",v:"Router / Classifier",vc:"#b48eff"},
-    {name:"Gemma 3 4B",q:"FP8",ram:"~4 GB",spd:"~60-100 tok/s",ctx:"128K",why:"Ultra hafif ama kaliteli. Heartbeat görevleri, basit sağlık kontrolleri ve hızlı yanıt gereken durumlar için.",v:"Heartbeat",vc:"#b48eff"},
-  ]},
-  {tier:"🧠 Ağır Reasoning",tc:"#ff5c5c",td:"Derin analiz, strateji, uzun döküman",items:[
-    {name:"Qwen3-235B-A22B (Dual Spark)",q:"Q4_K",ram:"~120+ GB",spd:"~10-12 tok/s",ctx:"128K",why:"İki DGX Spark birleştirildiğinde (256 GB) çalışır. Haftalık strateji raporları, derin pazar analizi gibi batch görevler için. Gece saatlerinde otomatik çalıştırılır.",v:"Dual Spark Gerektirir",vc:"#ff5c5c"},
-    {name:"DeepSeek-R1 14B",q:"FP8",ram:"~16 GB",spd:"~40-50 tok/s",ctx:"64K",why:"Chain-of-thought reasoning çok güçlü. Regülasyon analizi, risk değerlendirmesi gibi adım adım düşünme gerektiren görevler için ideal.",v:"Risk / Analiz",vc:"#ffb547"},
-  ]},
-  {tier:"🔒 Cloud Fallback",tc:"#5a5a6e",td:"Lokal model yetersiz kaldığında",items:[
-    {name:"Claude Sonnet 4 (API)",q:"Cloud",ram:"N/A",spd:"~80+ tok/s",ctx:"200K",why:"Lokal modelin başarısız olduğu, 200K+ context gerektiren veya çok kritik kararlar için fallback. OpenClaw otomatik geçiş yapar.",v:"Fallback",vc:"#5a5a6e"},
-  ]}
+// ══════ MODEL VERİSİ ══════
+const modelTiers = [
+  {tier:"Tier 1",emoji:"⚡",role:"Router / Sınıflandırıcı",model:"Llama-3.1-8B-Instruct",quant:"FP16 veya NVFP4",ram:"~8-10 GB (FP16) / ~5 GB (FP4)",speed:"~50-90 tok/s",ctx:"8K (kasıtlı sınırlı)",port:"8001",use:"Görev sınıflandırma, niyet tespiti, yönlendirme kararları. Hızlı yanıt gerekli.",color:"#00d4ff"},
+  {tier:"Tier 2",emoji:"🧠",role:"Reasoning",model:"Qwen3-32B (veya 30B-A3B MoE)",quant:"FP16 / BF16",ram:"~35-40 GB (FP16) / ~20 GB (MoE aktif)",speed:"~15-25 tok/s",ctx:"32K",port:"8002",use:"Mimari planlama, karmaşık debug, çok adımlı reasoning. Hızdan çok kalite.",color:"#00e68a"},
+  {tier:"Tier 3",emoji:"💻",role:"Coding",model:"Qwen3-Coder-30B-Instruct",quant:"FP16 / BF16",ram:"~35 GB",speed:"~15-25 tok/s",ctx:"32K",port:"8003",use:"Kod üretimi, refactoring, bug fix, test yazma. Birincil kodlama modeli.",color:"#4d94ff"},
+  {tier:"Tier X",emoji:"☁️",role:"Fallback",model:"Claude Sonnet 4 (API)",quant:"Cloud",ram:"N/A",speed:"~80+ tok/s",ctx:"200K",port:"API",use:"Lokal model başarısız olduğunda veya timeout aldığında fallback. Aylık $150 bütçe sınırı.",color:"#555568"},
 ];
 
-const routeData=[
-  {t:"Task Routing / Intent Detection",m:"Llama 3.1 8B (FP4)",w:"Ultra hızlı sınıflandırma",s:"50-90 tok/s",c:"Ücretsiz"},
-  {t:"Agent Reasoning / Tool Calling",m:"Qwen3-30B-A3B (FP8)",w:"Ana agent beyni, MoE verimli",s:"25-35 tok/s",c:"Ücretsiz"},
-  {t:"Kod Üretimi / Review",m:"Qwen3-Coder-30B (Q4)",w:"Coding-optimized",s:"20-25 tok/s",c:"Ücretsiz"},
-  {t:"Derin Analiz / Risk",m:"DeepSeek-R1 14B (FP8)",w:"Chain-of-thought reasoning",s:"40-50 tok/s",c:"Ücretsiz"},
-  {t:"Haftalık Strateji Raporu",m:"Qwen3-235B (Dual)",w:"En yüksek kalite, batch",s:"10-12 tok/s",c:"Ücretsiz"},
-  {t:"200K+ Context / Kritik Karar",m:"Claude Sonnet 4 (API)",w:"Lokal yetersiz kaldığında",s:"80+ tok/s",c:"$50-150/ay"},
+const ramItems = [
+  {l:"Llama 3.1 8B",gb:10,c:"#00d4ff"},
+  {l:"Qwen3-32B",gb:38,c:"#00e68a"},
+  {l:"Qwen Coder 30B",gb:35,c:"#4d94ff"},
+  {l:"KV Cache (3 model)",gb:20,c:"#ffb84d"},
+  {l:"OS + Docker + Agent",gb:8,c:"#555568"},
+  {l:"Boş Alan (kritik)",gb:8,c:"#2a2a3a"},
 ];
 
-const ramItems=[
-  {l:"Qwen3-30B-A3B",gb:20,c:"#00e68a"},{l:"Llama 3.1 8B",gb:6,c:"#4d8df5"},
-  {l:"DeepSeek-R1 14B",gb:16,c:"#ffb547"},{l:"Qwen3-Coder-30B",gb:20,c:"#b48eff"},
-  {l:"KV Cache + Context",gb:30,c:"#eab308"},{l:"OS + Runtime",gb:16,c:"#5a5a6e"},
-  {l:"Headroom",gb:20,c:"#2a2a38"},
-];
+// ══════ STATE ══════
+let tab = "p0";
+let collapsed = new Set();
 
-// ═══════════════════════ STATE ═══════════════════════
-let S={tab:"plan",phase:"now",checked:new Set(),expModel:null,archOpen:false};
-const $=id=>document.getElementById(id);
+function setTab(t){ tab=t; R(); }
+function togBlk(k){ collapsed.has(k)?collapsed.delete(k):collapsed.add(k); R(); }
 
-// ═══════════════════════ RENDER ═══════════════════════
+// ══════ RENDER ══════
 function R(){
-  const ph=phases.find(p=>p.id===S.phase);
-  let tot=0,don=0;
-  ph.tracks.forEach(tr=>{tot+=tr.tasks.length;tr.tasks.forEach((_,i)=>{if(S.checked.has(`${ph.id}-${tr.name}-${i}`))don++})});
-
-  $('app').innerHTML=`
+  const app = document.getElementById('app');
+  app.innerHTML = `
     <div class="hero">
-      <div class="chip"><span class="dot"></span>Dual DGX Spark Infrastructure</div>
-      <h1>AI Organization Engine</h1>
-      <p>OpenClaw + CrewAI + Deterministik Governance — 256 GB lokal AI altyapısı kurulum ve uygulama planı</p>
+      <div class="chip"><span class="pulse"></span>Mühendislik Planı v2.0</div>
+      <h1>Dual DGX Spark — Coding Agent</h1>
+      <p>vLLM inference runtime • OpenClaw orkestrasyon • Deterministik governance • Oto-düzeltme derleme döngüsü</p>
+      <div class="hero-tags">
+        <span class="hero-tag">📐 2× DGX Spark (128 GB)</span>
+        <span class="hero-tag">🔧 vLLM + NGC Container</span>
+        <span class="hero-tag">🏗️ ARM64 / Blackwell SM121</span>
+        <span class="hero-tag">⚠️ enforce-eager zorunlu</span>
+      </div>
     </div>
 
     <div class="specs">
       ${[
-        {i:"🧠",v:"256 GB",l:"Toplam RAM"},
-        {i:"⚡",v:"2 PFLOP",l:"FP4 Compute"},
-        {i:"🔗",v:"200 GbE",l:"Spark Bağlantı"},
-        {i:"💡",v:"~200W",l:"7/24 Güç"},
-        {i:"💰",v:"~$8K",l:"Toplam Yatırım"}
-      ].map(s=>`<div class="spec-card"><div class="icon">${s.i}</div><div class="val">${s.v}</div><div class="lbl">${s.l}</div></div>`).join('')}
+        {e:"🧠",v:"128 GB",l:"Spark Başına RAM"},
+        {e:"💾",v:"119 GB",l:"Kullanılabilir (UMA)"},
+        {e:"⚡",v:"SM121",l:"Compute Cap."},
+        {e:"🔗",v:"200 GbE",l:"Spark Bağlantı"},
+        {e:"🔧",v:"CUDA 13",l:"Toolkit"},
+        {e:"🏗️",v:"ARM64",l:"Mimari"},
+      ].map(s=>`<div class="spec"><div class="emoji">${s.e}</div><div class="val">${s.v}</div><div class="lbl">${s.l}</div></div>`).join('')}
     </div>
 
     <div class="nav">
-      ${[{id:"plan",l:"📋 Uygulama Planı"},{id:"models",l:"🤖 Model Önerileri"},{id:"routing",l:"🔀 Model Routing"}].map(t=>
-        `<button class="nav-btn ${S.tab===t.id?'active':''}" onclick="setTab('${t.id}')">${t.l}</button>`
-      ).join('')}
+      ${phases.map(p=>`<button class="${tab==='p'+p.id?'on':''}" onclick="setTab('p${p.id}')">${p.emoji} Faz ${p.id}</button>`).join('')}
+      <button class="${tab==='models'?'on':''}" onclick="setTab('models')">🤖 Modeller</button>
     </div>
 
-    <div class="section ${S.tab==='plan'?'visible':''}" id="sec-plan">
-      <div class="arch-toggle" onclick="toggleArch()">
-        <div style="display:flex;align-items:center;gap:12px">
-          <span style="font-size:22px">🏗️</span>
-          <div><div style="font-weight:700;font-size:14px;font-family:'Space Grotesk',sans-serif">Dual Spark Mimari Diyagramı</div><div style="font-size:11px;color:var(--t3)">Hangi Spark neyi çalıştırıyor? → Tıkla</div></div>
-        </div>
-        <span style="color:var(--t3);font-size:18px">${S.archOpen?'−':'+'}</span>
-      </div>
-      <div class="arch-panel ${S.archOpen?'open':''}">
-        <div class="arch-grid">
-          <div class="spark-box" style="border-color:rgba(0,230,138,.25)">
-            <h3><span style="color:#00e68a">●</span> Spark #1 — Agent Runtime<span class="badge-ram">128 GB</span></h3>
-            ${["OpenClaw Gateway (7/24 always-on)","Qwen3-30B-A3B → Ana agent reasoning","Llama 3.1 8B → Hızlı task routing","DeepSeek-R1 14B → Derin analiz","Telegram / Slack / WhatsApp bağlantısı"].map(r=>`<div class="spark-item"><span class="arr" style="color:#00e68a">→</span>${r}</div>`).join('')}
-          </div>
-          <div class="spark-box" style="border-color:rgba(77,141,245,.25)">
-            <h3><span style="color:#4d8df5">●</span> Spark #2 — Crew Engine<span class="badge-ram">128 GB</span></h3>
-            ${["CrewAI Python Runtime","Qwen3-Coder-30B → Kod üretimi","FastAPI Bridge → Spark #1 ile iletişim","Budget Controller + Policy Engine","SQLite/Redis → State & audit log"].map(r=>`<div class="spark-item"><span class="arr" style="color:#4d8df5">→</span>${r}</div>`).join('')}
-          </div>
-        </div>
-        <div class="dual-box">
-          <h3>⚡ Gece Modu — Dual 256 GB</h3>
-          ${["Qwen3-235B-A22B → Haftalık strateji raporu, derin analiz","ConnectX-7 200GbE ile iki Spark birleşir","Batch processing: Gündüz ayrı çalışır, gece birlikte"].map(r=>`<div class="spark-item"><span class="arr" style="color:#ffb547">→</span>${r}</div>`).join('')}
-          <div class="note">İki Spark'ın 256 GB birleşik RAM'i, normalde data center gerektiren 235B parametreli modelleri masaüstünde çalıştırır.</div>
-        </div>
-      </div>
-
-      <div class="phase-tabs">
-        ${phases.map(p=>`<button class="phase-tab ${S.phase===p.id?'active':''}" style="${S.phase===p.id?`background:${p.color};color:#fff;border-color:${p.color}`:''}" onclick="setPhase('${p.id}')">${p.icon} ${p.title.split('—')[0].trim()}</button>`).join('')}
-      </div>
-
-      <div class="ph-head">
-        <div><div class="ph-title">${ph.icon} ${ph.title}</div><div class="ph-sub">${ph.sub} • ${ph.weeks}</div></div>
-        <div class="ph-counter"><div class="ph-num" style="color:${ph.color}">${don}/${tot}</div><div class="ph-lbl">tamamlandı</div></div>
-      </div>
-      <div class="progress"><div class="progress-bar" style="width:${tot>0?(don/tot)*100:0}%;background:${ph.color}"></div></div>
-
-      ${ph.tracks.map(tr=>`
-        <div class="track">
-          <div class="track-head"><span class="track-dot" style="background:${tr.dot}"></span>${tr.name}</div>
-          ${tr.tasks.map((t,i)=>{const k=`${ph.id}-${tr.name}-${i}`;const d=S.checked.has(k);return`
-            <div class="task-row ${d?'done':''}" onclick="tog('${k}')">
-              <div class="cb">${d?'✓':''}</div>
-              <div><div class="task-text">${t.t}</div><div class="task-cmd">${t.c}</div></div>
-            </div>`;}).join('')}
-        </div>
-      `).join('')}
-
-      ${S.phase==='now'?`
-        <div class="qs">
-          <h3>⚡ Bugün Başlamak İçin — İlk 3 Komut</h3>
-          <div class="qs-cmd"><code># 1. OpenClaw kur (Node.js 22+ gerekli)\nnpm install -g openclaw && openclaw onboard</code></div>
-          <div class="qs-cmd"><code># 2. CrewAI ortamı hazırla\npython -m venv ai-org && source ai-org/bin/activate\npip install crewai crewai-tools</code></div>
-          <div class="qs-cmd"><code># 3. İlk crew'u oluştur\ncrewai create crew core-team</code></div>
-          <div class="tip">💡 DGX Spark gelene kadar Claude API ile çalıştır. Spark'lar geldiğinde tek değişiklik: model provider'ı Ollama'ya geçirmek.</div>
-        </div>
-      `:''}
-    </div>
-
-    <div class="section ${S.tab==='models'?'visible':''}" id="sec-models">
-      ${modelData.map(tier=>`
-        <div class="tier">
-          <div class="tier-head"><h2 style="color:${tier.tc}">${tier.tier}</h2><span>${tier.td}</span></div>
-          ${tier.items.map((m,i)=>{const k=`${tier.tier}-${i}`;const ex=S.expModel===k;return`
-            <div class="m-card ${ex?'expanded':''}" onclick="togM('${k}')">
-              <div class="m-top">
-                <span class="m-name">${m.name}</span>
-                <span class="m-badge" style="color:${m.vc};border:1px solid ${m.vc}40;background:${m.vc}10">${m.v}</span>
-              </div>
-              <div class="m-grid">
-                <div><span class="l">Quant: </span><span class="v">${m.q}</span></div>
-                <div><span class="l">RAM: </span><span class="v">${m.ram}</span></div>
-                <div><span class="l">Hız: </span><span class="v">${m.spd}</span></div>
-                <div><span class="l">Context: </span><span class="v">${m.ctx}</span></div>
-              </div>
-              <div class="m-detail">${m.why}</div>
-            </div>`;}).join('')}
-        </div>
-      `).join('')}
-    </div>
-
-    <div class="section ${S.tab==='routing'?'visible':''}" id="sec-routing">
-      <div class="r-card">
-        <h3>Model Routing Stratejisi</h3>
-        <p style="font-size:13px;color:var(--t2);margin-bottom:14px">Her görev türü için farklı model kullanmak hem maliyet hem performans açısından kritiktir. OpenClaw'ın model tiering özelliği bunu otomatik yönetir.</p>
-        ${routeData.map(r=>`
-          <div class="r-row">
-            <div class="r-left"><div class="name">${r.t}</div><div class="why">${r.w}</div></div>
-            <div class="r-right"><div class="model">${r.m}</div><div class="meta">${r.s} • ${r.c}</div></div>
-          </div>
-        `).join('')}
-      </div>
-
-      <div class="r-card">
-        <h3>128 GB RAM Dağılımı (Tek Spark)</h3>
-        ${ramItems.map(r=>`
-          <div class="ram-row">
-            <div class="ram-lbl">${r.l}</div>
-            <div class="ram-bg"><div class="ram-fill" style="width:${Math.max(r.gb/128*100,5)}%;background:${r.c}"><span>${r.gb} GB</span></div></div>
-          </div>
-        `).join('')}
-        <p style="font-size:11px;color:var(--t3);margin-top:12px">⚠️ Tüm modeller aynı anda bellekte tutulabilir. Ollama kullanılmayan modelleri KEEP_ALIVE süresine göre unload eder.</p>
-      </div>
-
-      <div class="cost-card">
-        <h3>💰 Toplam Maliyet Analizi</h3>
-        <div class="cost-grid">
-          <div class="cost-item"><div class="ci-lbl">Donanım</div><div class="ci-val">~$8K</div><div class="ci-sub">2× DGX Spark + DAC</div></div>
-          <div class="cost-item"><div class="ci-lbl">Elektrik/Ay</div><div class="ci-val">~$30</div><div class="ci-sub">2× ~100W, 7/24</div></div>
-          <div class="cost-item"><div class="ci-lbl">Cloud API/Ay</div><div class="ci-val">$50-150</div><div class="ci-sub">Claude fallback</div></div>
-          <div class="cost-item"><div class="ci-lbl">Lokal Model</div><div class="ci-val">$0</div><div class="ci-sub">Tümü açık kaynak</div></div>
-        </div>
-      </div>
-
-      <div class="cfg">
-        <h4>OpenClaw Yapılandırma — config.json</h4>
-        <pre>{
-  "models": {
-    "mode": "merge",
-    "providers": {
-      "ollama": {
-        "baseUrl": "http://127.0.0.1:11434/v1",
-        "api": "openai-responses",
-        "models": [
-          { "id": "qwen3:30b-a3b", "name": "Qwen3 Agent",
-            "contextWindow": 131072, "maxTokens": 8192,
-            "cost": { "input": 0, "output": 0 } },
-          { "id": "llama3.1:8b", "name": "Fast Router",
-            "contextWindow": 131072,
-            "cost": { "input": 0, "output": 0 } }
-        ]
-      },
-      "anthropic": {
-        "apiKey": "sk-ant-...",
-        "models": [
-          { "id": "claude-sonnet-4-5-20250929" }
-        ]
-      }
-    }
-  },
-  "agents": {
-    "defaults": {
-      "model": {
-        "primary": "ollama/qwen3:30b-a3b",
-        "fallbacks": ["anthropic/claude-sonnet-4"]
-      }
-    }
-  }
-}</pre>
-      </div>
-    </div>
+    ${tab==='models' ? renderModels() : ''}
+    ${phases.map(p => tab==='p'+p.id ? renderPhase(p) : '').join('')}
   `;
 }
 
-// ═══════════════════════ ACTIONS ═══════════════════════
-function setTab(t){S.tab=t;R()}
-function setPhase(p){S.phase=p;R()}
-function tog(k){S.checked.has(k)?S.checked.delete(k):S.checked.add(k);R()}
-function togM(k){S.expModel=S.expModel===k?null:k;R()}
-function toggleArch(){S.archOpen=!S.archOpen;R()}
+function renderPhase(p){
+  return `<div class="sec vis"><div class="ph">
+    <div class="ph-hdr">
+      <div class="ph-icon" style="background:${p.color}15;font-size:24px">${p.emoji}</div>
+      <div class="ph-info"><h2 style="color:${p.color}">Faz ${p.id} — ${p.title}</h2><p>${p.obj}</p></div>
+    </div>
+
+    <div class="spark-grid">
+      <div class="spark-card" style="border-color:${p.color}35">
+        <h4>🟢 Spark #1<span class="badge">128 GB</span></h4>
+        ${p.s1.map(s=>`<div class="si"><span class="arr" style="color:${p.color}">→</span>${s}</div>`).join('')}
+      </div>
+      <div class="spark-card" style="border-color:var(--brd)">
+        <h4>🔵 Spark #2<span class="badge">128 GB</span></h4>
+        ${p.s2.map(s=>`<div class="si"><span class="arr" style="color:var(--t3)">→</span>${s}</div>`).join('')}
+      </div>
+    </div>
+
+    ${p.blocks.map((b,i)=>{
+      const k=`p${p.id}-${i}`;
+      const col = collapsed.has(k);
+      return `<div class="blk">
+        <div class="blk-h" onclick="togBlk('${k}')">
+          <span class="left"><span>${b.emoji}</span><span>${b.name}</span></span>
+          <span style="display:flex;align-items:center;gap:8px">
+            <span class="tag" style="background:${b.tc}12;color:${b.tc};border:1px solid ${b.tc}30">${b.tag}</span>
+            <span class="chevron">${col?'▸':'▾'}</span>
+          </span>
+        </div>
+        <div class="blk-b ${col?'hide':''}">
+          ${b.items.map(it=>`<div class="it"><span class="bullet">${it.b}</span><span>${it.t}</span></div>`).join('')}
+          ${b.cmd?`<div class="cmd"><code>${b.cmd}</code></div>`:''}
+          ${(b.extra||[]).map(it=>`<div class="it"><span class="bullet">${it.b}</span><span>${it.t}</span></div>`).join('')}
+        </div>
+      </div>`;
+    }).join('')}
+
+    <div class="blk">
+      <div class="blk-h" onclick="togBlk('gov-${p.id}')">
+        <span class="left"><span>🛡️</span><span>Governance Parametreleri</span></span>
+        <span style="display:flex;align-items:center;gap:8px">
+          <span class="tag" style="background:#ff5c6e12;color:#ff5c6e;border:1px solid #ff5c6e30">GOVERNANCE</span>
+          <span class="chevron">${collapsed.has('gov-'+p.id)?'▸':'▾'}</span>
+        </span>
+      </div>
+      <div class="blk-b ${collapsed.has('gov-'+p.id)?'hide':''}">
+        <div class="gov">
+          ${Object.entries(p.gov).map(([k,v])=>`
+            <div class="gov-cell"><div class="gl">${k}</div><div class="gv">${v}</div></div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+
+    <div class="success">
+      <h4>✅ Başarı Kriterleri — Faz ${p.id} Tamamlanma Koşulları:</h4>
+      ${p.success.map(s=>`<div class="it"><span class="bullet" style="color:var(--grn)">✓</span><span>${s}</span></div>`).join('')}
+    </div>
+  </div></div>`;
+}
+
+function renderModels(){
+  const total = ramItems.reduce((a,r)=>a+r.gb,0);
+  const ok = total <= 119;
+  return `<div class="sec vis"><div class="ph">
+    <div class="ph-hdr">
+      <div class="ph-icon" style="background:#00e68a15;font-size:24px">🤖</div>
+      <div class="ph-info"><h2>Model Stratejisi</h2><p>Üç katmanlı lokal inference + bulut fallback. Tümü vLLM ile sunulur (OpenAI-uyumlu API).</p></div>
+    </div>
+
+    <div class="warn">
+      <h4>⚠️ DGX Spark — vLLM Kısıtlamaları</h4>
+      <p>🔧 <strong>enforce-eager zorunlu:</strong> Triton/CUDA graph derleme sm_121 (Blackwell) için henüz tam destek vermiyor. Tüm vLLM instance'ları <code>--enforce-eager</code> ile çalışmalı. Bu, optimize moda göre ~%20-30 daha yavaş inference demek.</p>
+      <p style="margin-top:6px">💾 <strong>UMA bellek:</strong> GPU ve CPU aynı 128 GB LPDDR5x havuzunu paylaşır. <code>nvidia-smi</code> Memory: N/A gösterir. <code>free -h</code> ile takip et. OOM temiz CUDA hatası değil, sistem dondurması (zombie) olarak ortaya çıkar.</p>
+      <p style="margin-top:6px">📦 <strong>NGC container önerilir:</strong> <code>nvcr.io/nvidia/vllm:26.01-py3</code> — ARM64 + CUDA 13 yamaları ile NVIDIA onaylı build.</p>
+    </div>
+
+    <table class="tbl">
+      <thead><tr><th></th><th>Tier</th><th>Rol</th><th>Model</th><th>RAM</th><th>Hız</th><th>Context</th><th>Port</th></tr></thead>
+      <tbody>
+        ${modelTiers.map(m=>`<tr>
+          <td>${m.emoji}</td>
+          <td><strong>${m.tier}</strong></td>
+          <td>${m.role}</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:${m.color}">${m.model}</td>
+          <td>${m.ram}</td>
+          <td>${m.speed}</td>
+          <td>${m.ctx}</td>
+          <td style="font-family:'JetBrains Mono',monospace">${m.port}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+
+    ${modelTiers.map((m,i)=>`
+      <div class="blk">
+        <div class="blk-h" onclick="togBlk('m-${i}')">
+          <span class="left"><span>${m.emoji}</span><span>${m.tier}: ${m.model}</span></span>
+          <span style="display:flex;align-items:center;gap:8px">
+            <span class="tag" style="background:${m.color}12;color:${m.color};border:1px solid ${m.color}30">${m.role}</span>
+            <span class="chevron">${collapsed.has('m-'+i)?'▸':'▾'}</span>
+          </span>
+        </div>
+        <div class="blk-b ${collapsed.has('m-'+i)?'hide':''}">
+          <div class="it"><span class="bullet">📦</span><span><strong>Quantization:</strong> ${m.quant}</span></div>
+          <div class="it"><span class="bullet">💾</span><span><strong>RAM:</strong> ${m.ram}</span></div>
+          <div class="it"><span class="bullet">⚡</span><span><strong>Beklenen hız:</strong> ${m.speed} (enforce-eager ile)</span></div>
+          <div class="it"><span class="bullet">📏</span><span><strong>Context penceresi:</strong> ${m.ctx}</span></div>
+          <div class="it"><span class="bullet">🎯</span><span><strong>Kullanım:</strong> ${m.use}</span></div>
+        </div>
+      </div>
+    `).join('')}
+
+    <div class="blk" style="margin-top:14px">
+      <div class="blk-h" onclick="togBlk('ram')">
+        <span class="left"><span>💾</span><span>Spark #1 — Bellek Bütçesi (119 GB kullanılabilir)</span></span>
+        <span style="display:flex;align-items:center;gap:8px">
+          <span class="tag" style="background:#ffb84d12;color:#ffb84d;border:1px solid #ffb84d30">RAM</span>
+          <span class="chevron">${collapsed.has('ram')?'▸':'▾'}</span>
+        </span>
+      </div>
+      <div class="blk-b ${collapsed.has('ram')?'hide':''}">
+        ${ramItems.map(r=>`
+          <div class="ram-row">
+            <div class="ram-lbl">${r.l}</div>
+            <div class="ram-bg"><div class="ram-fill" style="width:${Math.max(r.gb/119*100,4)}%;background:${r.c}"><span>${r.gb} GB</span></div></div>
+          </div>
+        `).join('')}
+        <div style="margin-top:10px;font-size:12px;color:var(--t3)">
+          Toplam: ${total} GB / 119 GB.
+          ${ok ? '<span style="color:#00e68a"> ✅ Bütçe dahilinde.</span>' : '<span style="color:#ff5c6e"> ⚠️ Bütçe aşımı — context pencerelerini küçült veya quantize modeller kullan.</span>'}
+        </div>
+
+        <div class="danger" style="margin-top:12px">
+          <h4>⚠️ UMA Bellek Uyarısı</h4>
+          <div class="it"><span class="bullet">💾</span><span>DGX Spark Unified Memory Architecture kullanır — GPU ve CPU aynı fiziksel RAM'i paylaşır</span></div>
+          <div class="it"><span class="bullet">💀</span><span>OOM temiz CUDA hatası ÜRETMEZ — sistem zombie olur (SSH donar, fiziksel yeniden başlatma gerekir)</span></div>
+          <div class="it"><span class="bullet">🛟</span><span>OS, Docker ve agent süreçleri için her zaman ≥8 GB boş alan bırak</span></div>
+          <div class="it"><span class="bullet">📊</span><span><code>free -h</code> ile takip et — <code>nvidia-smi</code> DEĞİL (UMA'da N/A gösterir)</span></div>
+          <div class="it"><span class="bullet">🔧</span><span>Her iki 30B+ model FP16 ise: sadece modeller için ~75 GB — çalışır ama sıkı</span></div>
+          <div class="it"><span class="bullet">📉</span><span>Bellek baskısı gözlemlenirse Q4/Q8 quantization düşün</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="blk" style="margin-top:8px">
+      <div class="blk-h" onclick="togBlk('load-order')">
+        <span class="left"><span>📋</span><span>Model Yükleme Sırası</span></span>
+        <span class="tag" style="background:#4d94ff12;color:#4d94ff;border:1px solid #4d94ff30">PROSEDÜR</span>
+      </div>
+      <div class="blk-b ${collapsed.has('load-order')?'hide':''}">
+        <div class="it"><span class="bullet">1️⃣</span><span>Önce Router'ı (Llama 8B) başlat — en küçük ayak izi, sağlık kontrolleri için gerekli</span></div>
+        <div class="it"><span class="bullet">2️⃣</span><span>Coder'ı (Qwen Coder 30B) başlat — birincil iş yükü modeli</span></div>
+        <div class="it"><span class="bullet">3️⃣</span><span>Reasoning'i (Qwen 32B) en son yükle — daha az sıklıkla kullanılır</span></div>
+        <div class="it"><span class="bullet">4️⃣</span><span>Üçü de çalışırken: <code>free -h</code> ile belleği doğrula</span></div>
+        <div class="it"><span class="bullet">5️⃣</span><span>Kullanılabilir bellek <8 GB ise: <code>--max-model-len</code> veya <code>--gpu-memory-utilization</code> azalt</span></div>
+        <div class="it"><span class="bullet">6️⃣</span><span>Üretim trafiği kabul etmeden önce her modelde inference testi çalıştır</span></div>
+      </div>
+    </div>
+
+  </div></div>`;
+}
 
 R();
 </script>
