@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dual DGX Spark — AI Organization Engine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050507;--surface:#0d0d12;--card:#111118;--border:#1a1a24;--border-h:#2a2a38;
+  --t1:#f0f0f5;--t2:#9898aa;--t3:#5a5a6e;
+  --green:#00e68a;--blue:#4d8df5;--red:#ff5c5c;--purple:#b48eff;--amber:#ffb547;--cyan:#00d4ff;
+  --g-green:rgba(0,230,138,.06);--g-blue:rgba(77,141,245,.06);--g-red:rgba(255,92,92,.06);
+}
+body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+code,.mono{font-family:'JetBrains Mono',monospace}
+h1,h2,h3,.heading{font-family:'Space Grotesk',sans-serif}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-h);border-radius:4px}
+a{color:var(--cyan);text-decoration:none}
+
+.wrap{max-width:960px;margin:0 auto;padding:24px 20px 60px}
+
+/* ---- HERO ---- */
+.hero{text-align:center;padding:48px 0 36px;position:relative}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:500px;height:300px;background:radial-gradient(ellipse,rgba(0,230,138,.07) 0%,transparent 70%);pointer-events:none}
+.chip{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(0,230,138,.1),rgba(77,141,245,.1));border:1px solid rgba(0,230,138,.2);border-radius:999px;padding:5px 16px;font-size:11px;color:var(--green);font-weight:600;letter-spacing:.3px;text-transform:uppercase;margin-bottom:16px}
+.chip .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(28px,5vw,42px);font-weight:700;letter-spacing:-.5px;background:linear-gradient(135deg,#fff 30%,var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.hero p{color:var(--t2);font-size:15px;max-width:600px;margin:0 auto}
+
+/* ---- SPECS ---- */
+.specs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:0 0 32px}
+.spec-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 12px;text-align:center;transition:border-color .25s,transform .25s}
+.spec-card:hover{border-color:var(--border-h);transform:translateY(-2px)}
+.spec-card .icon{font-size:20px;margin-bottom:6px}
+.spec-card .val{font-size:20px;font-weight:700;font-family:'Space Grotesk',sans-serif}
+.spec-card .lbl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+/* ---- NAV ---- */
+.nav{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px;margin-bottom:24px;position:sticky;top:12px;z-index:100;backdrop-filter:blur(12px)}
+.nav-btn{flex:1;padding:10px 6px;border:none;border-radius:10px;background:transparent;color:var(--t2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.nav-btn.active{background:var(--card);color:var(--t1);box-shadow:0 2px 12px rgba(0,0,0,.4)}
+.nav-btn:hover:not(.active){color:var(--t1)}
+
+/* ---- SECTION ---- */
+.section{display:none;animation:fadeIn .3s ease}
+.section.visible{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ---- ARCHITECTURE DIAGRAM ---- */
+.arch-toggle{width:100%;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;margin-bottom:12px;transition:border-color .2s}
+.arch-toggle:hover{border-color:var(--border-h)}
+.arch-panel{display:none;margin-bottom:24px}
+.arch-panel.open{display:block}
+.arch-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.spark-box{background:var(--card);border-radius:14px;padding:18px;border:1px solid}
+.spark-box h3{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.spark-box .badge-ram{font-size:10px;color:var(--t3);margin-left:auto;background:var(--surface);padding:2px 8px;border-radius:6px}
+.spark-item{font-size:13px;color:var(--t2);padding:4px 0;display:flex;align-items:center;gap:8px}
+.spark-item .arr{font-weight:700;font-size:12px;width:16px;text-align:center}
+.dual-box{background:var(--card);border:1px solid rgba(255,181,71,.2);border-radius:14px;padding:18px}
+.dual-box h3{color:var(--amber);font-size:14px;font-weight:700;margin-bottom:10px}
+.dual-box .note{font-size:11px;color:var(--t3);margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+
+/* ---- PHASE TABS ---- */
+.phase-tabs{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.phase-tab{flex:none;padding:8px 16px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--t2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.phase-tab:hover{border-color:var(--border-h);color:var(--t1)}
+.phase-tab.active{color:#fff;border-color:transparent}
+
+/* ---- PHASE HEADER ---- */
+.ph-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:8px}
+.ph-title{font-size:20px;font-weight:700;font-family:'Space Grotesk',sans-serif}
+.ph-sub{font-size:13px;color:var(--t2);margin-top:2px}
+.ph-counter{text-align:right}
+.ph-num{font-size:32px;font-weight:800;font-family:'Space Grotesk',sans-serif;line-height:1}
+.ph-lbl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px}
+.progress{width:100%;height:4px;background:var(--surface);border-radius:2px;margin-bottom:20px;overflow:hidden}
+.progress-bar{height:100%;border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+
+/* ---- TRACK ---- */
+.track{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;overflow:hidden}
+.track-head{padding:12px 18px;font-size:13px;font-weight:700;font-family:'Space Grotesk',sans-serif;color:var(--t1);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.track-head .track-dot{width:8px;height:8px;border-radius:50%}
+.task-row{display:flex;align-items:flex-start;gap:14px;padding:10px 18px;cursor:pointer;transition:background .15s;border-bottom:1px solid rgba(26,26,36,.6)}
+.task-row:last-child{border-bottom:none}
+.task-row:hover{background:rgba(26,26,36,.4)}
+.task-row.done{opacity:.5}
+.cb{width:18px;height:18px;border:2px solid var(--border-h);border-radius:5px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:11px;color:transparent}
+.task-row.done .cb{border-color:var(--green);background:rgba(0,230,138,.12);color:var(--green)}
+.task-text{font-size:13px;transition:all .2s}
+.task-row.done .task-text{text-decoration:line-through;color:var(--t3)}
+.task-cmd{font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace;margin-top:3px;background:rgba(0,0,0,.3);padding:2px 8px;border-radius:4px;display:inline-block}
+
+/* ---- QUICKSTART ---- */
+.qs{background:var(--g-green);border:1px solid rgba(0,230,138,.15);border-radius:14px;padding:20px;margin-top:20px}
+.qs h3{color:var(--green);font-weight:700;font-size:15px;margin-bottom:14px;font-family:'Space Grotesk',sans-serif}
+.qs-cmd{background:var(--bg);border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.qs-cmd code{font-size:12px;color:var(--green);white-space:pre-wrap;line-height:1.7}
+.qs .tip{font-size:11px;color:var(--t3);margin-top:12px;line-height:1.5}
+
+/* ---- MODELS TAB ---- */
+.tier{margin-bottom:28px}
+.tier-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.tier-head h2{font-size:16px;font-weight:700;font-family:'Space Grotesk',sans-serif}
+.tier-head span{font-size:12px;color:var(--t3)}
+.m-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 18px;margin-bottom:8px;cursor:pointer;transition:all .2s}
+.m-card:hover{border-color:var(--border-h)}
+.m-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.m-name{font-weight:700;font-size:15px;font-family:'Space Grotesk',sans-serif}
+.m-badge{font-size:10px;padding:3px 10px;border-radius:999px;font-weight:600;letter-spacing:.3px}
+.m-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:12px}
+.m-grid .l{color:var(--t3)}
+.m-grid .v{color:var(--t2)}
+.m-detail{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:13px;color:var(--t2);line-height:1.6;display:none}
+.m-card.expanded .m-detail{display:block}
+
+/* ---- ROUTING TAB ---- */
+.r-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:12px}
+.r-card h3{font-weight:700;font-size:15px;font-family:'Space Grotesk',sans-serif;margin-bottom:14px}
+.r-row{display:flex;align-items:center;gap:12px;background:var(--surface);border-radius:10px;padding:10px 14px;margin-bottom:6px;transition:transform .15s}
+.r-row:hover{transform:translateX(4px)}
+.r-left{flex:1;min-width:0}
+.r-left .name{font-size:13px;font-weight:600;color:var(--t1)}
+.r-left .why{font-size:11px;color:var(--t3)}
+.r-right{text-align:right;flex-shrink:0}
+.r-right .model{font-size:11px;color:var(--green);font-family:'JetBrains Mono',monospace;font-weight:500}
+.r-right .meta{font-size:10px;color:var(--t3)}
+
+.ram-row{display:flex;align-items:center;gap:10px;margin-bottom:5px}
+.ram-lbl{width:180px;font-size:12px;color:var(--t2);flex-shrink:0}
+.ram-bg{flex:1;height:22px;background:var(--surface);border-radius:6px;overflow:hidden}
+.ram-fill{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;min-width:40px;transition:width .4s ease}
+.ram-fill span{font-size:10px;font-family:'JetBrains Mono',monospace;color:#fff;font-weight:600}
+
+.cost-card{background:var(--card);border:1px solid rgba(255,181,71,.2);border-radius:14px;padding:18px;margin-top:16px}
+.cost-card h3{color:var(--amber);font-weight:700;font-size:14px;font-family:'Space Grotesk',sans-serif;margin-bottom:14px}
+.cost-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px}
+.cost-item .ci-lbl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.3px;margin-bottom:4px}
+.cost-item .ci-val{font-size:22px;font-weight:700;font-family:'Space Grotesk',sans-serif}
+.cost-item .ci-sub{font-size:10px;color:var(--t3);margin-top:2px}
+
+/* ---- CONFIG BLOCK ---- */
+.cfg{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:16px;overflow-x:auto}
+.cfg h4{font-size:13px;font-weight:700;font-family:'Space Grotesk',sans-serif;margin-bottom:10px;color:var(--t2)}
+.cfg pre{font-size:11px;color:var(--green);line-height:1.6;white-space:pre}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:768px){
+  .specs{grid-template-columns:repeat(3,1fr)}
+  .arch-grid{grid-template-columns:1fr}
+  .m-grid{grid-template-columns:repeat(2,1fr)}
+  .cost-grid{grid-template-columns:1fr 1fr}
+  .r-row{flex-direction:column;align-items:flex-start;gap:4px}
+  .r-right{text-align:left}
+  .nav-btn{font-size:12px;padding:8px 4px}
+}
+@media(max-width:480px){
+  .specs{grid-template-columns:repeat(2,1fr)}
+  .cost-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+// ═══════════════════════ DATA ═══════════════════════
+const phases=[
+  {id:"now",icon:"🚀",title:"ŞİMDİ — Yazılım Prototipi",sub:"Donanım beklemeden başla",color:"#00e68a",weeks:"Hafta 1-3",
+   tracks:[
+     {name:"OpenClaw Gateway Kurulumu",dot:"#00e68a",tasks:[
+       {t:"Linux/Mac sunucuya OpenClaw kur",c:"npm install -g openclaw && openclaw onboard"},
+       {t:"Telegram kanal bağlantısı",c:"@BotFather → token al → openclaw onboard"},
+       {t:"Claude API'yi birincil model olarak ayarla",c:"Anthropic API key yapılandır (geçici — Ollama sonra)"},
+       {t:"Temel skill'leri test et (web search, file ops)",c:"openclaw skills → aktifleştir"},
+       {t:"İlk custom SKILL.md yaz",c:"~/openclaw-workspace/skills/my-first-skill/"},
+     ]},
+     {name:"CrewAI Multi-Agent Ortamı",dot:"#4d8df5",tasks:[
+       {t:"Python 3.12+ sanal ortam oluştur",c:"python -m venv ai-org && source ai-org/bin/activate"},
+       {t:"CrewAI framework kur",c:"pip install crewai crewai-tools langchain-community"},
+       {t:"İlk 3 agent tanımla: Research, Product, Orchestrator",c:"crewai create crew core-team"},
+       {t:"Claude API üzerinden Crew çalıştır",c:"export ANTHROPIC_API_KEY=sk-ant-..."},
+       {t:"Günlük workflow prototipi: trend tara → backlog güncelle",c:"python run_core_crew.py"},
+     ]},
+     {name:"OpenClaw ↔ CrewAI Köprüsü",dot:"#b48eff",tasks:[
+       {t:"FastAPI bridge server yaz",c:"uvicorn bridge:app --port 8100"},
+       {t:"Bridge SKILL.md: Telegram → CrewAI Crew tetikle",c:"SKILL.md + Python script"},
+       {t:"Test: /crew-run daily-research komutu",c:"Telegram'dan end-to-end test"},
+     ]}
+   ]},
+  {id:"hw",icon:"⚡",title:"DONANIM — Dual Spark Kurulum",sub:"Fiziksel setup ve model deployment",color:"#4d8df5",weeks:"Hafta 3-5",
+   tracks:[
+     {name:"Fiziksel Kurulum",dot:"#4d8df5",tasks:[
+       {t:"Spark #1: Unbox → DGX Dashboard erişimi",c:"https://spark1-ip:8888 (web dashboard)"},
+       {t:"Spark #2: Aynı işlem",c:"https://spark2-ip:8888"},
+       {t:"200GbE DAC kablo ile iki Spark'ı birbirine bağla",c:"QSFP56 DAC 0.5m (NVIDIA onaylı, ~$30)"},
+       {t:"Tailscale kur → uzaktan erişim",c:"curl -fsSL https://tailscale.com/install.sh | sh"},
+       {t:"Statik IP + hostname ata",c:"spark1: 192.168.x.10 / spark2: 192.168.x.11"},
+       {t:"Headless mod: Monitörsüz SSH erişimi",c:"Tailscale SSH + DGX Dashboard"},
+     ]},
+     {name:"Spark #1 → Agent Runtime",dot:"#00e68a",tasks:[
+       {t:"Ollama kur",c:"curl -fsSL https://ollama.com/install.sh | sh"},
+       {t:"Qwen3-30B-A3B (FP8) — ana agent modeli",c:"ollama pull qwen3:30b-a3b"},
+       {t:"Llama 3.1 8B (NVFP4) — hızlı router",c:"ollama pull llama3.1:8b"},
+       {t:"DeepSeek-R1 14B (FP8) — reasoning",c:"ollama pull deepseek-r1:14b"},
+       {t:"Model'leri bellekte tut",c:"OLLAMA_KEEP_ALIVE=24h systemctl edit ollama"},
+       {t:"OpenClaw'u Spark #1'e taşı",c:"openclaw onboard → Ollama provider → daemon"},
+       {t:"Telegram + Slack bağlantısını yeniden kur",c:"Mevcut config'i migrate et"},
+     ]},
+     {name:"Spark #2 → Crew Engine + Dev Model",dot:"#b48eff",tasks:[
+       {t:"Python 3.12 + CrewAI ortamını kur",c:"pip install crewai crewai-tools"},
+       {t:"Ollama kur + Qwen3-Coder-30B indir",c:"ollama pull qwen3-coder:30b"},
+       {t:"FastAPI bridge'i Spark #2'ye deploy et",c:"uvicorn bridge:app --host 0.0.0.0 --port 8100"},
+       {t:"Spark #1 ↔ Spark #2 ağ bağlantısını test et",c:"curl http://spark2:8100/health"},
+       {t:"Qwen3-235B-A22B — dual mode test",c:"İki Spark birlikte → 256 GB ile büyük model"},
+     ]}
+   ]},
+  {id:"gov",icon:"🛡️",title:"GOVERNANCE — Kontrol Katmanı",sub:"Deterministik kurallar, bütçe, güvenlik",color:"#ff5c5c",weeks:"Hafta 5-8",
+   tracks:[
+     {name:"Budget Controller",dot:"#ffb547",tasks:[
+       {t:"Token tracking: SQLite tablo",c:"agent_id | model | tokens_in | tokens_out | timestamp"},
+       {t:"Günlük limit: agent başına max 500K token",c:"Aşılırsa → block + Telegram notify"},
+       {t:"Haftalık maliyet raporu → Telegram",c:"cron: her Pazartesi 09:00"},
+       {t:"Cloud API bütçe cap: aylık $150",c:"Anthropic usage API ile takip"},
+     ]},
+     {name:"Policy Engine",dot:"#ff5c5c",tasks:[
+       {t:"Tier tanımları: policies.json",c:"tier1: auto / tier2: approval / tier3: dual-approval"},
+       {t:"Tier 1 — Geri alınabilir: Otomatik izin",c:"web search, dosya okuma, rapor üretme"},
+       {t:"Tier 2 — Yüksek etkili: Human approval (Telegram)",c:"email gönderme, API çağrısı, deployment"},
+       {t:"Tier 3 — Geri alınamaz: Çift onay",c:"veri silme, production değişiklik, finansal"},
+       {t:"Loop detection: 10 iterasyon = otomatik dur",c:"Python decorator + counter"},
+       {t:"Circuit breaker: 5 dakika timeout",c:"asyncio.wait_for + kill signal"},
+     ]},
+     {name:"Audit & Monitoring",dot:"#4d8df5",tasks:[
+       {t:"Append-only log: Her tool call kayıt altında",c:"who / what / when / input / output / result"},
+       {t:"Anomali alert → Telegram",c:"Bütçe aşımı, loop, yüksek hata oranı"},
+       {t:"Haftalık dashboard: Agent performansı",c:"Grafana veya statik HTML rapor"},
+     ]}
+   ]},
+  {id:"pods",icon:"🧩",title:"POD SİSTEMİ — Proje Ekipleri",sub:"Her proje için izole AI ekip",color:"#b48eff",weeks:"Hafta 8-12",
+   tracks:[
+     {name:"Pod Altyapısı",dot:"#b48eff",tasks:[
+       {t:"Pod factory fonksiyonu: create_pod(name, agents, budget)",c:"Yeni proje = otomatik CrewAI Crew oluştur"},
+       {t:"Pod başına izole memory store (SQLite)",c:"project_name_memory.db"},
+       {t:"Pod başına ayrı token bütçesi",c:"Budget controller'da namespace bazlı limit"},
+       {t:"Core ekip ↔ Pod iletişim: Redis queue",c:"core.publish(task) → pod.consume(task)"},
+       {t:"Pod lifecycle: create → run → pause → archive",c:"Proje bitince pod dondurulur"},
+     ]},
+     {name:"Örnek Pod: Web Projesi",dot:"#00e68a",tasks:[
+       {t:"UX Research Agent: Kullanıcı analizi, trend",c:"CrewAI Agent + web search tools"},
+       {t:"Frontend Dev Agent: Kod üretimi, component",c:"Qwen3-Coder-30B kullanır"},
+       {t:"Backend Dev Agent: API tasarımı, DB şema",c:"CrewAI Agent + code tools"},
+       {t:"QA Agent: Test senaryosu üretimi",c:"CrewAI Agent + testing tools"},
+     ]},
+     {name:"Örnek Pod: Veri Analizi Projesi",dot:"#4d8df5",tasks:[
+       {t:"Data Collection Agent: Kaynak tarama, scraping",c:"CrewAI Agent + scraping tools"},
+       {t:"Analysis Agent: İstatistik, trend, anomali",c:"DeepSeek-R1 14B (derin reasoning)"},
+       {t:"Visualization Agent: Grafik, rapor üretimi",c:"CrewAI Agent + charting tools"},
+       {t:"Report Agent: Özet ve sunum hazırlama",c:"Qwen3-30B-A3B (genel reasoning)"},
+     ]}
+   ]}
+];
+
+const modelData=[
+  {tier:"🏆 Birincil Agent Modeli",tc:"#00e68a",td:"Core ekip agent'ları için ana model",items:[
+    {name:"Qwen3-30B-A3B (MoE)",q:"FP8 / Q4_K",ram:"~18-20 GB",spd:"~25-35 tok/s",ctx:"128K",why:"MoE (Mixture of Experts) yapısı: 30B parametre kalitesini sadece 3B aktif parametre maliyetiyle sunar. Tool-calling, reasoning ve Türkçe desteği mükemmel. DGX Spark'ta en iyi performans/kalite dengesi.",v:"⭐ EN ÇOK ÖNERİLEN",vc:"#00e68a"},
+    {name:"Qwen3-Coder-30B",q:"Q4_K_M",ram:"~20 GB",spd:"~20-25 tok/s",ctx:"128K",why:"Kod üretimi, review, refactoring konusunda optimize edilmiş. Dev Agent'ın birincil modeli olarak kullanılır.",v:"Dev Agent",vc:"#4d8df5"},
+  ]},
+  {tier:"⚡ Hızlı / Hafif Görevler",tc:"#4d8df5",td:"Routing, sınıflandırma, basit görevler",items:[
+    {name:"Llama 3.1 8B",q:"NVFP4",ram:"~5-6 GB",spd:"~50-90 tok/s",ctx:"128K",why:"DGX Spark'ın Blackwell NVFP4 desteğiyle en optimize çalışan model. Task routing, intent detection ve basit sınıflandırma için mükemmel. Birden fazla instance paralel çalışabilir.",v:"Router / Classifier",vc:"#b48eff"},
+    {name:"Gemma 3 4B",q:"FP8",ram:"~4 GB",spd:"~60-100 tok/s",ctx:"128K",why:"Ultra hafif ama kaliteli. Heartbeat görevleri, basit sağlık kontrolleri ve hızlı yanıt gereken durumlar için.",v:"Heartbeat",vc:"#b48eff"},
+  ]},
+  {tier:"🧠 Ağır Reasoning",tc:"#ff5c5c",td:"Derin analiz, strateji, uzun döküman",items:[
+    {name:"Qwen3-235B-A22B (Dual Spark)",q:"Q4_K",ram:"~120+ GB",spd:"~10-12 tok/s",ctx:"128K",why:"İki DGX Spark birleştirildiğinde (256 GB) çalışır. Haftalık strateji raporları, derin pazar analizi gibi batch görevler için. Gece saatlerinde otomatik çalıştırılır.",v:"Dual Spark Gerektirir",vc:"#ff5c5c"},
+    {name:"DeepSeek-R1 14B",q:"FP8",ram:"~16 GB",spd:"~40-50 tok/s",ctx:"64K",why:"Chain-of-thought reasoning çok güçlü. Regülasyon analizi, risk değerlendirmesi gibi adım adım düşünme gerektiren görevler için ideal.",v:"Risk / Analiz",vc:"#ffb547"},
+  ]},
+  {tier:"🔒 Cloud Fallback",tc:"#5a5a6e",td:"Lokal model yetersiz kaldığında",items:[
+    {name:"Claude Sonnet 4 (API)",q:"Cloud",ram:"N/A",spd:"~80+ tok/s",ctx:"200K",why:"Lokal modelin başarısız olduğu, 200K+ context gerektiren veya çok kritik kararlar için fallback. OpenClaw otomatik geçiş yapar.",v:"Fallback",vc:"#5a5a6e"},
+  ]}
+];
+
+const routeData=[
+  {t:"Task Routing / Intent Detection",m:"Llama 3.1 8B (FP4)",w:"Ultra hızlı sınıflandırma",s:"50-90 tok/s",c:"Ücretsiz"},
+  {t:"Agent Reasoning / Tool Calling",m:"Qwen3-30B-A3B (FP8)",w:"Ana agent beyni, MoE verimli",s:"25-35 tok/s",c:"Ücretsiz"},
+  {t:"Kod Üretimi / Review",m:"Qwen3-Coder-30B (Q4)",w:"Coding-optimized",s:"20-25 tok/s",c:"Ücretsiz"},
+  {t:"Derin Analiz / Risk",m:"DeepSeek-R1 14B (FP8)",w:"Chain-of-thought reasoning",s:"40-50 tok/s",c:"Ücretsiz"},
+  {t:"Haftalık Strateji Raporu",m:"Qwen3-235B (Dual)",w:"En yüksek kalite, batch",s:"10-12 tok/s",c:"Ücretsiz"},
+  {t:"200K+ Context / Kritik Karar",m:"Claude Sonnet 4 (API)",w:"Lokal yetersiz kaldığında",s:"80+ tok/s",c:"$50-150/ay"},
+];
+
+const ramItems=[
+  {l:"Qwen3-30B-A3B",gb:20,c:"#00e68a"},{l:"Llama 3.1 8B",gb:6,c:"#4d8df5"},
+  {l:"DeepSeek-R1 14B",gb:16,c:"#ffb547"},{l:"Qwen3-Coder-30B",gb:20,c:"#b48eff"},
+  {l:"KV Cache + Context",gb:30,c:"#eab308"},{l:"OS + Runtime",gb:16,c:"#5a5a6e"},
+  {l:"Headroom",gb:20,c:"#2a2a38"},
+];
+
+// ═══════════════════════ STATE ═══════════════════════
+let S={tab:"plan",phase:"now",checked:new Set(),expModel:null,archOpen:false};
+const $=id=>document.getElementById(id);
+
+// ═══════════════════════ RENDER ═══════════════════════
+function R(){
+  const ph=phases.find(p=>p.id===S.phase);
+  let tot=0,don=0;
+  ph.tracks.forEach(tr=>{tot+=tr.tasks.length;tr.tasks.forEach((_,i)=>{if(S.checked.has(`${ph.id}-${tr.name}-${i}`))don++})});
+
+  $('app').innerHTML=`
+    <div class="hero">
+      <div class="chip"><span class="dot"></span>Dual DGX Spark Infrastructure</div>
+      <h1>AI Organization Engine</h1>
+      <p>OpenClaw + CrewAI + Deterministik Governance — 256 GB lokal AI altyapısı kurulum ve uygulama planı</p>
+    </div>
+
+    <div class="specs">
+      ${[
+        {i:"🧠",v:"256 GB",l:"Toplam RAM"},
+        {i:"⚡",v:"2 PFLOP",l:"FP4 Compute"},
+        {i:"🔗",v:"200 GbE",l:"Spark Bağlantı"},
+        {i:"💡",v:"~200W",l:"7/24 Güç"},
+        {i:"💰",v:"~$8K",l:"Toplam Yatırım"}
+      ].map(s=>`<div class="spec-card"><div class="icon">${s.i}</div><div class="val">${s.v}</div><div class="lbl">${s.l}</div></div>`).join('')}
+    </div>
+
+    <div class="nav">
+      ${[{id:"plan",l:"📋 Uygulama Planı"},{id:"models",l:"🤖 Model Önerileri"},{id:"routing",l:"🔀 Model Routing"}].map(t=>
+        `<button class="nav-btn ${S.tab===t.id?'active':''}" onclick="setTab('${t.id}')">${t.l}</button>`
+      ).join('')}
+    </div>
+
+    <div class="section ${S.tab==='plan'?'visible':''}" id="sec-plan">
+      <div class="arch-toggle" onclick="toggleArch()">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="font-size:22px">🏗️</span>
+          <div><div style="font-weight:700;font-size:14px;font-family:'Space Grotesk',sans-serif">Dual Spark Mimari Diyagramı</div><div style="font-size:11px;color:var(--t3)">Hangi Spark neyi çalıştırıyor? → Tıkla</div></div>
+        </div>
+        <span style="color:var(--t3);font-size:18px">${S.archOpen?'−':'+'}</span>
+      </div>
+      <div class="arch-panel ${S.archOpen?'open':''}">
+        <div class="arch-grid">
+          <div class="spark-box" style="border-color:rgba(0,230,138,.25)">
+            <h3><span style="color:#00e68a">●</span> Spark #1 — Agent Runtime<span class="badge-ram">128 GB</span></h3>
+            ${["OpenClaw Gateway (7/24 always-on)","Qwen3-30B-A3B → Ana agent reasoning","Llama 3.1 8B → Hızlı task routing","DeepSeek-R1 14B → Derin analiz","Telegram / Slack / WhatsApp bağlantısı"].map(r=>`<div class="spark-item"><span class="arr" style="color:#00e68a">→</span>${r}</div>`).join('')}
+          </div>
+          <div class="spark-box" style="border-color:rgba(77,141,245,.25)">
+            <h3><span style="color:#4d8df5">●</span> Spark #2 — Crew Engine<span class="badge-ram">128 GB</span></h3>
+            ${["CrewAI Python Runtime","Qwen3-Coder-30B → Kod üretimi","FastAPI Bridge → Spark #1 ile iletişim","Budget Controller + Policy Engine","SQLite/Redis → State & audit log"].map(r=>`<div class="spark-item"><span class="arr" style="color:#4d8df5">→</span>${r}</div>`).join('')}
+          </div>
+        </div>
+        <div class="dual-box">
+          <h3>⚡ Gece Modu — Dual 256 GB</h3>
+          ${["Qwen3-235B-A22B → Haftalık strateji raporu, derin analiz","ConnectX-7 200GbE ile iki Spark birleşir","Batch processing: Gündüz ayrı çalışır, gece birlikte"].map(r=>`<div class="spark-item"><span class="arr" style="color:#ffb547">→</span>${r}</div>`).join('')}
+          <div class="note">İki Spark'ın 256 GB birleşik RAM'i, normalde data center gerektiren 235B parametreli modelleri masaüstünde çalıştırır.</div>
+        </div>
+      </div>
+
+      <div class="phase-tabs">
+        ${phases.map(p=>`<button class="phase-tab ${S.phase===p.id?'active':''}" style="${S.phase===p.id?`background:${p.color};color:#fff;border-color:${p.color}`:''}" onclick="setPhase('${p.id}')">${p.icon} ${p.title.split('—')[0].trim()}</button>`).join('')}
+      </div>
+
+      <div class="ph-head">
+        <div><div class="ph-title">${ph.icon} ${ph.title}</div><div class="ph-sub">${ph.sub} • ${ph.weeks}</div></div>
+        <div class="ph-counter"><div class="ph-num" style="color:${ph.color}">${don}/${tot}</div><div class="ph-lbl">tamamlandı</div></div>
+      </div>
+      <div class="progress"><div class="progress-bar" style="width:${tot>0?(don/tot)*100:0}%;background:${ph.color}"></div></div>
+
+      ${ph.tracks.map(tr=>`
+        <div class="track">
+          <div class="track-head"><span class="track-dot" style="background:${tr.dot}"></span>${tr.name}</div>
+          ${tr.tasks.map((t,i)=>{const k=`${ph.id}-${tr.name}-${i}`;const d=S.checked.has(k);return`
+            <div class="task-row ${d?'done':''}" onclick="tog('${k}')">
+              <div class="cb">${d?'✓':''}</div>
+              <div><div class="task-text">${t.t}</div><div class="task-cmd">${t.c}</div></div>
+            </div>`;}).join('')}
+        </div>
+      `).join('')}
+
+      ${S.phase==='now'?`
+        <div class="qs">
+          <h3>⚡ Bugün Başlamak İçin — İlk 3 Komut</h3>
+          <div class="qs-cmd"><code># 1. OpenClaw kur (Node.js 22+ gerekli)\nnpm install -g openclaw && openclaw onboard</code></div>
+          <div class="qs-cmd"><code># 2. CrewAI ortamı hazırla\npython -m venv ai-org && source ai-org/bin/activate\npip install crewai crewai-tools</code></div>
+          <div class="qs-cmd"><code># 3. İlk crew'u oluştur\ncrewai create crew core-team</code></div>
+          <div class="tip">💡 DGX Spark gelene kadar Claude API ile çalıştır. Spark'lar geldiğinde tek değişiklik: model provider'ı Ollama'ya geçirmek.</div>
+        </div>
+      `:''}
+    </div>
+
+    <div class="section ${S.tab==='models'?'visible':''}" id="sec-models">
+      ${modelData.map(tier=>`
+        <div class="tier">
+          <div class="tier-head"><h2 style="color:${tier.tc}">${tier.tier}</h2><span>${tier.td}</span></div>
+          ${tier.items.map((m,i)=>{const k=`${tier.tier}-${i}`;const ex=S.expModel===k;return`
+            <div class="m-card ${ex?'expanded':''}" onclick="togM('${k}')">
+              <div class="m-top">
+                <span class="m-name">${m.name}</span>
+                <span class="m-badge" style="color:${m.vc};border:1px solid ${m.vc}40;background:${m.vc}10">${m.v}</span>
+              </div>
+              <div class="m-grid">
+                <div><span class="l">Quant: </span><span class="v">${m.q}</span></div>
+                <div><span class="l">RAM: </span><span class="v">${m.ram}</span></div>
+                <div><span class="l">Hız: </span><span class="v">${m.spd}</span></div>
+                <div><span class="l">Context: </span><span class="v">${m.ctx}</span></div>
+              </div>
+              <div class="m-detail">${m.why}</div>
+            </div>`;}).join('')}
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="section ${S.tab==='routing'?'visible':''}" id="sec-routing">
+      <div class="r-card">
+        <h3>Model Routing Stratejisi</h3>
+        <p style="font-size:13px;color:var(--t2);margin-bottom:14px">Her görev türü için farklı model kullanmak hem maliyet hem performans açısından kritiktir. OpenClaw'ın model tiering özelliği bunu otomatik yönetir.</p>
+        ${routeData.map(r=>`
+          <div class="r-row">
+            <div class="r-left"><div class="name">${r.t}</div><div class="why">${r.w}</div></div>
+            <div class="r-right"><div class="model">${r.m}</div><div class="meta">${r.s} • ${r.c}</div></div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="r-card">
+        <h3>128 GB RAM Dağılımı (Tek Spark)</h3>
+        ${ramItems.map(r=>`
+          <div class="ram-row">
+            <div class="ram-lbl">${r.l}</div>
+            <div class="ram-bg"><div class="ram-fill" style="width:${Math.max(r.gb/128*100,5)}%;background:${r.c}"><span>${r.gb} GB</span></div></div>
+          </div>
+        `).join('')}
+        <p style="font-size:11px;color:var(--t3);margin-top:12px">⚠️ Tüm modeller aynı anda bellekte tutulabilir. Ollama kullanılmayan modelleri KEEP_ALIVE süresine göre unload eder.</p>
+      </div>
+
+      <div class="cost-card">
+        <h3>💰 Toplam Maliyet Analizi</h3>
+        <div class="cost-grid">
+          <div class="cost-item"><div class="ci-lbl">Donanım</div><div class="ci-val">~$8K</div><div class="ci-sub">2× DGX Spark + DAC</div></div>
+          <div class="cost-item"><div class="ci-lbl">Elektrik/Ay</div><div class="ci-val">~$30</div><div class="ci-sub">2× ~100W, 7/24</div></div>
+          <div class="cost-item"><div class="ci-lbl">Cloud API/Ay</div><div class="ci-val">$50-150</div><div class="ci-sub">Claude fallback</div></div>
+          <div class="cost-item"><div class="ci-lbl">Lokal Model</div><div class="ci-val">$0</div><div class="ci-sub">Tümü açık kaynak</div></div>
+        </div>
+      </div>
+
+      <div class="cfg">
+        <h4>OpenClaw Yapılandırma — config.json</h4>
+        <pre>{
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "ollama": {
+        "baseUrl": "http://127.0.0.1:11434/v1",
+        "api": "openai-responses",
+        "models": [
+          { "id": "qwen3:30b-a3b", "name": "Qwen3 Agent",
+            "contextWindow": 131072, "maxTokens": 8192,
+            "cost": { "input": 0, "output": 0 } },
+          { "id": "llama3.1:8b", "name": "Fast Router",
+            "contextWindow": 131072,
+            "cost": { "input": 0, "output": 0 } }
+        ]
+      },
+      "anthropic": {
+        "apiKey": "sk-ant-...",
+        "models": [
+          { "id": "claude-sonnet-4-5-20250929" }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "ollama/qwen3:30b-a3b",
+        "fallbacks": ["anthropic/claude-sonnet-4"]
+      }
+    }
+  }
+}</pre>
+      </div>
+    </div>
+  `;
+}
+
+// ═══════════════════════ ACTIONS ═══════════════════════
+function setTab(t){S.tab=t;R()}
+function setPhase(p){S.phase=p;R()}
+function tog(k){S.checked.has(k)?S.checked.delete(k):S.checked.add(k);R()}
+function togM(k){S.expModel=S.expModel===k?null:k;R()}
+function toggleArch(){S.archOpen=!S.archOpen;R()}
+
+R();
+</script>
+</body>
+</html>
