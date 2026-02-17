@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dual DGX Spark — Coding Agent Mühendislik Planı</title>
+<title>Dual DGX Spark — Coding Agent Blueprint v2.2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -12,36 +12,35 @@
   --bg:#06060a;--s1:#0e0e14;--s2:#14141c;--card:#161620;
   --brd:#1e1e2a;--brd2:#2a2a3a;
   --t0:#f2f2f8;--t1:#c4c4d4;--t2:#8888a0;--t3:#555568;
-  --grn:#00e68a;--blu:#4d94ff;--red:#ff5c6e;--amb:#ffb84d;--pur:#b08cff;--cyn:#00d4ff;--pink:#ff6eb4;
-  --grn-g:rgba(0,230,138,.06);--blu-g:rgba(77,148,255,.06);--red-g:rgba(255,92,110,.06);--amb-g:rgba(255,184,77,.06);--pur-g:rgba(176,140,255,.06);
+  --grn:#00e68a;--blu:#4d94ff;--red:#ff5c6e;--amb:#ffb84d;--pur:#b08cff;--cyn:#00d4ff;
+  --grn-g:rgba(0,230,138,.06);--red-g:rgba(255,92,110,.06);--amb-g:rgba(255,184,77,.06);
 }
 body{background:var(--bg);color:var(--t0);font-family:'Outfit',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 code,.mono{font-family:'JetBrains Mono',monospace;font-size:12px}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--brd2);border-radius:4px}
-
 .wrap{max-width:960px;margin:0 auto;padding:28px 20px 80px}
 
 /* ═══ HERO ═══ */
-.hero{text-align:center;padding:40px 0 32px;position:relative}
+.hero{text-align:center;padding:40px 0 28px;position:relative}
 .hero::before{content:'';position:absolute;top:-20px;left:50%;transform:translateX(-50%);width:600px;height:350px;background:radial-gradient(ellipse,rgba(0,230,138,.06) 0%,rgba(77,148,255,.04) 40%,transparent 70%);pointer-events:none}
 .chip{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,rgba(0,230,138,.1),rgba(77,148,255,.08));border:1px solid rgba(0,230,138,.2);border-radius:999px;padding:5px 16px;font-size:11px;color:var(--grn);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:14px}
 .chip .pulse{width:7px;height:7px;border-radius:50%;background:var(--grn);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
-.hero h1{font-size:clamp(26px,5vw,38px);font-weight:800;letter-spacing:-.5px;background:linear-gradient(135deg,#fff 40%,var(--grn) 90%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
-.hero p{color:var(--t2);font-size:14px;max-width:640px;margin:0 auto;line-height:1.6}
-.hero-tags{display:flex;justify-content:center;gap:16px;margin-top:16px;flex-wrap:wrap}
-.hero-tag{font-size:12px;color:var(--t3);display:flex;align-items:center;gap:5px}
+.hero h1{font-size:clamp(24px,5vw,36px);font-weight:800;letter-spacing:-.5px;background:linear-gradient(135deg,#fff 40%,var(--grn) 90%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.hero p{color:var(--t2);font-size:14px;max-width:640px;margin:0 auto}
+.hero-tags{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}
+.hero-tag{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:4px}
 
 /* ═══ SPECS ═══ */
-.specs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:28px}
-.spec{background:var(--card);border:1px solid var(--brd);border-radius:12px;padding:14px 10px;text-align:center;transition:all .2s}
+.specs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:24px}
+.spec{background:var(--card);border:1px solid var(--brd);border-radius:12px;padding:12px 8px;text-align:center;transition:all .2s}
 .spec:hover{border-color:var(--brd2);transform:translateY(-2px)}
-.spec .emoji{font-size:20px;margin-bottom:4px}
-.spec .val{font-size:17px;font-weight:700;font-family:'JetBrains Mono',monospace}
-.spec .lbl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.spec .emoji{font-size:18px;margin-bottom:3px}
+.spec .val{font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.spec .lbl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-top:1px}
 
 /* ═══ NAV ═══ */
-.nav{display:flex;gap:3px;background:var(--s1);border:1px solid var(--brd);border-radius:12px;padding:4px;margin-bottom:24px;position:sticky;top:8px;z-index:100;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.nav{display:flex;gap:3px;background:var(--s1);border:1px solid var(--brd);border-radius:12px;padding:4px;margin-bottom:24px;position:sticky;top:8px;z-index:100;backdrop-filter:blur(16px)}
 .nav button{flex:1;padding:10px 4px;border:none;border-radius:8px;background:transparent;color:var(--t2);font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
 .nav button.on{background:var(--card);color:var(--t0);box-shadow:0 2px 10px rgba(0,0,0,.4)}
 .nav button:hover:not(.on){color:var(--t1)}
@@ -51,586 +50,565 @@ code,.mono{font-family:'JetBrains Mono',monospace;font-size:12px}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
 /* ═══ PHASE HEADER ═══ */
-.ph{margin-bottom:28px}
-.ph-hdr{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--brd)}
+.ph-hdr{display:flex;align-items:center;gap:14px;margin-bottom:6px}
 .ph-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.ph-info h2{font-size:18px;font-weight:700;letter-spacing:-.2px}
-.ph-info p{font-size:13px;color:var(--t2);margin-top:2px;line-height:1.5}
+.ph-info h2{font-size:17px;font-weight:700;letter-spacing:-.2px}
+.ph-info p{font-size:12px;color:var(--t2);margin-top:2px;line-height:1.5}
+
+/* ═══ PROGRESS ═══ */
+.prog-wrap{display:flex;align-items:center;gap:12px;margin:10px 0 16px}
+.prog-bar{flex:1;height:6px;background:var(--s1);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;border-radius:3px;transition:width .35s ease}
+.prog-text{font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;min-width:55px;text-align:right}
 
 /* ═══ SPARK LAYOUT ═══ */
-.spark-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.spark-card{background:var(--card);border-radius:12px;padding:16px;border:1px solid}
-.spark-card h4{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.spark-card .badge{font-size:10px;color:var(--t3);margin-left:auto;background:var(--s1);padding:2px 8px;border-radius:6px}
-.si{font-size:13px;color:var(--t1);padding:3px 0;display:flex;align-items:center;gap:7px}
-.si .arr{font-size:11px;font-weight:700;width:14px;text-align:center;flex-shrink:0}
+.spark-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.spark-card{background:var(--card);border-radius:12px;padding:14px;border:1px solid}
+.spark-card h4{font-size:12px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.spark-card .badge{font-size:9px;color:var(--t3);margin-left:auto;background:var(--s1);padding:2px 7px;border-radius:5px}
+.si{font-size:12px;color:var(--t1);padding:2px 0;display:flex;align-items:center;gap:6px}
+.si .arr{font-size:10px;font-weight:700;width:14px;text-align:center;flex-shrink:0}
 
-/* ═══ BLOCK ═══ */
-.blk{background:var(--card);border:1px solid var(--brd);border-radius:12px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
-.blk:hover{border-color:var(--brd2)}
-.blk-h{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;font-size:13px;font-weight:600;transition:background .15s}
-.blk-h:hover{background:rgba(255,255,255,.015)}
-.blk-h .left{display:flex;align-items:center;gap:8px}
-.blk-h .tag{font-size:9px;padding:2px 8px;border-radius:5px;font-weight:600;letter-spacing:.4px;text-transform:uppercase}
-.blk-h .chevron{color:var(--t3);font-size:14px;transition:transform .2s}
-.blk-b{padding:14px 16px;border-top:1px solid var(--brd)}
-.blk-b.hide{display:none}
+/* ═══ TRACK (checklist group) ═══ */
+.track{background:var(--card);border:1px solid var(--brd);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.track-head{padding:10px 16px;font-size:13px;font-weight:700;border-bottom:1px solid var(--brd);display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;transition:background .15s}
+.track-head:hover{background:rgba(255,255,255,.015)}
+.track-head .left{display:flex;align-items:center;gap:8px;flex:1}
+.track-head .tag{font-size:9px;padding:2px 7px;border-radius:5px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.track-head .counter{font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace}
+.track-head .chevron{color:var(--t3);font-size:14px;margin-left:8px}
+.track-body{transition:max-height .3s ease}
+.track-body.hide{display:none}
 
-/* ═══ ITEMS ═══ */
-.it{display:flex;align-items:flex-start;gap:10px;padding:4px 0;font-size:13px;color:var(--t1);line-height:1.55}
-.it .bullet{flex-shrink:0;margin-top:3px;font-size:11px}
-.it code{background:rgba(0,0,0,.35);padding:1px 6px;border-radius:3px;font-size:11px;color:var(--grn)}
-
-/* ═══ CMD ═══ */
-.cmd{background:var(--bg);border:1px solid var(--brd);border-radius:8px;padding:12px 14px;margin:10px 0;overflow-x:auto}
-.cmd code{color:var(--grn);font-size:11px;line-height:1.7;white-space:pre}
-.cmd .c{color:var(--t3)}
-
-/* ═══ TABLE ═══ */
-.tbl{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0}
-.tbl th{text-align:left;padding:8px 10px;background:var(--bg);color:var(--t2);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--brd)}
-.tbl td{padding:8px 10px;border-bottom:1px solid rgba(30,30,42,.6);color:var(--t1);font-size:12px}
-.tbl tr:hover td{background:rgba(255,255,255,.012)}
+/* ═══ TASK ROW (checkbox) ═══ */
+.task{display:flex;align-items:flex-start;gap:12px;padding:9px 16px;cursor:pointer;transition:background .12s;border-bottom:1px solid rgba(30,30,42,.5)}
+.task:last-child{border-bottom:none}
+.task:hover{background:rgba(30,30,42,.35)}
+.task.done{opacity:.55}
+.cb{width:18px;height:18px;border:2px solid var(--brd2);border-radius:5px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:10px;color:transparent;font-weight:700}
+.task.done .cb{border-color:var(--grn);background:rgba(0,230,138,.12);color:var(--grn)}
+.task-body{flex:1;min-width:0}
+.task-text{font-size:13px;line-height:1.45;transition:all .2s}
+.task.done .task-text{text-decoration:line-through;color:var(--t3)}
+.task-cmd{font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace;margin-top:3px;background:rgba(0,0,0,.35);padding:3px 8px;border-radius:5px;display:inline-block;word-break:break-all;transition:opacity .2s}
+.task.done .task-cmd{opacity:.4}
 
 /* ═══ GOV GRID ═══ */
-.gov{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
-.gov-cell{background:var(--bg);border:1px solid var(--brd);border-radius:8px;padding:10px 12px}
-.gov-cell .gl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
-.gov-cell .gv{font-size:12px;font-weight:600;color:var(--t1);font-family:'JetBrains Mono',monospace}
+.gov{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0}
+.gov-cell{background:var(--s1);border:1px solid var(--brd);border-radius:8px;padding:8px 10px}
+.gov-cell .gl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.gov-cell .gv{font-size:11px;font-weight:600;color:var(--t1);font-family:'JetBrains Mono',monospace}
 
 /* ═══ SUCCESS ═══ */
-.success{background:var(--grn-g);border:1px solid rgba(0,230,138,.15);border-radius:12px;padding:16px;margin-top:14px}
-.success h4{font-size:12px;color:var(--grn);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
-.success .it .bullet{color:var(--grn)}
+.success{background:var(--grn-g);border:1px solid rgba(0,230,138,.15);border-radius:12px;padding:14px 16px;margin-top:12px}
+.success h4{font-size:11px;color:var(--grn);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.success .si{color:var(--t1);font-size:12px}
+.success .si .arr{color:var(--grn)}
 
-/* ═══ WARN / DANGER ═══ */
-.warn{background:var(--amb-g);border:1px solid rgba(255,184,77,.15);border-radius:10px;padding:14px 16px;margin:10px 0}
-.warn h4{font-size:11px;color:var(--amb);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
-.warn p,.warn .it{font-size:13px;color:var(--t1)}
-.danger{background:var(--red-g);border:1px solid rgba(255,92,110,.15);border-radius:10px;padding:14px 16px;margin:10px 0}
-.danger h4{font-size:11px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
+/* ═══ WARN ═══ */
+.warn{background:var(--amb-g);border:1px solid rgba(255,184,77,.15);border-radius:10px;padding:12px 14px;margin:10px 0}
+.warn h4{font-size:10px;color:var(--amb);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+.warn p{font-size:12px;color:var(--t1);line-height:1.5}
+.danger{background:var(--red-g);border:1px solid rgba(255,92,110,.15);border-radius:10px;padding:12px 14px;margin:10px 0}
+.danger h4{font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+.danger .si{font-size:12px}
+
+/* ═══ TABLE ═══ */
+.tbl{width:100%;border-collapse:collapse;font-size:11px;margin:10px 0}
+.tbl th{text-align:left;padding:7px 8px;background:var(--s1);color:var(--t2);font-weight:600;font-size:9px;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--brd)}
+.tbl td{padding:7px 8px;border-bottom:1px solid rgba(30,30,42,.5);color:var(--t1)}
 
 /* ═══ RAM BAR ═══ */
-.ram-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
-.ram-lbl{width:160px;font-size:12px;color:var(--t1);flex-shrink:0}
-.ram-bg{flex:1;height:20px;background:var(--bg);border-radius:5px;overflow:hidden;border:1px solid var(--brd)}
-.ram-fill{height:100%;border-radius:4px;display:flex;align-items:center;justify-content:flex-end;padding-right:7px;min-width:32px}
+.ram-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.ram-lbl{width:150px;font-size:11px;color:var(--t1);flex-shrink:0}
+.ram-bg{flex:1;height:18px;background:var(--s1);border-radius:4px;overflow:hidden;border:1px solid var(--brd)}
+.ram-fill{height:100%;border-radius:3px;display:flex;align-items:center;justify-content:flex-end;padding-right:6px;min-width:28px}
 .ram-fill span{font-size:9px;font-family:'JetBrains Mono',monospace;color:#fff;font-weight:600}
 
-/* ═══ RESPONSIVE ═══ */
-@media(max-width:768px){
-  .specs{grid-template-columns:repeat(3,1fr)}
-  .spark-grid{grid-template-columns:1fr}
-  .gov{grid-template-columns:1fr}
-  .nav button{font-size:11px;padding:8px 3px}
-}
+/* ═══ QUICKSTART ═══ */
+.qs{background:var(--grn-g);border:1px solid rgba(0,230,138,.15);border-radius:12px;padding:16px;margin-top:14px}
+.qs h3{color:var(--grn);font-weight:700;font-size:14px;margin-bottom:12px}
+.qs-cmd{background:var(--bg);border-radius:8px;padding:10px 12px;margin-bottom:6px}
+.qs-cmd code{font-size:11px;color:var(--grn);white-space:pre-wrap;line-height:1.7}
+.qs .tip{font-size:11px;color:var(--t3);margin-top:10px;line-height:1.5}
+
+@media(max-width:768px){.specs{grid-template-columns:repeat(3,1fr)}.spark-grid,.gov{grid-template-columns:1fr}.nav button{font-size:10px;padding:8px 3px}}
 @media(max-width:480px){.specs{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
 <div class="wrap" id="app"></div>
 <script>
-// ═════════════════════ DATA ═════════════════════
-
-const phases = [
-// ══════ FAZ 0 ══════
-{
-  id:0, emoji:"🔧", title:"Donanım & Runtime Doğrulama", color:"#00d4ff",
-  obj:"Her iki DGX Spark'ı bağımsız olarak doğrula. CUDA, driver, Docker ve vLLM tek-düğüm inference testlerini tamamla. Dağıtık mod yok.",
-  s1:["Driver & CUDA doğrulama","Docker GPU passthrough testi","vLLM NGC container smoke test"],
-  s2:["Aynı doğrulama bağımsız olarak tekrarlanır","Spark #1 ile birebir aynı kurulum"],
-  blocks:[
-    {name:"Driver & CUDA Doğrulama",emoji:"🔍",tag:"ALTYAPI",tc:"#00d4ff",items:[
-      {b:"🖥️",t:"DGX OS versiyonu: <code>cat /etc/os-release</code> → Ubuntu 24.04"},
-      {b:"⚙️",t:"CUDA toolkit: <code>nvcc --version</code> → CUDA 13.0+ gerekli"},
-      {b:"🎮",t:"GPU görünürlüğü: <code>nvidia-smi</code> → GB10 Blackwell, sm_121"},
-      {b:"⚠️",t:"<code>nvidia-smi</code> unified memory'de <code>Memory: N/A</code> gösterir — bu normal"},
-      {b:"🏗️",t:"Mimari: <code>uname -m</code> → <code>aarch64</code> (ARM64)"},
-      {b:"💾",t:"Kullanılabilir bellek: <code>free -h</code> → ~119 GB (GPU+CPU ortak havuz)"},
-    ]},
-    {name:"Docker & NVIDIA Container Toolkit",emoji:"🐳",tag:"ALTYAPI",tc:"#00d4ff",items:[
-      {b:"🐳",t:"Docker doğrula: <code>docker --version</code> → Docker 24+ gerekli"},
-      {b:"🔌",t:"NVIDIA toolkit: <code>nvidia-ctk --version</code>"},
-      {b:"✅",t:"GPU passthrough: <code>docker run --rm --gpus all nvcr.io/nvidia/cuda:13.1.0-base-ubuntu24.04 nvidia-smi</code>"},
-      {b:"📦",t:"NGC vLLM container çek: <code>docker pull nvcr.io/nvidia/vllm:26.01-py3</code>"},
-      {b:"🔑",t:"NGC auth gerekiyorsa: ngc.nvidia.com'a kayıt → <code>docker login nvcr.io</code>"},
-    ]},
-    {name:"vLLM Smoke Test (Tek Düğüm)",emoji:"🧪",tag:"DOĞRULAMA",tc:"#00e68a",items:[
-      {b:"🚀",t:"Minimal model ile NGC container içinde test:"},
-    ],cmd:`<span class="c"># vLLM container'ı GPU erişimiyle başlat</span>
-docker run --rm -it --gpus all \\
-  --shm-size=16g \\
-  -v ~/.cache/huggingface:/root/.cache/huggingface \\
-  -p 8000:8000 \\
-  nvcr.io/nvidia/vllm:26.01-py3 \\
-  vllm serve facebook/opt-125m \\
-    --enforce-eager \\
-    --host 0.0.0.0 --port 8000
-
-<span class="c"># Başka bir terminal'den inference testi</span>
-curl http://localhost:8000/v1/completions \\
-  -H "Content-Type: application/json" \\
-  -d '{"model":"facebook/opt-125m","prompt":"Merhaba","max_tokens":16}'`,
-    extra:[
-      {b:"✅",t:"Yanıtın geçerli JSON ile token döndüğünü doğrula"},
-      {b:"⚠️",t:"<code>--enforce-eager</code> DGX Spark'ta zorunlu — Triton sm_121 desteği henüz olgun değil"},
-      {b:"🔄",t:"Aynı testi Spark #2'de bağımsız olarak tekrarla"},
-    ]},
-    {name:"Ağ Bağlantısı Testi (Spark'lar Arası)",emoji:"🔗",tag:"AĞ",tc:"#4d94ff",items:[
-      {b:"🔌",t:"QSFP56 200GbE DAC kablo ile bağla (0.5m önerilir, ~$30)"},
-      {b:"🔍",t:"InfiniBand arayüzü: <code>ibdev2netdev</code> veya <code>ip link show</code>"},
-      {b:"📡",t:"Statik IP ata (doğrudan bağlantı arayüzüne)"},
-      {b:"📶",t:"Bağlantı testi: <code>ping -c 5 &lt;spark2-ip&gt;</code>"},
-      {b:"⚡",t:"Bant genişliği: <code>iperf3</code> → >25 GB/s beklenir"},
-      {b:"🚫",t:"Bu fazda tensor parallel veya Ray cluster kurma — sadece ağ doğrulama"},
-    ]},
-    {name:"Sağlık Raporu Kontrol Listesi",emoji:"📋",tag:"KONTROL",tc:"#ffb84d",items:[
-      {b:"☐",t:"Spark #1: nvidia-smi GB10 gösteriyor"},
-      {b:"☐",t:"Spark #1: CUDA 13.x doğrulandı"},
-      {b:"☐",t:"Spark #1: Docker GPU passthrough çalışıyor"},
-      {b:"☐",t:"Spark #1: vLLM opt-125m sunuyor ve token dönüyor"},
-      {b:"☐",t:"Spark #2: Yukarıdakilerin tamamı tekrarlandı ve doğrulandı"},
-      {b:"☐",t:"Ağ: iperf3 Spark'lar arası >20 GB/s gösteriyor"},
-      {b:"☐",t:"Her iki Spark SSH ile erişilebilir (Tailscale veya direkt)"},
-    ]},
-  ],
-  gov:{
-    "Eşzamanlı İstek":"Yok (smoke test)",
-    "Batch Boyutu":"Yok",
-    "Token Limiti":"Yok",
-    "Yeniden Deneme":"Yok",
-    "Kill Switch":"Manuel: docker stop / Ctrl+C",
-    "GPU Süre Takibi":"Yok",
-    "PII Maskeleme":"Yok",
-  },
-  success:[
-    "Her iki Spark bağımsız olarak vLLM inference sunuyor",
-    "Ağ bağlantısı >20 GB/s bant genişliğinde doğrulandı",
-    "Sağlık raporu tüm maddeleri işaretlendi",
-    "Dağıtık mod yapılandırılmadı veya denenmedi",
-  ]
+// ═════════════════ DATA ═════════════════
+const P=[
+// ═══ FAZ 0 ═══
+{id:0,emoji:"🔧",title:"Donanım & Runtime Doğrulama",color:"#00d4ff",
+ obj:"Her iki DGX Spark'ı bağımsız doğrula. CUDA, driver, Docker ve vLLM tek-düğüm inference testi. Dağıtık mod yok.",
+ s1:["Driver & CUDA doğrulama","Docker GPU passthrough","vLLM NGC smoke test"],
+ s2:["Aynı doğrulama bağımsız tekrar","Spark #1 ile birebir kurulum"],
+ tracks:[
+  {name:"🔍 Driver & CUDA Doğrulama",tag:"ALTYAPI",tc:"#00d4ff",tasks:[
+    {t:"DGX OS versiyonunu kontrol et",c:"cat /etc/os-release → Ubuntu 24.04"},
+    {t:"CUDA toolkit doğrula",c:"nvcc --version → CUDA 13.0+ gerekli"},
+    {t:"GPU görünürlüğünü kontrol et",c:"nvidia-smi → GB10 Blackwell, sm_121"},
+    {t:"UMA bellek notu: nvidia-smi Memory: N/A gösterir — bu normal",c:"free -h → ~119 GB kullanılabilir"},
+    {t:"ARM64 mimarisini doğrula",c:"uname -m → aarch64"},
+  ]},
+  {name:"🐳 Docker & NVIDIA Container Toolkit",tag:"ALTYAPI",tc:"#00d4ff",tasks:[
+    {t:"Docker versiyonunu doğrula",c:"docker --version → Docker 24+ gerekli"},
+    {t:"NVIDIA container toolkit kontrolü",c:"nvidia-ctk --version"},
+    {t:"GPU passthrough testi",c:"docker run --rm --gpus all nvcr.io/nvidia/cuda:13.1.0-base-ubuntu24.04 nvidia-smi"},
+    {t:"NGC vLLM container'ını çek",c:"docker pull nvcr.io/nvidia/vllm:26.01-py3"},
+    {t:"NGC auth gerekiyorsa kayıt ol ve giriş yap",c:"docker login nvcr.io → NGC API key"},
+  ]},
+  {name:"🧪 vLLM Smoke Test (Tek Düğüm)",tag:"DOĞRULAMA",tc:"#00e68a",tasks:[
+    {t:"Minimal model ile vLLM container'ı başlat",c:"docker run --rm -it --gpus all --shm-size=16g -v ~/.cache/huggingface:/root/.cache/huggingface -p 8000:8000 nvcr.io/nvidia/vllm:26.01-py3 vllm serve facebook/opt-125m --enforce-eager --host 0.0.0.0"},
+    {t:"Başka terminal'den inference testi yap",c:'curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d \'{"model":"facebook/opt-125m","prompt":"Merhaba","max_tokens":16}\''},
+    {t:"Yanıtın geçerli JSON ile token döndüğünü doğrula",c:"response.choices[0].text dolu olmalı"},
+    {t:"NOT: --enforce-eager DGX Spark'ta zorunlu (Triton sm_121 desteği henüz olgun değil)",c:"enforce-eager olmadan CUDA graph hataları alırsın"},
+    {t:"Aynı smoke test'i Spark #2'de bağımsız olarak tekrarla",c:"Spark #2'ye SSH → aynı komutları çalıştır"},
+  ]},
+  {name:"🔗 Ağ Bağlantısı Testi (Spark'lar Arası)",tag:"AĞ",tc:"#4d94ff",tasks:[
+    {t:"QSFP56 200GbE DAC kablo ile iki Spark'ı fiziksel bağla",c:"0.5m QSFP56 DAC kablo (~$30)"},
+    {t:"InfiniBand / Ethernet arayüzünü bul",c:"ibdev2netdev veya ip link show"},
+    {t:"Doğrudan bağlantı arayüzüne statik IP ata",c:"ip addr add 192.168.100.10/24 dev <iface>"},
+    {t:"Spark'lar arası ping testi",c:"ping -c 5 192.168.100.11"},
+    {t:"Bant genişliği testi — >25 GB/s beklenir",c:"iperf3 -s (bir taraf) / iperf3 -c 192.168.100.11 (diğer taraf)"},
+    {t:"Tailscale kur (uzaktan erişim için)",c:"curl -fsSL https://tailscale.com/install.sh | sh && tailscale up"},
+  ]},
+  {name:"📋 Sağlık Raporu Kontrol Listesi",tag:"KONTROL",tc:"#ffb84d",tasks:[
+    {t:"☐ Spark #1: nvidia-smi GB10 gösteriyor",c:"nvidia-smi | grep GB10"},
+    {t:"☐ Spark #1: CUDA 13.x doğrulandı",c:"nvcc --version"},
+    {t:"☐ Spark #1: Docker GPU passthrough çalışıyor",c:"docker run --rm --gpus all ... nvidia-smi"},
+    {t:"☐ Spark #1: vLLM opt-125m sunuyor ve token dönüyor",c:"curl localhost:8000/v1/completions"},
+    {t:"☐ Spark #2: Yukarıdakilerin hepsi tekrarlandı",c:"SSH spark2 → aynı komutlar"},
+    {t:"☐ Ağ: iperf3 >20 GB/s gösteriyor",c:"iperf3 sonucu kontrol"},
+    {t:"☐ Her iki Spark SSH ile erişilebilir",c:"ssh spark1 / ssh spark2 veya Tailscale"},
+  ]},
+ ],
+ gov:{"Eşzamanlı İstek":"Yok (smoke test)","Batch":"Yok","Token Limiti":"Yok","Retry":"Yok","Kill Switch":"docker stop / Ctrl+C","GPU Süre":"Yok","PII":"Yok"},
+ success:["Her iki Spark bağımsız vLLM inference sunuyor","Ağ >20 GB/s doğrulandı","Sağlık raporu tüm maddeler ✓","Dağıtık mod denenmedi"]
 },
-// ══════ FAZ 1 ══════
-{
-  id:1, emoji:"🤖", title:"Tek Düğüm Coding Agent", color:"#00e68a",
-  obj:"Spark #1 üzerinde stabil coding agent. Üç model vLLM ile çalışır, OpenClaw orkestrasyon sağlar. Agent kod üretir, lint yapar, hataları düzeltir ve derlenen kod döndürür.",
-  s1:["vLLM inference (3 model)","OpenClaw agent runtime","Coding agent mantığı","Sandbox ortamı"],
-  s2:["Boşta veya geliştirme/test aynası"],
-  blocks:[
-    {name:"vLLM Model Deployment",emoji:"🧠",tag:"MODELLER",tc:"#00e68a",items:[
-      {b:"📊",t:"Spark #1 üzerinde üç model — her biri ayrı port'ta ayrı container olarak"},
-      {b:"🏷️",t:"Tier 1 — Router: <code>Llama-3.1-8B-Instruct</code> → port 8001"},
-      {b:"🏷️",t:"Tier 2 — Reasoning: <code>Qwen3-32B</code> (veya Qwen3-30B-A3B MoE) → port 8002"},
-      {b:"🏷️",t:"Tier 3 — Coding: <code>Qwen3-Coder-30B-Instruct</code> → port 8003"},
-    ],cmd:`<span class="c"># 🚀 Router — hızlı, hafif</span>
-docker run -d --gpus all --shm-size=8g \\
-  --name vllm-router \\
-  -v ~/.cache/huggingface:/root/.cache/huggingface \\
-  -p 8001:8000 \\
-  nvcr.io/nvidia/vllm:26.01-py3 \\
-  vllm serve meta-llama/Llama-3.1-8B-Instruct \\
-    --enforce-eager \\
-    --max-model-len 8192 \\
-    --gpu-memory-utilization 0.08 \\
-    --max-num-seqs 16
-
-<span class="c"># 🧠 Reasoning — derin düşünme</span>
-docker run -d --gpus all --shm-size=16g \\
-  --name vllm-reasoning \\
-  -v ~/.cache/huggingface:/root/.cache/huggingface \\
-  -p 8002:8000 \\
-  nvcr.io/nvidia/vllm:26.01-py3 \\
-  vllm serve Qwen/Qwen3-32B \\
-    --enforce-eager \\
-    --max-model-len 32768 \\
-    --gpu-memory-utilization 0.35 \\
-    --max-num-seqs 4
-
-<span class="c"># 💻 Coder — kod üretimi</span>
-docker run -d --gpus all --shm-size=16g \\
-  --name vllm-coder \\
-  -v ~/.cache/huggingface:/root/.cache/huggingface \\
-  -p 8003:8000 \\
-  nvcr.io/nvidia/vllm:26.01-py3 \\
-  vllm serve Qwen/Qwen3-Coder-30B-Instruct \\
-    --enforce-eager \\
-    --max-model-len 32768 \\
-    --gpu-memory-utilization 0.35 \\
-    --max-num-seqs 4`,
-    extra:[
-      {b:"💾",t:"UMA: Üç model aynı 119 GB bellek havuzunu paylaşır — <code>gpu-memory-utilization</code> toplam oranı"},
-      {b:"📐",t:"Tahsis: ~0.08 + 0.35 + 0.35 = 0.78 → OS + KV cache için ~25 GB kalır"},
-      {b:"🧹",t:"OOM durumunda: <code>sync && echo 3 > /proc/sys/vm/drop_caches</code>"},
-      {b:"📊",t:"Bellek takibi: <code>free -h</code> kullan (nvidia-smi UMA'da N/A gösterir)"},
-    ]},
-    {name:"Model Yönlendirme Mantığı",emoji:"🔀",tag:"ORKESTRASYON",tc:"#b08cff",items:[
-      {b:"🔀",t:"Görev türüne göre istekleri doğru modele yönlendiren HTTP proxy veya OpenClaw skill:"},
-      {b:"⚡",t:"Niyet tespiti / sınıflandırma → Llama 8B (port 8001) — hızlı, <100ms hedef"},
-      {b:"🧠",t:"Planlama, mimari kararlar, karmaşık reasoning → Qwen 32B (port 8002)"},
-      {b:"💻",t:"Kod üretimi, refactoring, bug fix → Qwen Coder 30B (port 8003)"},
-      {b:"🔄",t:"Yönlendirme kararı Llama 8B tarafından verilir: prompt → sınıfla → ilgili modele ilet"},
-      {b:"🛟",t:"Fallback: model hata/timeout → aynı modelde 1 retry → Claude API'ye yükselt"},
-    ]},
-    {name:"OpenClaw Entegrasyonu",emoji:"🔌",tag:"ORKESTRASYON",tc:"#b08cff",items:[
-      {b:"📦",t:"Kurulum: <code>npm install -g openclaw && openclaw onboard</code>"},
-      {b:"⚙️",t:"Lokal vLLM endpoint'lerini OpenAI-uyumlu API olarak yapılandır:"},
-    ],cmd:`<span class="c">// ~/.openclaw/config.json</span>
-{
-  "models": {
-    "providers": {
-      "vllm-router": {
-        "baseUrl": "http://localhost:8001/v1",
-        "api": "openai-responses",
-        "models": [{"id": "meta-llama/Llama-3.1-8B-Instruct",
-                     "name": "Router", "contextWindow": 8192}]
-      },
-      "vllm-reasoning": {
-        "baseUrl": "http://localhost:8002/v1",
-        "api": "openai-responses",
-        "models": [{"id": "Qwen/Qwen3-32B",
-                     "name": "Reasoning", "contextWindow": 32768}]
-      },
-      "vllm-coder": {
-        "baseUrl": "http://localhost:8003/v1",
-        "api": "openai-responses",
-        "models": [{"id": "Qwen/Qwen3-Coder-30B-Instruct",
-                     "name": "Coder", "contextWindow": 32768}]
-      },
-      "anthropic": {
-        "apiKey": "$ANTHROPIC_API_KEY",
-        "models": [{"id": "claude-sonnet-4-5-20250929"}]
-      }
-    }
-  }
-}`,
-    extra:[
-      {b:"🤖",t:"OpenClaw: konuşma bağlamı, tool çalıştırma ve agent yaşam döngüsünü yönetir"},
-      {b:"💬",t:"Telegram/Slack kanal bağlantısı (Faz 1'de opsiyonel)"},
-    ]},
-    {name:"Coding Agent Ana Döngüsü",emoji:"🔄",tag:"AGENT",tc:"#4d94ff",items:[
-      {b:"1️⃣",t:"Agent kodlama görevi alır (API veya mesajlaşma kanalından)"},
-      {b:"2️⃣",t:"Router (Llama 8B) sınıflar: üret / refactor / debug / açıkla"},
-      {b:"3️⃣",t:"Coder (Qwen Coder 30B) sınıflandırılmış göreve göre kod üretir"},
-      {b:"4️⃣",t:"Kod sandbox çalışma dizinine yazılır"},
-      {b:"5️⃣",t:"Linter çalışır: Python → <code>ruff check</code>, JS/TS → <code>eslint</code>"},
-      {b:"6️⃣",t:"Derleme/sözdizimi kontrolü: <code>python -c 'compile(...)'</code> veya <code>tsc --noEmit</code>"},
-      {b:"7️⃣",t:"Lint/derleme başarısız → kod + hatalar Coder'a geri gönderilir (Faz 1'de max 2 deneme)"},
-      {b:"8️⃣",t:"Son kod + durum (başarılı/başarısız/kısmi) talep edene döndürülür"},
-    ]},
-    {name:"Sandbox & Güvenlik",emoji:"🔒",tag:"GÜVENLİK",tc:"#ff5c6e",items:[
-      {b:"🐳",t:"Kod çalıştırma izole Docker container veya chroot'ta OLMALI — asla host üzerinde değil"},
-      {b:"🚫",t:"Sandbox'ta ağ erişimi yok (<code>--network=none</code>)"},
-      {b:"📁",t:"Salt-okunur dosya sistemi — sadece <code>/tmp/workspace</code> yazılabilir"},
-      {b:"⏱️",t:"Çalıştırma zaman aşımı: çalıştırma başına 30 saniye"},
-      {b:"🔑",t:"Host ortam değişkenleri, secret'lar, SSH anahtarlarına sandbox'tan erişim yok"},
-      {b:"🛡️",t:"PII maskeleme: tüm prompt'lar modele gönderilmeden e-posta, API key, şifre taranır"},
-      {b:"🔍",t:"Regex tarama: <code>/[A-Za-z0-9+\\/=]{32,}/</code> token'lar, <code>/sk-[a-zA-Z0-9]{20,}/</code> API key'ler"},
-    ]},
-    {name:"Kill Switch (Acil Durdurma)",emoji:"🛑",tag:"GÜVENLİK",tc:"#ff5c6e",items:[
-      {b:"📱",t:"Telegram komutu: <code>/kill</code> → tüm vLLM container'larını anında durdurur"},
-      {b:"🐳",t:"Uygulama: <code>docker stop vllm-router vllm-reasoning vllm-coder</code>"},
-      {b:"⚙️",t:"Sistem seviyesi: <code>systemctl stop openclaw</code> → agent runtime durur"},
-      {b:"👁️",t:"Cron watchdog: GPU bellek >%95 2 dk boyunca → vLLM container'larını oto-yeniden başlat"},
-      {b:"🔌",t:"Spark yanıtsız kalırsa (UMA OOM zombie): DGX Dashboard veya fiziksel güç döngüsü"},
-    ]},
-    {name:"Temel Loglama",emoji:"📝",tag:"GÖZLEM",tc:"#ffb84d",items:[
-      {b:"📊",t:"Her istek loglanır: <code>timestamp | model | tokens_in | tokens_out | latency_ms | status</code>"},
-      {b:"💾",t:"Append-only SQLite log: <code>/var/log/coding-agent/requests.db</code>"},
-      {b:"🔄",t:"Günlük rotasyon, 30 gün saklama"},
-      {b:"📋",t:"Yapılandırılmış JSON logları (OpenClaw çıktısı)"},
-    ]},
-  ],
-  gov:{
-    "Eşzamanlı İstek":"Model başına 4",
-    "Batch Boyutu":"Router: 16, Reasoning: 4, Coder: 4",
-    "Max Token":"Router: 8K, Reasoning: 32K, Coder: 32K",
-    "Yeniden Deneme":"İstek başına 1, sonra hata veya Claude fallback",
-    "Kill Switch":"Telegram /kill → docker stop",
-    "GPU Süre":"Henüz takip edilmiyor (Faz 3)",
-    "PII Maskeleme":"Tüm gelen prompt'larda regex tarama",
-  },
-  success:[
-    "Agent kodlama görevi alıyor ve sözdizimsel olarak geçerli kod üretiyor",
-    "Linter çıktıda geçiyor (ruff/eslint)",
-    "Derleme kontrolü geçiyor (sözdizimi hatası yok)",
-    "Lint/derleme başarısız olursa: agent 1 kez deniyor ve düzeltilmiş kodu döndürüyor",
-    "Üç model OOM olmadan eşzamanlı sunuyor",
-    "Kill switch tüm servisleri 5 saniye içinde durduruyor",
-    "Tüm istekler SQLite'a model, token, gecikme bilgisiyle loglanıyor",
-  ]
+// ═══ FAZ 1 ═══
+{id:1,emoji:"🤖",title:"Tek Düğüm Coding Agent",color:"#00e68a",
+ obj:"Spark #1'de stabil coding agent. Üç model vLLM ile, OpenClaw orkestrasyon. Agent kod üretir, lint yapar, düzeltir, derlenen kod döndürür.",
+ s1:["vLLM inference (3 model)","OpenClaw runtime","Coding agent döngüsü","Sandbox ortamı"],
+ s2:["Boşta veya geliştirme testi"],
+ tracks:[
+  {name:"🧠 vLLM Model Deployment — Router",tag:"MODEL",tc:"#00d4ff",tasks:[
+    {t:"HuggingFace model'i önceden indir (opsiyonel, hızlandırır)",c:"huggingface-cli download meta-llama/Llama-3.1-8B-Instruct"},
+    {t:"Router container'ı başlat — port 8001",c:"docker run -d --gpus all --shm-size=8g --name vllm-router -v ~/.cache/huggingface:/root/.cache/huggingface -p 8001:8000 nvcr.io/nvidia/vllm:26.01-py3 vllm serve meta-llama/Llama-3.1-8B-Instruct --enforce-eager --max-model-len 8192 --gpu-memory-utilization 0.08 --max-num-seqs 16"},
+    {t:"Router sağlık kontrolü",c:'curl http://localhost:8001/v1/models'},
+    {t:"Router inference testi",c:'curl localhost:8001/v1/completions -H "Content-Type: application/json" -d \'{"model":"meta-llama/Llama-3.1-8B-Instruct","prompt":"classify: generate code","max_tokens":8}\''},
+  ]},
+  {name:"🧠 vLLM Model Deployment — Reasoning",tag:"MODEL",tc:"#00e68a",tasks:[
+    {t:"Qwen3-32B model'i indir",c:"huggingface-cli download Qwen/Qwen3-32B"},
+    {t:"Reasoning container'ı başlat — port 8002",c:"docker run -d --gpus all --shm-size=16g --name vllm-reasoning -v ~/.cache/huggingface:/root/.cache/huggingface -p 8002:8000 nvcr.io/nvidia/vllm:26.01-py3 vllm serve Qwen/Qwen3-32B --enforce-eager --max-model-len 32768 --gpu-memory-utilization 0.35 --max-num-seqs 4"},
+    {t:"Reasoning sağlık kontrolü",c:'curl http://localhost:8002/v1/models'},
+    {t:"Bellek durumunu kontrol et",c:"free -h → kullanılabilir RAM kontrol"},
+  ]},
+  {name:"💻 vLLM Model Deployment — Coder",tag:"MODEL",tc:"#4d94ff",tasks:[
+    {t:"Qwen3-Coder-30B model'i indir",c:"huggingface-cli download Qwen/Qwen3-Coder-30B-Instruct"},
+    {t:"Coder container'ı başlat — port 8003",c:"docker run -d --gpus all --shm-size=16g --name vllm-coder -v ~/.cache/huggingface:/root/.cache/huggingface -p 8003:8000 nvcr.io/nvidia/vllm:26.01-py3 vllm serve Qwen/Qwen3-Coder-30B-Instruct --enforce-eager --max-model-len 32768 --gpu-memory-utilization 0.35 --max-num-seqs 4"},
+    {t:"Coder sağlık kontrolü",c:'curl http://localhost:8003/v1/models'},
+    {t:"Üç model birlikte bellek kontrolü (toplam <0.80)",c:"free -h → ≥20 GB boş olmalı"},
+    {t:"OOM durumunda buffer cache temizle",c:"sync && echo 3 | sudo tee /proc/sys/vm/drop_caches"},
+  ]},
+  {name:"🔌 OpenClaw Kurulumu",tag:"ORKESTRASYON",tc:"#b08cff",tasks:[
+    {t:"Node.js 22+ kur (ARM64)",c:"curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt install -y nodejs"},
+    {t:"OpenClaw global kur",c:"npm install -g openclaw"},
+    {t:"OpenClaw başlangıç sihirbazını çalıştır",c:"openclaw onboard"},
+    {t:"config.json'da vLLM provider'ları ekle (router/reasoning/coder)",c:"nano ~/.openclaw/config.json → baseUrl: localhost:8001/8002/8003"},
+    {t:"Claude API fallback ekle (Anthropic provider)",c:"anthropic bölümüne API key ekle"},
+    {t:"OpenClaw'u daemon olarak çalıştır (7/24)",c:"openclaw onboard --install-daemon"},
+    {t:"Telegram bot bağlantısı (opsiyonel)",c:"@BotFather → token al → openclaw'a ekle"},
+  ]},
+  {name:"🔀 Model Yönlendirme Yapılandırması",tag:"ORKESTRASYON",tc:"#b08cff",tasks:[
+    {t:"Router skill yaz: prompt → sınıfla → ilgili modele ilet",c:"SKILL.md: classify task type → route to port"},
+    {t:"Yönlendirme kuralları: intent → 8001, reasoning → 8002, code → 8003",c:"JSON routing table oluştur"},
+    {t:"Fallback zinciri: model hata → 1 retry → Claude API",c:"OpenClaw fallback config"},
+    {t:"Yönlendirme testleri: farklı görev türleri ile doğrula",c:"generate / refactor / debug / explain test et"},
+  ]},
+  {name:"🔄 Coding Agent Döngüsü Kurulumu",tag:"AGENT",tc:"#4d94ff",tasks:[
+    {t:"Agent skill yaz: görev al → kod üret → lint → döndür",c:"SKILL.md: coding-agent skill tanımla"},
+    {t:"Sandbox Docker image oluştur (ağ erişimsiz)",c:"docker build -t sandbox:latest . (--network=none ile çalışacak)"},
+    {t:"Linter kur: Python → ruff, JS/TS → eslint",c:"pip install ruff && npm install -g eslint"},
+    {t:"Lint pipeline'ı test et: üretilen kodu otomatik tara",c:"ruff check /tmp/workspace/output.py"},
+    {t:"Derleme kontrolü: syntax check pipeline'ı",c:"python -c \"compile(open('output.py').read(),'output.py','exec')\""},
+    {t:"Hata → düzelt döngüsü: lint hatası → kodu + hatayı Coder'a gönder → max 2 retry",c:"retry_count ≤ 2 → re-generate, else → return partial"},
+    {t:"End-to-end test: 'Python fibonacci fonksiyonu yaz' → lint geçen kod dönsün",c:"Telegram/API'den test gönder → sonucu doğrula"},
+  ]},
+  {name:"🔒 Sandbox & PII Güvenliği",tag:"GÜVENLİK",tc:"#ff5c6e",tasks:[
+    {t:"Sandbox container'ı: ağ yok, salt-okunur FS, sadece /tmp/workspace yazılabilir",c:"docker run --rm --network=none --read-only --tmpfs /tmp/workspace sandbox:latest"},
+    {t:"Çalıştırma timeout: 30 saniye",c:"timeout 30 python /tmp/workspace/output.py"},
+    {t:"PII maskeleme regex'leri hazırla",c:"email, API key (sk-...), token ([A-Za-z0-9+/=]{32,}) pattern'leri"},
+    {t:"Tüm gelen prompt'larda PII taramasını aktifleştir",c:"preprocess_hook: scan → mask → forward"},
+    {t:"Host env değişkenleri sandbox'a iletilMEMELİ",c:"docker run'da --env ile sadece izin verilenler"},
+  ]},
+  {name:"🛑 Kill Switch & Watchdog",tag:"GÜVENLİK",tc:"#ff5c6e",tasks:[
+    {t:"Kill switch scripti yaz: tüm vLLM container'larını durdur",c:"docker stop vllm-router vllm-reasoning vllm-coder → kill-all.sh"},
+    {t:"Telegram /kill komutu → kill-all.sh tetikle",c:"OpenClaw skill: /kill → exec kill-all.sh"},
+    {t:"Cron watchdog: 1 dk'da bir bellek kontrol",c:"crontab: * * * * * /opt/watchdog.sh"},
+    {t:"Watchdog kuralı: free memory <5 GB → otomatik vLLM restart",c:"if [[ $(free -g | awk '/Mem/{print $7}') -lt 5 ]]; then docker restart ..."},
+    {t:"Watchdog logları",c:"/var/log/watchdog.log → tarih, bellek, aksiyon"},
+  ]},
+  {name:"📝 Temel Loglama",tag:"GÖZLEM",tc:"#ffb84d",tasks:[
+    {t:"SQLite log veritabanı oluştur",c:"sqlite3 /var/log/coding-agent/requests.db 'CREATE TABLE logs(...)'"},
+    {t:"Her istek: timestamp, model, tokens_in, tokens_out, latency_ms, status",c:"INSERT INTO logs VALUES(...)"},
+    {t:"Günlük log rotasyonu ayarla",c:"logrotate /etc/logrotate.d/coding-agent"},
+    {t:"Basit log sorgusu test et",c:"sqlite3 requests.db 'SELECT model, avg(latency_ms) FROM logs GROUP BY model'"},
+  ]},
+ ],
+ gov:{"Eşzamanlı":"Model başına 4","Batch":"Router:16 / Reason:4 / Coder:4","Token":"Router:8K / Reason:32K / Coder:32K","Retry":"İstek başına 1 → Claude fallback","Kill Switch":"Telegram /kill → docker stop","GPU Süre":"Henüz yok (Faz 3)","PII":"Regex tarama aktif"},
+ success:["Agent kodlama görevi alıp sözdizimsel geçerli kod üretiyor","Linter çıktıda geçiyor","Derleme kontrolü geçiyor","Hata durumunda 1 retry ile düzeltme","Üç model eşzamanlı OOM'suz çalışıyor","Kill switch 5 sn'de durduruyor","Tüm istekler SQLite'a loglanıyor"]
 },
-// ══════ FAZ 2 ══════
-{
-  id:2, emoji:"🔄", title:"Oto-Düzeltme & Kalite Katmanı", color:"#4d94ff",
-  obj:"Coding agent'ı üretime hazır hale getir: oto-düzeltme döngüsü, semantik önbellek, prompt versiyonlama ve yapılandırılmış gözlemlenebilirlik. Hâlâ tek düğüm inference.",
-  s1:["vLLM inference (Faz 1 ile aynı)","Geliştirilmiş agent mantığı","Semantik önbellek"],
-  s2:["Hâlâ boşta veya sadece geliştirme testi"],
-  blocks:[
-    {name:"Oto-Düzeltme Döngüsü",emoji:"🔧",tag:"AGENT",tc:"#4d94ff",items:[
-      {b:"📋",t:"Üret → lint → düzelt döngüsünü yapılandırılmış pipeline'a yükselt:"},
-      {b:"1️⃣",t:"Coder kod üretir"},
-      {b:"2️⃣",t:"Statik analiz: linter + tip kontrolü (<code>ruff check + mypy</code>)"},
-      {b:"3️⃣",t:"Hata bulunursa → hata bağlamı oluştur: orijinal prompt + üretilen kod + hata çıktısı"},
-      {b:"4️⃣",t:"Hata bağlamını Coder'a geri gönder: 'Bu hataları düzelt. Sadece düzeltilmiş kodu döndür.'"},
-      {b:"5️⃣",t:"Düzeltilmiş kodda statik analizi tekrar çalıştır"},
-      {b:"🔄",t:"Yeniden deneme politikası: max 2 düzeltme denemesi. 2 başarısızlık → kısmi sonuç + hata raporu"},
-      {b:"📊",t:"Düzeltme başarı oranı takibi: <code>denenen</code> vs <code>çözülen</code>"},
-    ]},
-    {name:"İstek Sınıflandırması",emoji:"📊",tag:"YÖNLENDİRME",tc:"#b08cff",items:[
-      {b:"📋",t:"Gelen istekleri iki moda sınıfla:"},
-      {b:"⚡",t:"İnteraktif: kullanıcı yanıt bekliyor → gecikme optimize, max 30sn timeout, küçük context"},
-      {b:"📦",t:"Batch: arka plan görevi (ör: modül refactor) → verimlilik optimize, timeout yok, tam context"},
-      {b:"🔀",t:"Sınıflandırma Router (Llama 8B) tarafından kaynak kanal ve prompt metadata'sına göre yapılır"},
-      {b:"🥇",t:"İnteraktif istekler öncelikli kuyruk pozisyonu alır; batch istekler GPU boşken çalışır"},
-    ]},
-    {name:"Semantik Önbellek",emoji:"💾",tag:"PERFORMANS",tc:"#00d4ff",items:[
-      {b:"🔑",t:"Tamamlanmış kod üretim sonuçları normalize prompt hash'ine göre önbelleğe alınır"},
-      {b:"💾",t:"Önbellek backend: SQLite + FTS5 (bulanık eşleşme) veya Redis"},
-      {b:"📏",t:"Önbellek isabet kriteri: prompt embedding'de kosinüs benzerliği > 0.95"},
-      {b:"⏰",t:"TTL: İnteraktif 24 saat, batch sonuçları 7 gün"},
-      {b:"🧹",t:"Önbellek temizleme: Telegram <code>/cache-clear</code> komutu"},
-      {b:"📈",t:"Beklenen fayda: tekrarlayan görevlerde model çağrılarında %30-50 azalma"},
-    ]},
-    {name:"Prompt Kayıt Defteri & Versiyonlama",emoji:"📚",tag:"KALİTE",tc:"#00e68a",items:[
-      {b:"📁",t:"Tüm sistem prompt'ları versiyonlu dosyalarda: <code>/etc/coding-agent/prompts/v{N}/</code>"},
-      {b:"📄",t:"Dizin yapısı: <code>router.txt</code>, <code>coder-generate.txt</code>, <code>coder-fix.txt</code>, <code>reasoning.txt</code>"},
-      {b:"🔢",t:"İstek logunda versiyon takibi: <code>prompt_version</code> sütunu"},
-      {b:"🚫",t:"Prompt değişiklikleri açık versiyon artışı gerektirir — hot-patch yok"},
-      {b:"🔬",t:"A/B testi: iki prompt versiyonu eşzamanlı çalıştır, düzeltme oranlarını karşılaştır"},
-      {b:"↩️",t:"Geri alma: <code>PROMPT_VERSION=N</code> env değişkeni ile önceki versiyona dön"},
-    ]},
-    {name:"Gözlemlenebilirlik — Yapılandırılmış İzleme",emoji:"📡",tag:"GÖZLEM",tc:"#ffb84d",items:[
-      {b:"🔗",t:"Her istek benzersiz <code>trace_id</code> (UUID v4) alır — tüm adımlara yayılır"},
-      {b:"📊",t:"Adım başına log: <code>trace_id | adım | model | tokens_in | tokens_out | latency_ms | durum | prompt_version</code>"},
-      {b:"🔄",t:"Çok adımlı izlemeler bağlantılı: üret → lint → düzelt → yeniden-lint hepsi aynı trace_id"},
-      {b:"📈",t:"Saatlik toplu metrikler (cron):"},
-      {b:"→",t:"Model başına p50/p95/p99 gecikme"},
-      {b:"→",t:"Model başına token verimi (tok/s)"},
-      {b:"→",t:"Düzeltme başarı oranı (düzeltilen / denenen)"},
-      {b:"→",t:"Önbellek isabet oranı"},
-      {b:"→",t:"Kategori bazında hata oranı (OOM, timeout, model hatası, lint hatası)"},
-      {b:"🖥️",t:"Dashboard: saatlik oluşturulan statik HTML, port 9090'da sunulur"},
-    ]},
-  ],
-  gov:{
-    "Eşzamanlı İstek":"İnteraktif: 2, Batch: 2 (toplam 4)",
-    "Batch Boyutu":"Router: 16, Reasoning: 4, Coder: 4",
-    "Max Token":"İstek başına: 32K. Dakika başına: tüm modellerde 200K",
-    "Yeniden Deneme":"Görev başına 2 düzeltme. Model hatasında 1 retry.",
-    "Kill Switch":"Telegram /kill + /pause (düzgün boşaltma) + /resume",
-    "GPU Süre":"Henüz takip edilmiyor",
-    "PII Maskeleme":"Regex + anahtar kelime kara listesi tarama",
-  },
-  success:[
-    "Oto-düzeltme lint/derleme hatalarının >%60'ını 2 denemede çözüyor",
-    "Semantik önbellek tekrarlayan görev kalıplarında >%20 isabet oranı",
-    "Tüm prompt'lar versiyon takipli; geri alma test edildi ve çalışıyor",
-    "Her istek trace_id ile uçtan uca izlenebilir",
-    "Saatlik metrik dashboard'u gecikme, verimlilik, hata oranlarını gösteriyor",
-    "İnteraktif istekler tipik görevlerde <30 saniyede tamamlanıyor",
-  ]
+// ═══ FAZ 2 ═══
+{id:2,emoji:"🔄",title:"Oto-Düzeltme & Kalite Katmanı",color:"#4d94ff",
+ obj:"Oto-düzeltme döngüsü, semantik önbellek, prompt versiyonlama, yapılandırılmış izleme. Hâlâ tek düğüm.",
+ s1:["vLLM inference (değişmez)","Gelişmiş agent mantığı","Semantik cache","Trace sistemi"],
+ s2:["Hâlâ boşta veya dev test"],
+ tracks:[
+  {name:"🔧 Oto-Düzeltme Pipeline",tag:"AGENT",tc:"#4d94ff",tasks:[
+    {t:"Correction loop'u yapılandır: üret → lint → hata varsa → düzelt → yeniden lint",c:"correction_pipeline.py → max_retries=2"},
+    {t:"Hata bağlamı şablonu: orijinal prompt + kod + error output → fix prompt",c:"fix_template.txt: 'Bu hataları düzelt. Sadece kodu döndür.'"},
+    {t:"mypy entegrasyonu ekle (tip kontrolü)",c:"pip install mypy && mypy --ignore-missing-imports output.py"},
+    {t:"Düzeltme metriğini logla: corrections_attempted vs corrections_resolved",c:"SQLite'a correction_success_rate sütunu ekle"},
+    {t:"2 başarısız deneme sonrası: kısmi sonuç + hata raporu döndür",c:"status: 'partial' + error_details JSON"},
+    {t:"End-to-end test: kasıtlı hatalı prompt → düzeltme → geçen kod",c:"'write fibonacci with off-by-one error' → auto-fix test"},
+  ]},
+  {name:"📊 İstek Sınıflandırması",tag:"YÖNLENDİRME",tc:"#b08cff",tasks:[
+    {t:"İki mod tanımla: interactive (kullanıcı bekliyor) vs batch (arka plan)",c:"request_type: 'interactive' | 'batch'"},
+    {t:"Interactive: max 30sn timeout, küçük context, öncelikli kuyruk",c:"asyncio.wait_for(generate(), timeout=30)"},
+    {t:"Batch: timeout yok, tam context, GPU boşken çalışır",c:"background_queue.put(task)"},
+    {t:"Redis öncelik kuyruğu kur",c:"pip install redis && redis-server → LPUSH/BRPOP"},
+    {t:"Sınıflandırma Router tarafından otomatik yapılır (kaynak + metadata)",c:"source='telegram' → interactive, source='cron' → batch"},
+  ]},
+  {name:"💾 Semantik Önbellek",tag:"PERFORMANS",tc:"#00d4ff",tasks:[
+    {t:"Cache DB oluştur (SQLite + FTS5 veya Redis)",c:"sqlite3 cache.db 'CREATE VIRTUAL TABLE cache USING fts5(...)'"},
+    {t:"Prompt hash fonksiyonu: normalize → SHA256",c:"hashlib.sha256(normalize(prompt).encode()).hexdigest()"},
+    {t:"Cache hit kriteri: kosinüs benzerliği >0.95",c:"sklearn.metrics.pairwise.cosine_similarity"},
+    {t:"TTL ayarla: interactive=24h, batch=7d",c:"INSERT INTO cache(prompt_hash, result, ttl, created_at)"},
+    {t:"Telegram /cache-clear komutu ekle",c:"OpenClaw skill: DELETE FROM cache"},
+    {t:"Cache hit rate logla",c:"cache_hit / total_requests → saatlik metrik"},
+  ]},
+  {name:"📚 Prompt Versiyonlama",tag:"KALİTE",tc:"#00e68a",tasks:[
+    {t:"Prompt dizin yapısı oluştur",c:"mkdir -p /etc/coding-agent/prompts/v1/"},
+    {t:"Her rol için prompt dosyası: router.txt, coder-generate.txt, coder-fix.txt, reasoning.txt",c:"nano /etc/coding-agent/prompts/v1/coder-generate.txt"},
+    {t:"Prompt version'ı request log'a ekle",c:"ALTER TABLE logs ADD COLUMN prompt_version TEXT"},
+    {t:"Versiyon artışı prosedürü: v1/ → v2/ kopyala, değiştir, test et",c:"cp -r v1/ v2/ → edit → PROMPT_VERSION=2"},
+    {t:"Geri alma mekanizması: PROMPT_VERSION env ile önceki versiyona dön",c:"export PROMPT_VERSION=1 → restart agent"},
+    {t:"A/B test altyapısı: %50/%50 trafik bölme (opsiyonel)",c:"random.random() < 0.5 → v1 else v2"},
+  ]},
+  {name:"📡 Yapılandırılmış İzleme (Tracing)",tag:"GÖZLEM",tc:"#ffb84d",tasks:[
+    {t:"trace_id üreteci: her istekte UUID v4",c:"import uuid; trace_id = str(uuid.uuid4())"},
+    {t:"Tüm adımlara trace_id yay: generate → lint → fix → re-lint",c:"trace_id parametresini her fonksiyona ilet"},
+    {t:"Log şeması güncelle: trace_id | step | model | tokens | latency | status | prompt_ver",c:"ALTER TABLE logs ADD COLUMN trace_id TEXT, step TEXT"},
+    {t:"Saatlik metrik hesaplama cron'u kur",c:"crontab: 0 * * * * python /opt/compute_metrics.py"},
+    {t:"Metrikler: p50/p95/p99 latency, tok/s, correction rate, cache hit, error rate",c:"SELECT percentile(latency_ms, 0.95) FROM logs WHERE ..."},
+    {t:"Statik HTML dashboard oluştur (port 9090)",c:"python -m http.server 9090 -d /var/www/dashboard/"},
+    {t:"Dashboard'u cron ile saatlik güncelle",c:"0 * * * * python /opt/generate_dashboard.py"},
+  ]},
+ ],
+ gov:{"Eşzamanlı":"Interactive:2 + Batch:2 = 4","Batch":"Değişmez","Token":"İstek:32K / Dakika:200K toplam","Retry":"Görev:2 düzeltme + Model:1 retry","Kill Switch":"/kill + /pause + /resume","GPU Süre":"Henüz yok","PII":"Regex + keyword blocklist"},
+ success:["Oto-düzeltme hataların >%60'ını 2 denemede çözüyor","Cache >%20 hit rate","Prompt versiyonlama + geri alma çalışıyor","trace_id ile uçtan uca izleme","Dashboard saatlik metrik gösteriyor","Interactive <30sn tamamlanıyor"]
 },
-// ══════ FAZ 3 ══════
-{
-  id:3, emoji:"⚡", title:"Dual Spark Kullanımı", color:"#b08cff",
-  obj:"Spark #2'yi governance, audit ve ağır geliştirme modeli için devreye al. Tensor parallelism için ağ doğrulaması. Hız sınırlama ve GPU süre muhasebesi.",
-  s1:["Üretim coding agent (değişmez)","vLLM router + reasoning + coder"],
-  s2:["Policy engine (FastAPI)","Audit log (PostgreSQL + Grafana)","Ağır dev model (batch görevler)"],
-  blocks:[
-    {name:"Spark #2 Rol Ataması",emoji:"🏗️",tag:"MİMARİ",tc:"#b08cff",items:[
-      {b:"📋",t:"Spark #2 üç servis çalıştırır:"},
-      {b:"🛡️",t:"1. Policy Engine: Her agent aksiyonunu kurallara göre değerlendiren Python FastAPI servisi"},
-      {b:"📊",t:"2. Audit & Gözlemlenebilirlik: Kalıcı metrik ve iz depolama için PostgreSQL + Grafana"},
-      {b:"💻",t:"3. Ağır Dev Model: Batch/arka plan görevleri için ayrılmış Qwen Coder 30B instance"},
-      {b:"🏭",t:"Spark #1 üretim yüzlü inference düğümü olarak kalır — kurulumunda değişiklik yok"},
-      {b:"🔗",t:"İletişim: Spark #1 → Spark #2 arası HTTP, 200GbE bağlantı üzerinden"},
-    ]},
-    {name:"Policy Engine (Spark #2)",emoji:"🛡️",tag:"GOVERNANCE",tc:"#ff5c6e",items:[
-      {b:"🌐",t:"Port 8100'de FastAPI servisi — her agent aksiyonu çalıştırılmadan önce buradan geçer"},
-      {b:"📋",t:"Kural değerlendirme: JSON policy dosyası tier'ları tanımlar:"},
-      {b:"🟢",t:"Tier 1 (oto-onay): kod üretimi, lint, dosya okuma, arama"},
-      {b:"🟡",t:"Tier 2 (insan onayı): harici API'ye yazma, mesaj gönderme, deploy"},
-      {b:"🔴",t:"Tier 3 (engellendi): üretim verisi silme, sistem dosyası değiştirme, secret erişimi"},
-      {b:"⏱️",t:"Hız sınırlama: agent başına, model başına, saat başına token bütçeleri"},
-      {b:"🔄",t:"Döngü tespiti: aynı agent 5 dk'da >10 özdeş istek → devre kesici"},
-      {b:"📝",t:"Tüm policy kararları audit trail'a loglanır"},
-    ]},
-    {name:"GPU Süre Muhasebesi",emoji:"⏱️",tag:"GOVERNANCE",tc:"#ff5c6e",items:[
-      {b:"📊",t:"İstek başına GPU süresi takibi: <code>inference_start</code> → <code>inference_end</code>"},
-      {b:"📋",t:"Toplama: agent, model, saat, gün bazında"},
-      {b:"⏰",t:"Günlük bütçe: her agent'a günde max 4 saat GPU süresi"},
-      {b:"📈",t:"Haftalık rapor: agent başına, model başına toplam GPU saati"},
-      {b:"⚠️",t:"Uyarı: agent günlük bütçenin %80'ini aşarsa → Telegram bildirimi"},
-      {b:"🚫",t:"Engelleme: %100 aşılırsa → istekler ertesi güne kadar kuyruğa alınır"},
-    ]},
-    {name:"Hız Sınırlama",emoji:"🚦",tag:"GOVERNANCE",tc:"#ff5c6e",items:[
-      {b:"📊",t:"Model başına limitler (dakika başına istek):"},
-      {b:"⚡",t:"Router (Llama 8B): 60 RPM"},
-      {b:"🧠",t:"Reasoning (Qwen 32B): 10 RPM"},
-      {b:"💻",t:"Coder (Qwen Coder 30B): 10 RPM"},
-      {b:"☁️",t:"Claude API fallback: 5 RPM, aylık $150 sabit tavan"},
-      {b:"🔧",t:"Uygulama: Spark #2'de Redis sliding window counter"},
-      {b:"🚫",t:"Aşılırsa → HTTP 429 → agent bekler ve pencere sonrasında yeniden dener"},
-    ]},
-    {name:"Tensor Parallel Ağ Doğrulama (Opsiyonel)",emoji:"🧪",tag:"DENEYSEL",tc:"#ffb84d",items:[
-      {b:"⚠️",t:"Bu keşif amaçlıdır — üretim coding agent için ZORUNLU DEĞİL"},
-      {b:"🔗",t:"Ray cluster oluşturmayı test et: head Spark #1, worker Spark #2"},
-      {b:"📡",t:"InfiniBand/200GbE bağlantı üzerinden NCCL iletişimini doğrula"},
-      {b:"🧪",t:"Önce küçük modelle test: Llama 8B ile <code>--tensor-parallel-size 2</code>"},
-      {b:"📏",t:"Yük ölçümü: aynı model için tek-düğüm vs çift-düğüm gecikme karşılaştır"},
-      {b:"🚫",t:"Gecikme cezası >%50 ise: tensor parallel'i Faz 4'e ertele"},
-      {b:"❌",t:"Bu fazda 235B model ÇALIŞTIRMA — yetersiz doğrulama"},
-    ]},
-  ],
-  gov:{
-    "Eşzamanlı İstek":"Spark #1: 4 üretim. Spark #2: 2 batch.",
-    "Batch Boyutu":"Faz 2 ile aynı",
-    "Max Token":"Saat başına: tüm modellerde 500K. Gün başına: 5M.",
-    "Yeniden Deneme":"2 düzeltme + 1 model retry. Claude: 1 retry.",
-    "Kill Switch":"Telegram /kill (her iki Spark) + /kill-spark1 + /kill-spark2",
-    "GPU Süre":"Agent başına takip. Günlük limit: 4 GPU-saat.",
-    "PII Maskeleme":"Regex + anahtar kelime + policy engine doğrulama",
-  },
-  success:[
-    "Spark #2 policy engine, audit DB ve batch modeli eşzamanlı sunuyor",
-    "Tüm agent aksiyonları çalıştırılmadan önce policy engine'den geçiyor",
-    "Hız sınırlama uygulanıyor: aşılan istekler HTTP 429 alıyor",
-    "GPU süre muhasebesi Telegram ile günlük rapor üretiyor",
-    "Spark'lar arası ağ >20 GB/s'de doğrulandı",
-    "Tensor parallel test edildiyse: gecikme yükü belgelendi",
-  ]
+// ═══ FAZ 3 ═══
+{id:3,emoji:"⚡",title:"Dual Spark Kullanımı",color:"#b08cff",
+ obj:"Spark #2: policy engine, audit, ağır model. Hız sınırlama, GPU süre muhasebesi. Tensor parallel opsiyonel doğrulama.",
+ s1:["Üretim coding agent (değişmez)","vLLM router + reasoning + coder"],
+ s2:["Policy engine (FastAPI)","Audit DB (PostgreSQL + Grafana)","Batch dev model"],
+ tracks:[
+  {name:"🏗️ Spark #2 Temel Kurulum",tag:"ALTYAPI",tc:"#b08cff",tasks:[
+    {t:"Spark #2'de Python 3.12+ ortam hazırla",c:"sudo apt install python3.12 python3.12-venv"},
+    {t:"PostgreSQL kur (audit veritabanı)",c:"sudo apt install postgresql && sudo systemctl start postgresql"},
+    {t:"Redis kur (rate limiting + kuyruk)",c:"sudo apt install redis-server && sudo systemctl start redis"},
+    {t:"Grafana kur (dashboard)",c:"sudo apt install grafana && sudo systemctl start grafana-server"},
+    {t:"FastAPI + uvicorn kur",c:"pip install fastapi uvicorn[standard]"},
+    {t:"Spark #1 → Spark #2 HTTP bağlantısını test et",c:"curl http://192.168.100.11:8100/health"},
+  ]},
+  {name:"🛡️ Policy Engine (Spark #2 — Port 8100)",tag:"GOVERNANCE",tc:"#ff5c6e",tasks:[
+    {t:"FastAPI policy engine projesi oluştur",c:"mkdir /opt/policy-engine && cd /opt/policy-engine"},
+    {t:"policies.json kural dosyası yaz",c:'{"tier1":["generate","lint","search"],"tier2":["email","deploy"],"tier3":["delete","production"]}'},
+    {t:"Tier değerlendirme endpoint'i: POST /evaluate → allow/deny/escalate",c:"@app.post('/evaluate') → check tier → return decision"},
+    {t:"Spark #1 agent'ını policy engine'e bağla: her aksiyon öncesi /evaluate çağır",c:"pre_action_hook: requests.post('http://spark2:8100/evaluate', json=action)"},
+    {t:"Tier 2 aksiyonlar için Telegram onay mekanizması",c:"Telegram'a onay butonu gönder → /approve veya /deny"},
+    {t:"Policy engine'i systemd servisi olarak çalıştır",c:"systemctl enable policy-engine → 7/24 çalışır"},
+  ]},
+  {name:"⏱️ GPU Süre Muhasebesi",tag:"GOVERNANCE",tc:"#ff5c6e",tasks:[
+    {t:"gpu_time tablosu oluştur (PostgreSQL)",c:"CREATE TABLE gpu_time(agent TEXT, model TEXT, start_ts TIMESTAMP, end_ts TIMESTAMP, tokens INT)"},
+    {t:"Her inference isteğinde başlangıç/bitiş zamanını kaydet",c:"before_request: record start → after_request: record end"},
+    {t:"Günlük bütçe: agent başına max 4 GPU-saat",c:"SELECT SUM(end_ts - start_ts) FROM gpu_time WHERE agent=? AND date=today"},
+    {t:"%80 uyarı → Telegram bildirimi",c:"if daily_usage > 0.8 * budget: send_telegram_alert()"},
+    {t:"%100 aşım → istekleri kuyruğa al (ertesi güne)",c:"if daily_usage >= budget: return 429"},
+    {t:"Haftalık rapor cron'u: agent × model × toplam saat",c:"crontab: 0 9 * * 1 python /opt/weekly_gpu_report.py"},
+  ]},
+  {name:"🚦 Hız Sınırlama (Rate Limiting)",tag:"GOVERNANCE",tc:"#ff5c6e",tasks:[
+    {t:"Redis sliding window rate limiter implement et",c:"pip install redis → sliding_window_counter.py"},
+    {t:"Router (Llama 8B): 60 RPM",c:"RATE_LIMIT_ROUTER=60"},
+    {t:"Reasoning (Qwen 32B): 10 RPM",c:"RATE_LIMIT_REASONING=10"},
+    {t:"Coder (Qwen Coder 30B): 10 RPM",c:"RATE_LIMIT_CODER=10"},
+    {t:"Claude API fallback: 5 RPM + aylık $150 hard cap",c:"RATE_LIMIT_CLAUDE=5, MONTHLY_CAP=150"},
+    {t:"Aşılınca HTTP 429 döndür → agent bekleme + retry",c:"return JSONResponse(status_code=429, content={'retry_after': window_remaining})"},
+  ]},
+  {name:"🧪 Tensor Parallel Ağ Testi (Opsiyonel)",tag:"DENEYSEL",tc:"#ffb84d",tasks:[
+    {t:"Ray kur (her iki Spark'a)",c:"pip install ray[default]"},
+    {t:"Spark #1'de Ray head başlat",c:"ray start --head --port=6379"},
+    {t:"Spark #2'de Ray worker başlat",c:"ray start --address=192.168.100.10:6379"},
+    {t:"Ray cluster durumunu doğrula",c:"ray status → 2 node, 2 GPU beklenir"},
+    {t:"Küçük model ile TP=2 test: Llama 8B",c:"vllm serve meta-llama/Llama-3.1-8B-Instruct --tensor-parallel-size 2 --distributed-executor-backend ray"},
+    {t:"Tek düğüm vs çift düğüm gecikme karşılaştır",c:"benchmark her ikisinde → fark >%50 ise ertelе"},
+    {t:"NOT: Bu fazda 235B model ÇALIŞTIRMA",c:"Yetersiz doğrulama — Faz 4+ için"},
+  ]},
+ ],
+ gov:{"Eşzamanlı":"S1:4 üretim / S2:2 batch","Batch":"Değişmez","Token":"Saat:500K / Gün:5M","Retry":"2 düzeltme + 1 model + Claude:1","Kill Switch":"/kill (her iki Spark) + /kill-spark1/2","GPU Süre":"Agent başına günlük 4 saat","PII":"Regex + keyword + policy engine"},
+ success:["Spark #2 policy + audit + batch model sunuyor","Tüm aksiyonlar policy engine'den geçiyor","Rate limiting uygulanıyor (429)","GPU süre günlük rapor üretiyor","Ağ >20 GB/s doğrulandı","TP test edildiyse gecikme belgelendi"]
 },
-// ══════ FAZ 4 ══════
-{
-  id:4, emoji:"🚀", title:"Performans Optimizasyonu", color:"#ffb84d",
-  obj:"Opsiyonel ileri faz. Verimlilik artır, gecikme azalt, spekülatif çözümleme ve batch zamanlama uygula. Üretim sağlamlaştırma.",
-  s1:["Spekülatif çözümleme ile optimize edilmiş üretim inference","Batch zamanlama"],
-  s2:["Gelişmiş gözlemlenebilirlik","Performans benchmark","Kapasite planlama"],
-  blocks:[
-    {name:"Spekülatif Çözümleme (Speculative Decoding)",emoji:"⚡",tag:"PERFORMANS",tc:"#ffb84d",items:[
-      {b:"🔀",t:"Llama 8B'yi Qwen 32B için taslak model olarak kullan"},
-      {b:"📋",t:"Taslak model N aday token üretir → hedef model tek forward pass'te doğrular"},
-      {b:"📈",t:"Beklenen fayda: Qwen 32B reasoning görevlerinde 1.5-2x decode hızlanma"},
-      {b:"⚙️",t:"vLLM flag: <code>--speculative-model Llama-3.1-8B --num-speculative-tokens 5</code>"},
-      {b:"⚠️",t:"vLLM 0.13+ gerektirir ve <code>--enforce-eager</code> ile çalışmayabilir — dikkatli test et"},
-      {b:"🔮",t:"sm_121 için Triton/CUDA graph desteği olgunlaşırsa: <code>--enforce-eager</code> kaldırılabilir"},
-    ]},
-    {name:"Batch Zamanlama",emoji:"📅",tag:"PERFORMANS",tc:"#ffb84d",items:[
-      {b:"⏱️",t:"Zaman tabanlı batch pencereleri: 100ms boyunca istekleri topla → batch olarak gönder"},
-      {b:"🌙",t:"Gece modu (00:00-06:00): tüm interaktif slotlar batch işleme için serbest"},
-      {b:"🔄",t:"Otomatik model değiştirme: gece modunda gerekirse daha büyük varyantları yükle"},
-      {b:"🥇",t:"Öncelik kuyruğu: kritik/interaktif → normal/batch → arka plan/spekülatif"},
-    ]},
-    {name:"Bellek Eşik Kontrolü (Memory Watermark)",emoji:"💾",tag:"KARARLLIK",tc:"#ff5c6e",items:[
-      {b:"🟢",t:"Yeşil: <%70 sistem belleği kullanımda → normal çalışma"},
-      {b:"🟡",t:"Sarı: %70-85 → max_num_seqs %50 azalt, Telegram uyarı"},
-      {b:"🔴",t:"Kırmızı: >%85 → yeni istek kabul etme, mevcut olanları boşalt, uyar"},
-      {b:"💀",t:"Kritik: >%95 → acil: <code>sync && echo 3 > /proc/sys/vm/drop_caches</code> + vLLM yeniden başlat"},
-      {b:"👁️",t:"Watchdog cron: 30 saniyede bir kontrol, bellek durumunu logla, eşiklerde oto-aksiyon"},
-      {b:"🛟",t:"UMA zombie önleme: SSH 5+ dk yanıtsızsa → Spark #2 uzaktan yeniden başlatma tetikler"},
-    ]},
-    {name:"Gelişmiş Gözlemlenebilirlik",emoji:"📡",tag:"GÖZLEM",tc:"#00d4ff",items:[
-      {b:"📊",t:"Her vLLM instance'ında Prometheus metrik dışa aktarıcı (vLLM yerleşik /metrics endpoint)"},
-      {b:"🖥️",t:"Spark #2'de Grafana dashboard: gerçek zamanlı GPU kullanım, kuyruk derinliği, token verimi"},
-      {b:"🚨",t:"Uyarı kuralları: gecikme p99 >60s, hata oranı >%5, bellek >%85"},
-      {b:"🔁",t:"İstek tekrarlama: debug için herhangi bir izlenen isteği aynı prompt versiyonuyla yeniden çalıştır"},
-      {b:"💰",t:"Maliyet muhasebesi: token kullanımı × bulut eşdeğeri fiyatlamayla istek başına tahmini $ değer"},
-    ]},
-    {name:"Verimlilik Benchmark",emoji:"📏",tag:"BENCHMARK",tc:"#00e68a",items:[
-      {b:"🔧",t:"<code>llama-benchy</code> veya vLLM yerleşik benchmark kullan"},
-      {b:"📊",t:"Yakalanacak metrikler: token/saniye (prefill vs decode), ilk-token-süresi, istek/dakika"},
-      {b:"📈",t:"Her model için çeşitli eşzamanlılık seviyelerinde (1, 2, 4, 8) referans benchmark"},
-      {b:"⚖️",t:"Eager mod vs CUDA graph (mümkün olduğunda) performans farkını karşılaştır"},
-      {b:"📋",t:"Sonuçları kapasite planlama referansı olarak belgele"},
-    ]},
-  ],
-  gov:{
-    "Eşzamanlı İstek":"Dinamik: bellek eşiğine göre (4 yeşil, 2 sarı, 0 kırmızı)",
-    "Batch Boyutu":"Dinamik: bellek durumuna göre ayarlanır",
-    "Max Token":"Faz 3 ile aynı",
-    "Yeniden Deneme":"Faz 3 ile aynı",
-    "Kill Switch":"Gelişmiş: bellek watchdog oto-kill + Spark'lar arası uzaktan kill",
-    "GPU Süre":"Maliyet tahmini ile tam muhasebe",
-    "PII Maskeleme":"Faz 3 ile aynı",
-  },
-  success:[
-    "Spekülatif çözümleme reasoning görevlerinde ölçülebilir hızlanma sağlıyor (>1.3x)",
-    "Bellek eşik sistemi 7 günlük test süresince OOM çökmelerini önlüyor",
-    "Grafana dashboard tüm modeller için gerçek zamanlı metrikleri gösteriyor",
-    "Benchmark sonuçları kapasite planlama için belgelendi",
-    "Gece modu batch işleme kuyruğa alınmış görevleri 06:00'ya kadar tamamlıyor",
-  ]
+// ═══ FAZ 4 ═══
+{id:4,emoji:"🚀",title:"Performans Optimizasyonu",color:"#ffb84d",
+ obj:"Opsiyonel ileri faz. Spekülatif çözümleme, batch zamanlama, bellek eşik kontrolü, gelişmiş gözlemlenebilirlik.",
+ s1:["Optimize üretim inference","Speculative decoding","Batch scheduling"],
+ s2:["Grafana + Prometheus","Benchmark suite","Kapasite planlama"],
+ tracks:[
+  {name:"⚡ Spekülatif Çözümleme (Speculative Decoding)",tag:"PERFORMANS",tc:"#ffb84d",tasks:[
+    {t:"vLLM speculative decoding flag'ını test et",c:"--speculative-model meta-llama/Llama-3.1-8B-Instruct --num-speculative-tokens 5"},
+    {t:"Qwen 32B reasoning'de speculative decode aktifleştir",c:"docker run ... vllm serve Qwen/Qwen3-32B --speculative-model ..."},
+    {t:"enforce-eager ile uyumluluğu kontrol et",c:"Çalışmıyorsa → bu optimizasyonu ertele"},
+    {t:"Benchmark: speculative vs normal → 1.3x+ hızlanma hedefi",c:"llama-benchy ile karşılaştır"},
+  ]},
+  {name:"📅 Batch Zamanlama & Gece Modu",tag:"PERFORMANS",tc:"#ffb84d",tasks:[
+    {t:"Gece modu cron tanımla: 00:00-06:00 arası batch-only",c:"crontab: 0 0 * * * /opt/enter_night_mode.sh"},
+    {t:"Gece modunda interactive slotları batch'e aç",c:"max_concurrent_batch = 4 (gece) vs 2 (gündüz)"},
+    {t:"Otomatik model swap: gece daha büyük context yükle (opsiyonel)",c:"--max-model-len 65536 (gece) vs 32768 (gündüz)"},
+    {t:"Sabah 06:00'da normal moda dön",c:"crontab: 0 6 * * * /opt/enter_day_mode.sh"},
+  ]},
+  {name:"💾 Bellek Eşik Kontrolü (Memory Watermark)",tag:"KARARLLIK",tc:"#ff5c6e",tasks:[
+    {t:"Watchdog'u eşik bazlı yükselt",c:"watermark.sh → green/yellow/red/critical seviyeler"},
+    {t:"🟢 Yeşil (<70%): normal çalışma",c:"no action"},
+    {t:"🟡 Sarı (70-85%): max_num_seqs %50 azalt + Telegram uyarı",c:"docker update --cpus... + send alert"},
+    {t:"🔴 Kırmızı (>85%): yeni istek kabul etme + boşalt + uyar",c:"set accepting=false, drain queue"},
+    {t:"💀 Kritik (>95%): buffer cache temizle + vLLM restart",c:"sync && echo 3 > /proc/sys/vm/drop_caches && docker restart ..."},
+    {t:"Spark'lar arası zombie koruma: S2 S1'i izler, 5dk yanıtsızsa restart",c:"ssh spark1 'uptime' timeout 10 || ssh spark1 'sudo reboot'"},
+  ]},
+  {name:"📡 Gelişmiş Gözlemlenebilirlik",tag:"GÖZLEM",tc:"#00d4ff",tasks:[
+    {t:"Prometheus kur (Spark #2)",c:"sudo apt install prometheus"},
+    {t:"vLLM /metrics endpoint'ini Prometheus'a bağla",c:"prometheus.yml → scrape_configs: targets: ['spark1:8001','spark1:8002','spark1:8003']"},
+    {t:"Grafana dashboard'ları oluştur: GPU, kuyruk, token verimi",c:"Grafana → Import dashboard → vLLM metrics"},
+    {t:"Alert kuralları: p99 >60s, hata >%5, bellek >%85",c:"alertmanager → telegram webhook"},
+    {t:"Maliyet muhasebesi: istek başına tahmini $ (token × cloud fiyat)",c:"cost_per_request = tokens * $0.003/1000"},
+    {t:"llama-benchy ile kapsamlı benchmark suite çalıştır",c:"llama-benchy --models all --concurrency 1,2,4,8"},
+  ]},
+ ],
+ gov:{"Eşzamanlı":"Dinamik: 4(yeşil) / 2(sarı) / 0(kırmızı)","Batch":"Dinamik: bellek durumuna göre","Token":"Faz 3 ile aynı","Retry":"Faz 3 ile aynı","Kill Switch":"Watchdog oto-kill + Spark arası uzaktan kill","GPU Süre":"Maliyet tahmini ile tam muhasebe","PII":"Faz 3 ile aynı"},
+ success:["Speculative decode >1.3x hızlanma (çalışıyorsa)","Bellek eşik 7 gün OOM'suz","Grafana gerçek zamanlı metrik","Benchmark sonuçları belgelendi","Gece modu batch tamamlıyor"]
 }
 ];
 
-// ══════ MODEL VERİSİ ══════
-const modelTiers = [
-  {tier:"Tier 1",emoji:"⚡",role:"Router / Sınıflandırıcı",model:"Llama-3.1-8B-Instruct",quant:"FP16 veya NVFP4",ram:"~8-10 GB (FP16) / ~5 GB (FP4)",speed:"~50-90 tok/s",ctx:"8K (kasıtlı sınırlı)",port:"8001",use:"Görev sınıflandırma, niyet tespiti, yönlendirme kararları. Hızlı yanıt gerekli.",color:"#00d4ff"},
-  {tier:"Tier 2",emoji:"🧠",role:"Reasoning",model:"Qwen3-32B (veya 30B-A3B MoE)",quant:"FP16 / BF16",ram:"~35-40 GB (FP16) / ~20 GB (MoE aktif)",speed:"~15-25 tok/s",ctx:"32K",port:"8002",use:"Mimari planlama, karmaşık debug, çok adımlı reasoning. Hızdan çok kalite.",color:"#00e68a"},
-  {tier:"Tier 3",emoji:"💻",role:"Coding",model:"Qwen3-Coder-30B-Instruct",quant:"FP16 / BF16",ram:"~35 GB",speed:"~15-25 tok/s",ctx:"32K",port:"8003",use:"Kod üretimi, refactoring, bug fix, test yazma. Birincil kodlama modeli.",color:"#4d94ff"},
-  {tier:"Tier X",emoji:"☁️",role:"Fallback",model:"Claude Sonnet 4 (API)",quant:"Cloud",ram:"N/A",speed:"~80+ tok/s",ctx:"200K",port:"API",use:"Lokal model başarısız olduğunda veya timeout aldığında fallback. Aylık $150 bütçe sınırı.",color:"#555568"},
+// ═══ MODEL DATA ═══
+const MT=[
+  {tier:"Tier 1",emoji:"⚡",role:"Router",model:"Llama-3.1-8B-Instruct",q:"FP16/NVFP4",ram:"~8-10 GB",spd:"~50-90 tok/s",ctx:"8K",port:"8001",use:"Görev sınıflandırma, niyet tespiti, yönlendirme. Hızlı yanıt gerekli.",c:"#00d4ff"},
+  {tier:"Tier 2",emoji:"🧠",role:"Reasoning",model:"Qwen3-32B",q:"FP16/BF16",ram:"~35-40 GB",spd:"~15-25 tok/s",ctx:"32K",port:"8002",use:"Mimari planlama, karmaşık debug, çok adımlı reasoning.",c:"#00e68a"},
+  {tier:"Tier 3",emoji:"💻",role:"Coding",model:"Qwen3-Coder-30B-Instruct",q:"FP16/BF16",ram:"~35 GB",spd:"~15-25 tok/s",ctx:"32K",port:"8003",use:"Kod üretimi, refactoring, bug fix, test yazma.",c:"#4d94ff"},
+  {tier:"Tier X",emoji:"☁️",role:"Fallback",model:"Claude Sonnet 4 (API)",q:"Cloud",ram:"N/A",spd:"~80+ tok/s",ctx:"200K",port:"API",use:"Lokal başarısız → fallback. Aylık $150 cap.",c:"#555568"},
+];
+const RI=[{l:"Llama 3.1 8B",gb:10,c:"#00d4ff"},{l:"Qwen3-32B",gb:38,c:"#00e68a"},{l:"Qwen Coder 30B",gb:35,c:"#4d94ff"},{l:"KV Cache",gb:20,c:"#ffb84d"},{l:"OS+Docker+Agent",gb:8,c:"#555568"},{l:"Headroom",gb:8,c:"#2a2a3a"}];
+
+// ═══ ÖN GEREKSİNİMLER ═══
+const PREREQS=[
+  {name:"🐧 Sistem Güncelleme",tag:"OS",tc:"#00d4ff",tasks:[
+    {t:"Paket listesini güncelle",c:"sudo apt update && sudo apt upgrade -y"},
+    {t:"Temel build araçlarını kur",c:"sudo apt install -y build-essential cmake ninja-build git curl wget unzip software-properties-common"},
+    {t:"Net-tools & ağ araçları",c:"sudo apt install -y net-tools iperf3 htop tmux jq"},
+    {t:"SSH server'ın çalıştığını doğrula",c:"sudo systemctl status ssh → active (running)"},
+  ]},
+  {name:"🐍 Python 3.12+",tag:"RUNTIME",tc:"#ffb84d",tasks:[
+    {t:"Python versiyonunu kontrol et",c:"python3 --version → 3.12+ olmalı"},
+    {t:"Python yoksa veya eskiyse kur",c:"sudo apt install -y python3.12 python3.12-venv python3.12-dev python3-pip"},
+    {t:"pip güncelle",c:"python3 -m pip install --upgrade pip --break-system-packages"},
+    {t:"venv desteğini doğrula",c:"python3 -m venv /tmp/test-env && rm -rf /tmp/test-env"},
+    {t:"HuggingFace CLI kur (model indirmek için)",c:"pip install --break-system-packages huggingface-cli"},
+    {t:"HuggingFace'e login ol (gated modeller için)",c:"huggingface-cli login → token gir"},
+  ]},
+  {name:"🟢 Node.js 22+ (OpenClaw için)",tag:"RUNTIME",tc:"#00e68a",tasks:[
+    {t:"NodeSource repo ekle (ARM64)",c:"curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -"},
+    {t:"Node.js kur",c:"sudo apt install -y nodejs"},
+    {t:"Versiyonu doğrula",c:"node --version → v22.x+ && npm --version → 10.x+"},
+    {t:"npm global dizinini ayarla (sudo'suz kurulum)",c:"mkdir -p ~/.npm-global && npm config set prefix '~/.npm-global' && echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc && source ~/.bashrc"},
+  ]},
+  {name:"🐳 Docker & NVIDIA Container Toolkit",tag:"CONTAINER",tc:"#4d94ff",tasks:[
+    {t:"Docker kurulumunu kontrol et (DGX OS'ta genelde yüklü)",c:"docker --version → 24+ olmalı"},
+    {t:"Docker yoksa kur",c:"curl -fsSL https://get.docker.com | sh && sudo usermod -aG docker $USER"},
+    {t:"Docker daemon'ın çalıştığını doğrula",c:"sudo systemctl status docker → active"},
+    {t:"NVIDIA Container Toolkit kontrol",c:"nvidia-ctk --version"},
+    {t:"Toolkit yoksa kur",c:"curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg && sudo apt update && sudo apt install -y nvidia-container-toolkit && sudo nvidia-ctk runtime configure --runtime=docker && sudo systemctl restart docker"},
+    {t:"GPU passthrough testi",c:"docker run --rm --gpus all nvcr.io/nvidia/cuda:13.1.0-base-ubuntu24.04 nvidia-smi"},
+    {t:"NGC registry login (vLLM container için)",c:"docker login nvcr.io → Username: $oauthtoken, Password: NGC API key"},
+    {t:"NGC vLLM container'ını önceden çek",c:"docker pull nvcr.io/nvidia/vllm:26.01-py3"},
+  ]},
+  {name:"🔧 CUDA Toolkit Doğrulama",tag:"GPU",tc:"#b08cff",tasks:[
+    {t:"CUDA versiyonunu kontrol et (DGX OS'ta yüklü gelir)",c:"nvcc --version → CUDA 13.0+ olmalı"},
+    {t:"GPU'yu doğrula",c:"nvidia-smi → NVIDIA GB10 Blackwell, sm_121"},
+    {t:"UMA bellek notu: nvidia-smi Memory: N/A gösterir — bu normal",c:"free -h → ~119 GB kullanılabilir (GPU+CPU paylaşımlı)"},
+    {t:"CUDA ortam değişkenlerini ayarla",c:"echo 'export CUDA_HOME=/usr/local/cuda\\nexport PATH=$CUDA_HOME/bin:$PATH\\nexport LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc && source ~/.bashrc"},
+  ]},
+  {name:"📦 OpenClaw Kurulumu",tag:"AGENT",tc:"#00e68a",tasks:[
+    {t:"OpenClaw'u global kur",c:"npm install -g openclaw"},
+    {t:"Versiyonu doğrula",c:"openclaw --version"},
+    {t:"Başlangıç sihirbazını çalıştır",c:"openclaw onboard"},
+    {t:"Daemon (7/24) modunu aktifleştir",c:"openclaw onboard --install-daemon"},
+    {t:"OpenClaw servisinin çalıştığını doğrula",c:"systemctl status openclaw || openclaw status"},
+  ]},
+  {name:"🗄️ Redis (Kuyruk & Cache — Faz 2+ için)",tag:"VERİTABANI",tc:"#ff5c6e",tasks:[
+    {t:"Redis server kur",c:"sudo apt install -y redis-server"},
+    {t:"Redis'i başlat ve otomatik başlamayı aktifleştir",c:"sudo systemctl enable redis-server && sudo systemctl start redis-server"},
+    {t:"Bağlantı testi",c:"redis-cli ping → PONG dönmeli"},
+  ]},
+  {name:"🗃️ SQLite & PostgreSQL (Log & Audit)",tag:"VERİTABANI",tc:"#ff5c6e",tasks:[
+    {t:"SQLite doğrula (genelde yüklü)",c:"sqlite3 --version"},
+    {t:"PostgreSQL kur (Faz 3 audit DB için — şimdi opsiyonel)",c:"sudo apt install -y postgresql postgresql-client"},
+    {t:"PostgreSQL'i başlat",c:"sudo systemctl enable postgresql && sudo systemctl start postgresql"},
+    {t:"Test: psql bağlantısı",c:"sudo -u postgres psql -c 'SELECT version();'"},
+  ]},
+  {name:"🌐 Tailscale (Uzaktan Erişim)",tag:"AĞ",tc:"#4d94ff",tasks:[
+    {t:"Tailscale kur",c:"curl -fsSL https://tailscale.com/install.sh | sh"},
+    {t:"Tailscale'i aktifleştir",c:"sudo tailscale up"},
+    {t:"Her iki Spark'ta da kur ve aynı ağa bağla",c:"Spark #1 ve #2'de tekrarla"},
+    {t:"Tailscale SSH'ı aktifleştir (opsiyonel)",c:"sudo tailscale up --ssh"},
+    {t:"Tailscale üzerinden erişimi doğrula",c:"tailscale status → her iki Spark görünmeli"},
+  ]},
+  {name:"📊 Grafana (Faz 3+ Dashboard — Opsiyonel)",tag:"GÖZLEM",tc:"#ffb84d",tasks:[
+    {t:"Grafana repo ekle ve kur",c:"sudo apt install -y apt-transport-https && wget -q -O - https://apt.grafana.com/gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/grafana.gpg && echo 'deb [signed-by=/usr/share/keyrings/grafana.gpg] https://apt.grafana.com stable main' | sudo tee /etc/apt/sources.list.d/grafana.list && sudo apt update && sudo apt install -y grafana"},
+    {t:"Grafana'yı başlat",c:"sudo systemctl enable grafana-server && sudo systemctl start grafana-server"},
+    {t:"Web arayüzüne eriş",c:"http://<spark-ip>:3000 → admin/admin ile giriş"},
+  ]},
+  {name:"🧰 Geliştirme Araçları (Linter & Test)",tag:"DEV",tc:"#b08cff",tasks:[
+    {t:"Python linter (ruff) kur",c:"pip install --break-system-packages ruff mypy"},
+    {t:"Ruff çalıştığını doğrula",c:"ruff --version && ruff check --help"},
+    {t:"ESLint kur (JS/TS projeleri için)",c:"npm install -g eslint typescript"},
+    {t:"ESLint doğrula",c:"eslint --version"},
+  ]},
 ];
 
-const ramItems = [
-  {l:"Llama 3.1 8B",gb:10,c:"#00d4ff"},
-  {l:"Qwen3-32B",gb:38,c:"#00e68a"},
-  {l:"Qwen Coder 30B",gb:35,c:"#4d94ff"},
-  {l:"KV Cache (3 model)",gb:20,c:"#ffb84d"},
-  {l:"OS + Docker + Agent",gb:8,c:"#555568"},
-  {l:"Boş Alan (kritik)",gb:8,c:"#2a2a3a"},
-];
+// ═══ STATE ═══
+let tab="p0";
+let checked=new Set();
+let collapsed=new Set();
+const LS_KEY="dsx-coding-v22";
+try{const s=JSON.parse(localStorage.getItem(LS_KEY));if(s){checked=new Set(s.checked||[]);collapsed=new Set(s.collapsed||[]);tab=s.tab||"prereqs";}}catch(e){}
+function save(){try{localStorage.setItem(LS_KEY,JSON.stringify({checked:[...checked],collapsed:[...collapsed],tab}));}catch(e){}}
 
-// ══════ STATE ══════
-let tab = "p0";
-let collapsed = new Set();
+function setTab(t){tab=t;save();R();}
+function togTask(k){checked.has(k)?checked.delete(k):checked.add(k);save();R();}
+function togTrack(k){collapsed.has(k)?collapsed.delete(k):collapsed.add(k);save();R();}
 
-function setTab(t){ tab=t; R(); }
-function togBlk(k){ collapsed.has(k)?collapsed.delete(k):collapsed.add(k); R(); }
-
-// ══════ RENDER ══════
+// ═══ RENDER ═══
 function R(){
-  const app = document.getElementById('app');
-  app.innerHTML = `
+  const app=document.getElementById('app');
+  app.innerHTML=`
     <div class="hero">
-      <div class="chip"><span class="pulse"></span>Mühendislik Planı v2.0</div>
+      <div class="chip"><span class="pulse"></span>Mühendislik Planı v2.2</div>
       <h1>Dual DGX Spark — Coding Agent</h1>
-      <p>vLLM inference runtime • OpenClaw orkestrasyon • Deterministik governance • Oto-düzeltme derleme döngüsü</p>
+      <p>vLLM inference • OpenClaw orkestrasyon • Deterministik governance • Oto-düzeltme derleme döngüsü</p>
       <div class="hero-tags">
         <span class="hero-tag">📐 2× DGX Spark (128 GB)</span>
-        <span class="hero-tag">🔧 vLLM + NGC Container</span>
-        <span class="hero-tag">🏗️ ARM64 / Blackwell SM121</span>
-        <span class="hero-tag">⚠️ enforce-eager zorunlu</span>
+        <span class="hero-tag">🔧 vLLM NGC 26.01</span>
+        <span class="hero-tag">🏗️ ARM64 / SM121</span>
+        <span class="hero-tag">⚠️ enforce-eager</span>
       </div>
     </div>
-
     <div class="specs">
-      ${[
-        {e:"🧠",v:"128 GB",l:"Spark Başına RAM"},
-        {e:"💾",v:"119 GB",l:"Kullanılabilir (UMA)"},
-        {e:"⚡",v:"SM121",l:"Compute Cap."},
-        {e:"🔗",v:"200 GbE",l:"Spark Bağlantı"},
-        {e:"🔧",v:"CUDA 13",l:"Toolkit"},
-        {e:"🏗️",v:"ARM64",l:"Mimari"},
-      ].map(s=>`<div class="spec"><div class="emoji">${s.e}</div><div class="val">${s.v}</div><div class="lbl">${s.l}</div></div>`).join('')}
+      ${[{e:"🧠",v:"128 GB",l:"Spark Başına"},{e:"💾",v:"119 GB",l:"Kullanılabilir"},{e:"⚡",v:"SM121",l:"Compute"},{e:"🔗",v:"200 GbE",l:"Bağlantı"},{e:"🔧",v:"CUDA 13",l:"Toolkit"},{e:"🏗️",v:"ARM64",l:"Mimari"}].map(s=>`<div class="spec"><div class="emoji">${s.e}</div><div class="val">${s.v}</div><div class="lbl">${s.l}</div></div>`).join('')}
     </div>
-
     <div class="nav">
-      ${phases.map(p=>`<button class="${tab==='p'+p.id?'on':''}" onclick="setTab('p${p.id}')">${p.emoji} Faz ${p.id}</button>`).join('')}
+      <button class="${tab==='prereqs'?'on':''}" onclick="setTab('prereqs')">📦 Ön Gereksinimler</button>
+      ${P.map(p=>`<button class="${tab==='p'+p.id?'on':''}" onclick="setTab('p${p.id}')">${p.emoji} Faz ${p.id}</button>`).join('')}
       <button class="${tab==='models'?'on':''}" onclick="setTab('models')">🤖 Modeller</button>
     </div>
-
-    ${tab==='models' ? renderModels() : ''}
-    ${phases.map(p => tab==='p'+p.id ? renderPhase(p) : '').join('')}
+    ${tab==='prereqs'?renderPrereqs():''}
+    ${tab==='models'?renderModels():''}
+    ${P.map(p=>tab==='p'+p.id?renderPhase(p):'').join('')}
   `;
 }
 
+function renderPrereqs(){
+  let tot=0,don=0;
+  PREREQS.forEach(tr=>{tot+=tr.tasks.length;tr.tasks.forEach((_,i)=>{if(checked.has('pre-'+tr.name+'-'+i))don++;});});
+  const pct=tot>0?Math.round(don/tot*100):0;
+
+  return '<div class="sec vis">'+
+    '<div class="ph-hdr">'+
+      '<div class="ph-icon" style="background:#ff6eb415;font-size:22px">📦</div>'+
+      '<div class="ph-info"><h2 style="color:#ff6eb4">Ön Gereksinimler — Yazılım Kurulumu</h2><p>DGX Spark üzerinde tüm fazlar için gerekli araçların kurulum rehberi. Her iki Spark\'ta çalıştırılmalı.</p></div>'+
+    '</div>'+
+    '<div class="prog-wrap">'+
+      '<div class="prog-bar"><div class="prog-fill" style="width:'+pct+'%;background:#ff6eb4"></div></div>'+
+      '<div class="prog-text" style="color:#ff6eb4">'+don+'/'+tot+'</div>'+
+    '</div>'+
+    '<div class="warn">'+
+      '<h4>⚠️ DGX Spark\'a Özgü Notlar</h4>'+
+      '<p>🏗️ <strong>ARM64 mimari:</strong> Tüm paketler <code>aarch64</code> uyumlu olmalı. x86_64 binary\'ler çalışmaz.</p>'+
+      '<p style="margin-top:4px">🔧 <strong>DGX OS:</strong> Ubuntu 24.04 tabanlı. CUDA 13 ve NVIDIA driver\'ları önceden yüklü gelir.</p>'+
+      '<p style="margin-top:4px">📦 <strong>pip:</strong> Sistem Python\'una kurarken <code>--break-system-packages</code> flag\'ı gerekli.</p>'+
+      '<p style="margin-top:4px">🔄 <strong>Her iki Spark\'ta çalıştır:</strong> Bu adımları Spark #1 ve Spark #2\'de ayrı ayrı uygula.</p>'+
+    '</div>'+
+    PREREQS.map(function(tr,ti){
+      var tKey='t-pre-'+ti;
+      var col=collapsed.has(tKey);
+      var tDone=0; tr.tasks.forEach(function(_,i){if(checked.has('pre-'+tr.name+'-'+i))tDone++;});
+      return '<div class="track">'+
+        '<div class="track-head" onclick="togTrack(\''+tKey+'\')">'+
+          '<span class="left">'+tr.name+'</span>'+
+          '<span class="counter">'+tDone+'/'+tr.tasks.length+'</span>'+
+          '<span class="tag" style="background:'+tr.tc+'12;color:'+tr.tc+';border:1px solid '+tr.tc+'30">'+tr.tag+'</span>'+
+          '<span class="chevron">'+(col?'▸':'▾')+'</span>'+
+        '</div>'+
+        '<div class="track-body '+(col?'hide':'')+'">'+
+          tr.tasks.map(function(task,i){
+            var k='pre-'+tr.name+'-'+i;
+            var d=checked.has(k);
+            return '<div class="task '+(d?'done':'')+'" onclick="togTask(\''+k+'\')">'+
+              '<div class="cb">'+(d?'✓':'')+'</div>'+
+              '<div class="task-body">'+
+                '<div class="task-text">'+task.t+'</div>'+
+                '<div class="task-cmd">'+task.c+'</div>'+
+              '</div>'+
+            '</div>';
+          }).join('')+
+        '</div>'+
+      '</div>';
+    }).join('')+
+    '<div class="qs">'+
+      '<h3>⚡ Hızlı Kontrol — Her Şey Kuruldu mu?</h3>'+
+      '<div class="qs-cmd"><code># Tüm gereksinimleri tek seferde kontrol et:\necho "=== OS ===" &amp;&amp; cat /etc/os-release | grep PRETTY\necho "=== CUDA ===" &amp;&amp; nvcc --version | grep release\necho "=== GPU ===" &amp;&amp; nvidia-smi | head -4\necho "=== Docker ===" &amp;&amp; docker --version\necho "=== NVIDIA Toolkit ===" &amp;&amp; nvidia-ctk --version\necho "=== Python ===" &amp;&amp; python3 --version\necho "=== Node.js ===" &amp;&amp; node --version\necho "=== npm ===" &amp;&amp; npm --version\necho "=== OpenClaw ===" &amp;&amp; openclaw --version 2&gt;/dev/null || echo "kurulmamış"\necho "=== Redis ===" &amp;&amp; redis-cli ping 2&gt;/dev/null || echo "kurulmamış"\necho "=== Bellek ===" &amp;&amp; free -h | grep Mem\necho "=== Mimari ===" &amp;&amp; uname -m</code></div>'+
+      '<div class="tip">💡 Bu script\'i her iki Spark\'ta çalıştır. Tüm çıktılar beklenen değerleri gösteriyorsa Faz 0\'a geçebilirsin.</div>'+
+    '</div>'+
+    '<div class="success">'+
+      '<h4>✅ Ön Gereksinimler Tamamlanma Koşulları</h4>'+
+      '<div class="si"><span class="arr" style="color:var(--grn)">✓</span>Python 3.12+, Node.js 22+, Docker 24+ kurulu</div>'+
+      '<div class="si"><span class="arr" style="color:var(--grn)">✓</span>NVIDIA Container Toolkit GPU passthrough çalışıyor</div>'+
+      '<div class="si"><span class="arr" style="color:var(--grn)">✓</span>NGC vLLM container çekildi (nvcr.io/nvidia/vllm:26.01-py3)</div>'+
+      '<div class="si"><span class="arr" style="color:var(--grn)">✓</span>OpenClaw kurulu ve daemon çalışıyor</div>'+
+      '<div class="si"><span class="arr" style="color:var(--grn)">✓</span>Redis çalışıyor (ping → PONG)</div>'+
+      '<div class="si"><span class="arr" style="color:var(--grn)">✓</span>Tailscale ile uzaktan erişim sağlandı</div>'+
+      '<div class="si"><span class="arr" style="color:var(--grn)">✓</span>Her iki Spark\'ta tüm adımlar tekrarlandı</div>'+
+    '</div>'+
+  '</div>';
+}
+
 function renderPhase(p){
-  return `<div class="sec vis"><div class="ph">
+  // count
+  let tot=0,don=0;
+  p.tracks.forEach(tr=>{tot+=tr.tasks.length;tr.tasks.forEach((_,i)=>{if(checked.has(`${p.id}-${tr.name}-${i}`))don++;});});
+  const pct=tot>0?Math.round(don/tot*100):0;
+
+  return `<div class="sec vis">
     <div class="ph-hdr">
-      <div class="ph-icon" style="background:${p.color}15;font-size:24px">${p.emoji}</div>
+      <div class="ph-icon" style="background:${p.color}15">${p.emoji}</div>
       <div class="ph-info"><h2 style="color:${p.color}">Faz ${p.id} — ${p.title}</h2><p>${p.obj}</p></div>
     </div>
-
+    <div class="prog-wrap">
+      <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${p.color}"></div></div>
+      <div class="prog-text" style="color:${p.color}">${don}/${tot}</div>
+    </div>
     <div class="spark-grid">
       <div class="spark-card" style="border-color:${p.color}35">
         <h4>🟢 Spark #1<span class="badge">128 GB</span></h4>
@@ -642,148 +620,114 @@ function renderPhase(p){
       </div>
     </div>
 
-    ${p.blocks.map((b,i)=>{
-      const k=`p${p.id}-${i}`;
-      const col = collapsed.has(k);
-      return `<div class="blk">
-        <div class="blk-h" onclick="togBlk('${k}')">
-          <span class="left"><span>${b.emoji}</span><span>${b.name}</span></span>
-          <span style="display:flex;align-items:center;gap:8px">
-            <span class="tag" style="background:${b.tc}12;color:${b.tc};border:1px solid ${b.tc}30">${b.tag}</span>
-            <span class="chevron">${col?'▸':'▾'}</span>
-          </span>
+    ${p.tracks.map((tr,ti)=>{
+      const tKey=`t-${p.id}-${ti}`;
+      const col=collapsed.has(tKey);
+      let tDone=0; tr.tasks.forEach((_,i)=>{if(checked.has(`${p.id}-${tr.name}-${i}`))tDone++;});
+      return `<div class="track">
+        <div class="track-head" onclick="togTrack('${tKey}')">
+          <span class="left">${tr.name}</span>
+          <span class="counter">${tDone}/${tr.tasks.length}</span>
+          <span class="tag" style="background:${tr.tc}12;color:${tr.tc};border:1px solid ${tr.tc}30">${tr.tag}</span>
+          <span class="chevron">${col?'▸':'▾'}</span>
         </div>
-        <div class="blk-b ${col?'hide':''}">
-          ${b.items.map(it=>`<div class="it"><span class="bullet">${it.b}</span><span>${it.t}</span></div>`).join('')}
-          ${b.cmd?`<div class="cmd"><code>${b.cmd}</code></div>`:''}
-          ${(b.extra||[]).map(it=>`<div class="it"><span class="bullet">${it.b}</span><span>${it.t}</span></div>`).join('')}
+        <div class="track-body ${col?'hide':''}">
+          ${tr.tasks.map((task,i)=>{
+            const k=`${p.id}-${tr.name}-${i}`;
+            const d=checked.has(k);
+            return `<div class="task ${d?'done':''}" onclick="togTask('${k}')">
+              <div class="cb">${d?'✓':''}</div>
+              <div class="task-body">
+                <div class="task-text">${task.t}</div>
+                <div class="task-cmd">${task.c}</div>
+              </div>
+            </div>`;
+          }).join('')}
         </div>
       </div>`;
     }).join('')}
 
-    <div class="blk">
-      <div class="blk-h" onclick="togBlk('gov-${p.id}')">
-        <span class="left"><span>🛡️</span><span>Governance Parametreleri</span></span>
-        <span style="display:flex;align-items:center;gap:8px">
-          <span class="tag" style="background:#ff5c6e12;color:#ff5c6e;border:1px solid #ff5c6e30">GOVERNANCE</span>
-          <span class="chevron">${collapsed.has('gov-'+p.id)?'▸':'▾'}</span>
-        </span>
+    <div class="track">
+      <div class="track-head" onclick="togTrack('gov-${p.id}')">
+        <span class="left">🛡️ Governance Parametreleri</span>
+        <span class="tag" style="background:#ff5c6e12;color:#ff5c6e;border:1px solid #ff5c6e30">GOVERNANCE</span>
+        <span class="chevron">${collapsed.has('gov-'+p.id)?'▸':'▾'}</span>
       </div>
-      <div class="blk-b ${collapsed.has('gov-'+p.id)?'hide':''}">
-        <div class="gov">
-          ${Object.entries(p.gov).map(([k,v])=>`
-            <div class="gov-cell"><div class="gl">${k}</div><div class="gv">${v}</div></div>
-          `).join('')}
+      <div class="track-body ${collapsed.has('gov-'+p.id)?'hide':''}">
+        <div style="padding:10px 16px">
+          <div class="gov">
+            ${Object.entries(p.gov).map(([k,v])=>`<div class="gov-cell"><div class="gl">${k}</div><div class="gv">${v}</div></div>`).join('')}
+          </div>
         </div>
       </div>
     </div>
 
     <div class="success">
-      <h4>✅ Başarı Kriterleri — Faz ${p.id} Tamamlanma Koşulları:</h4>
-      ${p.success.map(s=>`<div class="it"><span class="bullet" style="color:var(--grn)">✓</span><span>${s}</span></div>`).join('')}
+      <h4>✅ Başarı Kriterleri — Faz ${p.id} Tamamlanma Koşulları</h4>
+      ${p.success.map(s=>`<div class="si"><span class="arr" style="color:var(--grn)">✓</span>${s}</div>`).join('')}
     </div>
-  </div></div>`;
+
+    ${p.id===0?`<div class="qs"><h3>⚡ Faz 0 Hızlı Başlangıç</h3>
+      <div class="qs-cmd"><code># Her iki Spark'ta çalıştır:\nnvcc --version\nnvidia-smi\nfree -h\nuname -m\ndocker --version</code></div>
+      <div class="qs-cmd"><code># NGC vLLM container çek:\ndocker pull nvcr.io/nvidia/vllm:26.01-py3</code></div>
+      <div class="qs-cmd"><code># Smoke test:\ndocker run --rm -it --gpus all --shm-size=16g \\\n  -p 8000:8000 nvcr.io/nvidia/vllm:26.01-py3 \\\n  vllm serve facebook/opt-125m --enforce-eager</code></div>
+      <div class="tip">💡 Her iki Spark'ta bağımsız olarak çalıştır. Dağıtık mod bu fazda yok.</div>
+    </div>`:''}
+
+    ${p.id===1?`<div class="qs"><h3>⚡ Faz 1 Hızlı Başlangıç — 3 Model Sırayla</h3>
+      <div class="qs-cmd"><code># 1. Router başlat (en küçük — sağlık kontrolü için)\ndocker run -d --gpus all --name vllm-router \\\n  -p 8001:8000 nvcr.io/nvidia/vllm:26.01-py3 \\\n  vllm serve meta-llama/Llama-3.1-8B-Instruct \\\n  --enforce-eager --gpu-memory-utilization 0.08</code></div>
+      <div class="qs-cmd"><code># 2. Coder başlat\ndocker run -d --gpus all --name vllm-coder \\\n  -p 8003:8000 nvcr.io/nvidia/vllm:26.01-py3 \\\n  vllm serve Qwen/Qwen3-Coder-30B-Instruct \\\n  --enforce-eager --gpu-memory-utilization 0.35</code></div>
+      <div class="qs-cmd"><code># 3. Reasoning başlat (en son)\ndocker run -d --gpus all --name vllm-reasoning \\\n  -p 8002:8000 nvcr.io/nvidia/vllm:26.01-py3 \\\n  vllm serve Qwen/Qwen3-32B \\\n  --enforce-eager --gpu-memory-utilization 0.35</code></div>
+      <div class="qs-cmd"><code># 4. Bellek kontrol:\nfree -h  # ≥20 GB boş olmalı</code></div>
+      <div class="tip">💡 Sıralama önemli: Router → Coder → Reasoning. Bellekte en küçükten başla.</div>
+    </div>`:''}
+  </div>`;
 }
 
 function renderModels(){
-  const total = ramItems.reduce((a,r)=>a+r.gb,0);
-  const ok = total <= 119;
-  return `<div class="sec vis"><div class="ph">
+  const tot=RI.reduce((a,r)=>a+r.gb,0);
+  return `<div class="sec vis">
     <div class="ph-hdr">
-      <div class="ph-icon" style="background:#00e68a15;font-size:24px">🤖</div>
-      <div class="ph-info"><h2>Model Stratejisi</h2><p>Üç katmanlı lokal inference + bulut fallback. Tümü vLLM ile sunulur (OpenAI-uyumlu API).</p></div>
+      <div class="ph-icon" style="background:#00e68a15;font-size:22px">🤖</div>
+      <div class="ph-info"><h2>Model Stratejisi</h2><p>Üç katmanlı lokal inference + bulut fallback. Tümü vLLM (OpenAI-uyumlu API).</p></div>
     </div>
-
     <div class="warn">
-      <h4>⚠️ DGX Spark — vLLM Kısıtlamaları</h4>
-      <p>🔧 <strong>enforce-eager zorunlu:</strong> Triton/CUDA graph derleme sm_121 (Blackwell) için henüz tam destek vermiyor. Tüm vLLM instance'ları <code>--enforce-eager</code> ile çalışmalı. Bu, optimize moda göre ~%20-30 daha yavaş inference demek.</p>
-      <p style="margin-top:6px">💾 <strong>UMA bellek:</strong> GPU ve CPU aynı 128 GB LPDDR5x havuzunu paylaşır. <code>nvidia-smi</code> Memory: N/A gösterir. <code>free -h</code> ile takip et. OOM temiz CUDA hatası değil, sistem dondurması (zombie) olarak ortaya çıkar.</p>
-      <p style="margin-top:6px">📦 <strong>NGC container önerilir:</strong> <code>nvcr.io/nvidia/vllm:26.01-py3</code> — ARM64 + CUDA 13 yamaları ile NVIDIA onaylı build.</p>
+      <h4>⚠️ DGX Spark vLLM Kısıtlamaları</h4>
+      <p>🔧 <strong>enforce-eager zorunlu:</strong> Triton sm_121 desteği henüz olgun değil → ~%20-30 daha yavaş. NGC 26.01-py3 container önerilir.</p>
+      <p style="margin-top:4px">💾 <strong>UMA bellek:</strong> GPU+CPU aynı 128 GB paylaşır. OOM = sistem zombie (SSH donar). <code>free -h</code> ile takip et.</p>
     </div>
-
     <table class="tbl">
       <thead><tr><th></th><th>Tier</th><th>Rol</th><th>Model</th><th>RAM</th><th>Hız</th><th>Context</th><th>Port</th></tr></thead>
-      <tbody>
-        ${modelTiers.map(m=>`<tr>
-          <td>${m.emoji}</td>
-          <td><strong>${m.tier}</strong></td>
-          <td>${m.role}</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:${m.color}">${m.model}</td>
-          <td>${m.ram}</td>
-          <td>${m.speed}</td>
-          <td>${m.ctx}</td>
-          <td style="font-family:'JetBrains Mono',monospace">${m.port}</td>
-        </tr>`).join('')}
-      </tbody>
+      <tbody>${MT.map(m=>`<tr><td>${m.emoji}</td><td><strong>${m.tier}</strong></td><td>${m.role}</td><td class="mono" style="color:${m.c}">${m.model}</td><td>${m.ram}</td><td>${m.spd}</td><td>${m.ctx}</td><td class="mono">${m.port}</td></tr>`).join('')}</tbody>
     </table>
-
-    ${modelTiers.map((m,i)=>`
-      <div class="blk">
-        <div class="blk-h" onclick="togBlk('m-${i}')">
-          <span class="left"><span>${m.emoji}</span><span>${m.tier}: ${m.model}</span></span>
-          <span style="display:flex;align-items:center;gap:8px">
-            <span class="tag" style="background:${m.color}12;color:${m.color};border:1px solid ${m.color}30">${m.role}</span>
-            <span class="chevron">${collapsed.has('m-'+i)?'▸':'▾'}</span>
-          </span>
-        </div>
-        <div class="blk-b ${collapsed.has('m-'+i)?'hide':''}">
-          <div class="it"><span class="bullet">📦</span><span><strong>Quantization:</strong> ${m.quant}</span></div>
-          <div class="it"><span class="bullet">💾</span><span><strong>RAM:</strong> ${m.ram}</span></div>
-          <div class="it"><span class="bullet">⚡</span><span><strong>Beklenen hız:</strong> ${m.speed} (enforce-eager ile)</span></div>
-          <div class="it"><span class="bullet">📏</span><span><strong>Context penceresi:</strong> ${m.ctx}</span></div>
-          <div class="it"><span class="bullet">🎯</span><span><strong>Kullanım:</strong> ${m.use}</span></div>
-        </div>
-      </div>
-    `).join('')}
-
-    <div class="blk" style="margin-top:14px">
-      <div class="blk-h" onclick="togBlk('ram')">
-        <span class="left"><span>💾</span><span>Spark #1 — Bellek Bütçesi (119 GB kullanılabilir)</span></span>
-        <span style="display:flex;align-items:center;gap:8px">
-          <span class="tag" style="background:#ffb84d12;color:#ffb84d;border:1px solid #ffb84d30">RAM</span>
-          <span class="chevron">${collapsed.has('ram')?'▸':'▾'}</span>
-        </span>
-      </div>
-      <div class="blk-b ${collapsed.has('ram')?'hide':''}">
-        ${ramItems.map(r=>`
-          <div class="ram-row">
-            <div class="ram-lbl">${r.l}</div>
-            <div class="ram-bg"><div class="ram-fill" style="width:${Math.max(r.gb/119*100,4)}%;background:${r.c}"><span>${r.gb} GB</span></div></div>
+    <div class="track" style="margin-top:14px">
+      <div class="track-head" onclick="togTrack('ram')"><span class="left">💾 Spark #1 Bellek Bütçesi (119 GB)</span><span class="tag" style="background:#ffb84d12;color:#ffb84d;border:1px solid #ffb84d30">RAM</span><span class="chevron">${collapsed.has('ram')?'▸':'▾'}</span></div>
+      <div class="track-body ${collapsed.has('ram')?'hide':''}">
+        <div style="padding:12px 16px">
+          ${RI.map(r=>`<div class="ram-row"><div class="ram-lbl">${r.l}</div><div class="ram-bg"><div class="ram-fill" style="width:${Math.max(r.gb/119*100,4)}%;background:${r.c}"><span>${r.gb} GB</span></div></div></div>`).join('')}
+          <div style="margin-top:8px;font-size:11px;color:var(--t3)">Toplam: ${tot} GB / 119 GB ${tot<=119?'<span style="color:#00e68a">✅ Bütçe dahilinde</span>':'<span style="color:#ff5c6e">⚠️ Aşım</span>'}</div>
+          <div class="danger" style="margin-top:10px">
+            <h4>⚠️ UMA Bellek Uyarısı</h4>
+            <div class="si"><span class="arr" style="color:#ff5c6e">!</span>OOM temiz CUDA hatası ÜRETMEZ — sistem zombie olur (SSH donar)</div>
+            <div class="si"><span class="arr" style="color:#ff5c6e">!</span>Her zaman ≥8 GB headroom bırak</div>
+            <div class="si"><span class="arr" style="color:#ff5c6e">!</span><code>free -h</code> kullan — <code>nvidia-smi</code> UMA'da N/A gösterir</div>
           </div>
-        `).join('')}
-        <div style="margin-top:10px;font-size:12px;color:var(--t3)">
-          Toplam: ${total} GB / 119 GB.
-          ${ok ? '<span style="color:#00e68a"> ✅ Bütçe dahilinde.</span>' : '<span style="color:#ff5c6e"> ⚠️ Bütçe aşımı — context pencerelerini küçült veya quantize modeller kullan.</span>'}
-        </div>
-
-        <div class="danger" style="margin-top:12px">
-          <h4>⚠️ UMA Bellek Uyarısı</h4>
-          <div class="it"><span class="bullet">💾</span><span>DGX Spark Unified Memory Architecture kullanır — GPU ve CPU aynı fiziksel RAM'i paylaşır</span></div>
-          <div class="it"><span class="bullet">💀</span><span>OOM temiz CUDA hatası ÜRETMEZ — sistem zombie olur (SSH donar, fiziksel yeniden başlatma gerekir)</span></div>
-          <div class="it"><span class="bullet">🛟</span><span>OS, Docker ve agent süreçleri için her zaman ≥8 GB boş alan bırak</span></div>
-          <div class="it"><span class="bullet">📊</span><span><code>free -h</code> ile takip et — <code>nvidia-smi</code> DEĞİL (UMA'da N/A gösterir)</span></div>
-          <div class="it"><span class="bullet">🔧</span><span>Her iki 30B+ model FP16 ise: sadece modeller için ~75 GB — çalışır ama sıkı</span></div>
-          <div class="it"><span class="bullet">📉</span><span>Bellek baskısı gözlemlenirse Q4/Q8 quantization düşün</span></div>
         </div>
       </div>
     </div>
-
-    <div class="blk" style="margin-top:8px">
-      <div class="blk-h" onclick="togBlk('load-order')">
-        <span class="left"><span>📋</span><span>Model Yükleme Sırası</span></span>
-        <span class="tag" style="background:#4d94ff12;color:#4d94ff;border:1px solid #4d94ff30">PROSEDÜR</span>
-      </div>
-      <div class="blk-b ${collapsed.has('load-order')?'hide':''}">
-        <div class="it"><span class="bullet">1️⃣</span><span>Önce Router'ı (Llama 8B) başlat — en küçük ayak izi, sağlık kontrolleri için gerekli</span></div>
-        <div class="it"><span class="bullet">2️⃣</span><span>Coder'ı (Qwen Coder 30B) başlat — birincil iş yükü modeli</span></div>
-        <div class="it"><span class="bullet">3️⃣</span><span>Reasoning'i (Qwen 32B) en son yükle — daha az sıklıkla kullanılır</span></div>
-        <div class="it"><span class="bullet">4️⃣</span><span>Üçü de çalışırken: <code>free -h</code> ile belleği doğrula</span></div>
-        <div class="it"><span class="bullet">5️⃣</span><span>Kullanılabilir bellek <8 GB ise: <code>--max-model-len</code> veya <code>--gpu-memory-utilization</code> azalt</span></div>
-        <div class="it"><span class="bullet">6️⃣</span><span>Üretim trafiği kabul etmeden önce her modelde inference testi çalıştır</span></div>
+    <div class="track" style="margin-top:8px">
+      <div class="track-head" onclick="togTrack('load')"><span class="left">📋 Model Yükleme Sırası</span><span class="tag" style="background:#4d94ff12;color:#4d94ff;border:1px solid #4d94ff30">PROSEDÜR</span><span class="chevron">${collapsed.has('load')?'▸':'▾'}</span></div>
+      <div class="track-body ${collapsed.has('load')?'hide':''}">
+        <div style="padding:12px 16px">
+          <div class="si"><span class="arr" style="color:#00e68a">1</span>Router (Llama 8B) — en küçük, sağlık kontrolü için</div>
+          <div class="si"><span class="arr" style="color:#00e68a">2</span>Coder (Qwen Coder 30B) — birincil iş yükü</div>
+          <div class="si"><span class="arr" style="color:#00e68a">3</span>Reasoning (Qwen 32B) — en son, daha az kullanılır</div>
+          <div class="si"><span class="arr" style="color:#ffb84d">4</span>Hepsi çalışırken: <code>free -h</code> → ≥8 GB boş olmalı</div>
+          <div class="si"><span class="arr" style="color:#ff5c6e">5</span>Yetersizse: <code>--max-model-len</code> veya <code>--gpu-memory-utilization</code> azalt</div>
+        </div>
       </div>
     </div>
-
-  </div></div>`;
+  </div>`;
 }
 
 R();
